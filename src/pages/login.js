@@ -72,7 +72,7 @@ const Login = (props) => {
                     }}
                 >
                     <Typography variant="subtitle1">
-                        WeGater
+                        WeGather
                     </Typography>
 
                     <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
