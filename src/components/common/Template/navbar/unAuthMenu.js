@@ -9,7 +9,7 @@ export default function UnAuthMenu() {
             <Grid container>
                 <Button color="inherit"
                     component={Link}
-                    to={'/sign-up'}
+                    to={'/login'}
                 >Login
                 </Button>
                 <Button color="inherit"
