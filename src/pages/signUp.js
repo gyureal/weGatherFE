@@ -3,9 +3,9 @@ import { Field, reduxForm } from 'redux-form'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import PageTemplate from "../components/common/Template/pageTemplate/pageTemplate";
+import { FormField } from "../components/common/FormField";
 import { Avatar } from "@mui/material";
 import { Typography } from "@mui/material";
-import { TextField } from "@mui/material";
 import { Button } from "@mui/material";
 import { Grid } from "@mui/material";
 import { Link } from "@mui/material";
@@ -34,32 +34,11 @@ const validate = (values) => {
     return errors;
 }
 
-const renderField = ({
-    input,
-    name,
-    label,
-    type = "text",
-    hintText,
-    autoFocus = false,
-    autoComplete = null,
-    meta: { touched, error },
-}) => {
+const renderField = (field) => {
+    const hintText = field.hintText;
     return (
         <div>
-            <TextField
-                margin="normal"
-                required
-                fullWidth
-                id={name}
-                label={label}
-                type={type}
-                name={name}
-                autoFocus={autoFocus}           // 페이지 이동시 자동 포커스
-                autoComplete={autoComplete}     // 자동 완성 (브라우저 내 캐시)
-                helperText={touched && error}   // 포커스 떠나고, 에러가 있으면 메서지 표시
-                error={touched && error}        // 포커스 떠나고, 에러가 있으면 빨간색으로 표시
-                {...input}
-            />
+            <FormField field={field} />
             <Typography variant="caption" color="text.secondary">{hintText}</Typography>
         </div>
     );
@@ -100,49 +79,48 @@ const SignUp = (props) => {
                     <Typography component="h1" variant="h5">
                         계정 만들기
                     </Typography>
-
-
-
-                    <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
-                        <Field
-                            component={renderField}
-                            name="username"
-                            label="Nickname"
-                            autoFocus={true}
-                            hintText="공백없이 문자와 숫자로만 3자 이상 20자 이내로 입력하세요."
-                        />
-                        <Field
-                            component={renderField}
-                            name="email"
-                            label="Email"
-                            autoComplete="email"
-                            hintText="이메일을 입력해 주세요."
-                        />
-                        <Field
-                            component={renderField}
-                            name="password"
-                            label="Password"
-                            autoComplete="current-password"
-                            type="password"
-                            hintText="8자 이상 50자 이내로 입력하세요. 영문자, 숫자, 특수기호를 사용할 수 있습니다."
-                        />
-                        <br />
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            disabled={submitting}
-                            sx={{ mt: 3, mb: 1 }}
-                        >
-                            가입하기
-                        </Button>
-                        <Grid container>
-                            <Link href="#" variant="caption">
-                                약관
-                            </Link>
-                            <Typography variant="caption" color="text.secondary">에 동의하시면 가입하기 버튼을 클릭하세요.</Typography>
-                        </Grid>
-                    </Box>
+                    <Container maxWidth="sm">
+                        <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
+                            <Field
+                                component={renderField}
+                                name="username"
+                                label="Nickname"
+                                autoFocus={true}
+                                hintText="공백없이 문자와 숫자로만 3자 이상 20자 이내로 입력하세요."
+                            />
+                            <Field
+                                component={renderField}
+                                name="email"
+                                label="Email"
+                                autoComplete="email"
+                                hintText="이메일을 입력해 주세요."
+                            />
+                            <Field
+                                component={renderField}
+                                name="password"
+                                label="Password"
+                                autoComplete="current-password"
+                                type="password"
+                                hintText="8자 이상 50자 이내로 입력하세요. 영문자, 숫자, 특수기호를 사용할 수 있습니다."
+                            />
+                            <br />
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                disabled={submitting}
+                                sx={{ mt: 3, mb: 1 }}
+                            >
+                                가입하기
+                            </Button>
+                            <Grid container>
+                                <Link href="#" variant="caption">
+                                    약관
+                                </Link>
+                                <Typography variant="caption" color="text.secondary">에 동의하시면 가입하기 버튼을 클릭하세요.</Typography>
+                            </Grid>
+                        </Box>
+                    </Container>
                 </Box>
             </Container>
         </PageTemplate>

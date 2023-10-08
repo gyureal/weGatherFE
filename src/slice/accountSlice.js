@@ -17,3 +17,8 @@ export const requestSignUp = createAsyncThunk('account/createAsyncThunk',
     async (param) => {
         return (await api.signUp(param)).data;
     });
+
+export const requestLogin = createAsyncThunk('account/createAsyncThunk',
+    async (param) => {
+        return (await api.login(param)).data;
+    });

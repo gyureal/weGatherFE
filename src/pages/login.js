@@ -1,29 +1,65 @@
 import React from "react";
+import { Field, reduxForm } from 'redux-form'
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from "react-redux";
 import PageTemplate from "../components/common/Template/pageTemplate/pageTemplate";
+import { FormField } from "../components/common/FormField";
 import { Avatar } from "@mui/material";
 import { Typography } from "@mui/material";
-import { TextField } from "@mui/material";
 import { Button } from "@mui/material";
 import { Grid } from "@mui/material";
-import { Link } from "@mui/material";
+import { Link as MuiLink } from "@mui/material";
 import { Box } from "@mui/material";
-import { Checkbox } from "@mui/material";
 import { Container } from "@mui/material";
-import FormControlLabel from '@mui/material/FormControlLabel';
-//icon
+// icon
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+// action creator
+import { requestLogin } from "../slice/accountSlice";
 
+const validate = (values) => {
+    const errors = {};
 
-export default function Login() {
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
-    };
+    if (!values.emailOrNickname) {
+        errors.emailOrNickname = "이메일이나 닉네임을 입력해주세요.";
+    }
 
+    if (!values.password) {
+        errors.password = "패스워드를 입력해주세요.";
+    }
+
+    return errors;
+}
+
+const renderField = (field) => {
+    return (
+        <div>
+            <FormField field={field} />
+        </div>
+    );
+};
+
+// const renderCheckbox = ({ label }) => {
+//     return (
+//         <FormControlLabel
+//             control={<Checkbox {...label} color="primary" />}
+//             label={label}
+//         />
+//     );
+// }
+
+const Login = (props) => {
+    const { handleSubmit, submitting } = props
+    const dispatch = useDispatch();
+    const naviagate = useNavigate();
+
+    const onSubmit = async (values) => {
+        try {
+            await dispatch(requestLogin(values)).unwrap();
+            naviagate("/");
+        } catch (error) {
+            console.log('error', error);
+        }
+    }
     return (
         <PageTemplate>
             <Container component="main" maxWidth="sm">
@@ -45,53 +81,55 @@ export default function Login() {
                     <Typography component="h1" variant="h5">
                         로그인
                     </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="emailOrNickname"
-                            label="Email Address / Nickname"
-                            name="emailOrNickname"
-                            autoFocus
-                        />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="password"
-                            label="Password"
-                            type="password"
-                            id="password"
-                            autoComplete="current-password"
-                        />
-                        <FormControlLabel
-                            control={<Checkbox value="remember" color="primary" />}
-                            label="Remember me"
-                        />
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                        >
-                            로그인
-                        </Button>
+                    <Container maxWidth="sm">
+                        <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
+                            <Field
+                                component={renderField}
+                                name="usernameOrEmail"
+                                label="Email Address / Nickname"
+                                autoFocus={true}
+                            />
+                            <Field
+                                component={renderField}
+                                name="password"
+                                label="Password"
+                                type="password"
+                                autoComplete="current-password"
+                            />
+                            {/* <Field
+                                name="remember"
+                                component={renderCheckbox}
+                                label="Remember Me"
+                            /> */}
+
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                disabled={submitting}
+                                sx={{ mt: 3, mb: 2 }}
+                            >
+                                로그인
+                            </Button>
+                        </Box>
                         <Grid container>
                             <Grid item xs>
-                                <Link href="#" variant="body2">
+                                <MuiLink component={Link} to={"/find-password"} variant="body2">
                                     비밀번호 찾기
-                                </Link>
+                                </MuiLink>
                             </Grid>
                             <Grid item>
-                                <Link href="#" variant="body2">
+                                <MuiLink component={Link} to={"/sign-up"} variant="body2">
                                     계정 만들기
-                                </Link>
+                                </MuiLink>
                             </Grid>
                         </Grid>
-                    </Box>
+
+                    </Container>
                 </Box>
             </Container>
         </PageTemplate>
     );
 }
+
+export default reduxForm({ validate, form: 'SignInForm' })(Login);
