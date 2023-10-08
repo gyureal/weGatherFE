@@ -1,11 +1,10 @@
 import React from 'react';
-import Navbar from '../components/common/Template/navbar/navbar.js';
+import PageTemplate from '../components/common/Template/pageTemplate/pageTemplate';
 
 export default function Index() {
     return (
-        <div>
-            <Navbar />
-            <div>Content</div>
-        </div>
+        <PageTemplate>
+            <div>content</div>
+        </PageTemplate>
     )
 }
