@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { reducer as formReducer } from 'redux-form';
-import { accountSlice } from '../slice/accountSlice';
+import { authSlice } from '../slice/authSlice';
 
 const store = configureStore({
     reducer: {
         form: formReducer,
-        accountSlice: accountSlice.reducer
+        accountSlice: authSlice.reducer
     }
 });
 

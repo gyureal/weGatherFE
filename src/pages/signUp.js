@@ -14,7 +14,7 @@ import { Container } from "@mui/material";
 //icon
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 // action creator
-import { requestSignUp } from "../slice/accountSlice";
+import { requestSignUp } from "../slice/authSlice";
 
 const validate = (values) => {
     const errors = {};

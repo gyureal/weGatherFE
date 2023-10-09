@@ -14,7 +14,7 @@ import { Container } from "@mui/material";
 // icon
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 // action creator
-import { requestLogin } from "../slice/accountSlice";
+import { requestLogin } from "../slice/authSlice";
 
 const validate = (values) => {
     const errors = {};
