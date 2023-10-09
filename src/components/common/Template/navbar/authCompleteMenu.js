@@ -58,6 +58,7 @@ export default function AuthCompleteMenu(props) {
     const onLogoutClick = async (event) => {
         try {
             await dispatch(requestLogout()).unwrap();
+            alert("로그아웃 되었습니다.");
             navigate("/");
         } catch {
             alert("로그아웃에 실패했습니다.");
