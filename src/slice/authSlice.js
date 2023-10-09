@@ -47,4 +47,10 @@ export const requestCurrentUser = createAsyncThunk('authSlice/requestCurrentUser
 export const requestLogout = createAsyncThunk('authSlice/requestLogout',
     async (param) => {
         return (await api.logout(param)).data;
+    });
+
+// 인증 메일 재발송
+export const requestResendConfirmEmail = createAsyncThunk('authSlice/requestResendConfirmEmail',
+    async (param) => {
+        return (await api.resendConfirmEmail(param)).data;
     }); 

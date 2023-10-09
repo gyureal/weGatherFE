@@ -12,3 +12,5 @@ export const login = (param) => axios.post(`${ROOT_URL}/sign-in`, param);
 export const getCurrentUser = (param) => axios.get(`${ROOT_URL}/current-user`, param);
 // 로그아웃
 export const logout = (param) => axios.post(`${ROOT_URL}/logout`, param);
+// 인증 메일 재발송
+export const resendConfirmEmail = (param) => axios.post(`${ROOT_URL}/resend-confirm-email`, param);

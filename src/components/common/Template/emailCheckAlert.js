@@ -11,7 +11,7 @@ const EmailCheckAlert = (props) => {
                     WeGather 가입을 완료하려면
                 </Grid>
                 <Grid item>
-                    <MuiLink component={Link} to={"/sign-up"} variant="body2">
+                    <MuiLink component={Link} to={"/email-resend"} variant="body2">
                         계정 인증 메일
                     </MuiLink>
                 </Grid>
