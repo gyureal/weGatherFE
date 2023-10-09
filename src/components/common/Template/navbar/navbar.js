@@ -13,6 +13,7 @@ export default function Navbar() {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        console.log("getCurrentUser");
         dispatch(requestCurrentUser());
     }, []);
 

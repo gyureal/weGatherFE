@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import * as api from '../api/authApi';
 
 const initialState = { currentUser: {} };
+
 // slice
 // reducer - 책임: state와 상호작용
 export const authSlice = createSlice({
@@ -12,7 +13,12 @@ export const authSlice = createSlice({
         builder.addCase(requestCurrentUser.fulfilled, (state, action) => {
             state.currentUser = action.payload
         });
-        builder.addCase(requestCurrentUser.rejected, (state, action) => { state.currentUser = {} });
+        builder.addCase(requestCurrentUser.rejected, (state, action) => { state.currentUser = undefined });
+
+        // 로그아웃
+        builder.addCase(requestLogout.fulfilled, (state, action) => {
+            state.currentUser = undefined;
+        });
     }
 });
 
@@ -35,4 +41,10 @@ export const requestLogin = createAsyncThunk('authSlice/requestLogin',
 export const requestCurrentUser = createAsyncThunk('authSlice/requestCurrentUser',
     async (param) => {
         return (await api.getCurrentUser(param)).data;
+    });
+
+// 로그아웃
+export const requestLogout = createAsyncThunk('authSlice/requestLogout',
+    async (param) => {
+        return (await api.logout(param)).data;
     }); 

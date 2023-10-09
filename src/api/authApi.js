@@ -10,3 +10,5 @@ export const signUp = (param) => axios.post(`${ROOT_URL}/sign-up`, param);
 export const login = (param) => axios.post(`${ROOT_URL}/sign-in`, param);
 // 현재 사용자 정보
 export const getCurrentUser = (param) => axios.get(`${ROOT_URL}/current-user`, param);
+// 로그아웃
+export const logout = (param) => axios.post(`${ROOT_URL}/logout`, param);

@@ -23,6 +23,9 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import GroupsIcon from '@mui/icons-material/Groups';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { useDispatch } from "react-redux";
+import { requestLogout } from "../../../../slice/authSlice";
+import { useNavigate } from "react-router-dom";
 
 export default function AuthCompleteMenu(props) {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -47,6 +50,19 @@ export default function AuthCompleteMenu(props) {
     const onMobileMenuOpen = (event) => {
         setMobileMoreAnchorEl(event.currentTarget);
     };
+
+    const dispatch = useDispatch();
+
+    const navigate = useNavigate();
+
+    const onLogoutClick = async (event) => {
+        try {
+            await dispatch(requestLogout()).unwrap();
+            navigate("/");
+        } catch {
+            alert("로그아웃에 실패했습니다.");
+        }
+    }
 
     const menuId = 'primary-search-account-menu';
     const renderProfileMenu = (
@@ -87,7 +103,7 @@ export default function AuthCompleteMenu(props) {
                 </ListItemIcon>
                 <ListItemText>설정</ListItemText>
             </MenuItem>
-            <MenuItem onClick={onMenuClose}>
+            <MenuItem onClick={onLogoutClick}>
                 <ListItemIcon>
                     <LogoutIcon fontSize="small" />
                 </ListItemIcon>
