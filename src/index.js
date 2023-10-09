@@ -4,6 +4,10 @@ import { Provider } from 'react-redux';
 import store from './store/store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import axios from 'axios';
+
+// axios 전역 설정
+axios.defaults.withCredentials = true; // withCredentials 전역 설정
 
 const container = document.getElementById('root');
 const root = createRoot(container);

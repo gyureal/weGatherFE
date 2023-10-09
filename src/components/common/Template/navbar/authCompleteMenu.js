@@ -24,7 +24,7 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 
-export default function AuthCompleteMenu() {
+export default function AuthCompleteMenu(props) {
     const [anchorEl, setAnchorEl] = useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
@@ -66,7 +66,7 @@ export default function AuthCompleteMenu() {
             onClose={onMenuClose}
         >
             <MenuItem onClick={onMenuClose}>
-                <Typography color="text.secondary">username</Typography>
+                <Typography color="text.secondary">{props.currentUser.username}</Typography>
             </MenuItem>
             <MenuItem onClick={onMenuClose}>
                 <ListItemIcon>

@@ -7,21 +7,32 @@ const initialState = { currentUser: {} };
 export const authSlice = createSlice({
     name: 'authSlice',
     initialState,
-    extraReducer: (builder) => {
-        // builder.addCase(requestLogin.fulfilled, (state, action) => { state.currentUser = action.payload });
-        // builder.addCase(requestLogin.rejected, (state, action) => { state.currentUser = {} });
+    extraReducers: (builder) => {   // extraReducer 's'
+        // 현재 사용자 가져오기
+        builder.addCase(requestCurrentUser.fulfilled, (state, action) => {
+            state.currentUser = action.payload
+        });
+        builder.addCase(requestCurrentUser.rejected, (state, action) => { state.currentUser = {} });
     }
 });
 
 // action creators
+// 네이밍 규칙: request로 시작하는 동사로 정합니다.
+
 // 회원가입
-export const requestSignUp = createAsyncThunk('auth/createAsyncThunk',
+export const requestSignUp = createAsyncThunk('authSlice/requestSignUp',
     async (param) => {
         return (await api.signUp(param)).data;
     });
 
 // 로그인
-export const requestLogin = createAsyncThunk('auth/createAsyncThunk',
+export const requestLogin = createAsyncThunk('authSlice/requestLogin',
     async (param) => {
         return (await api.login(param)).data;
     });
+
+// 현재 사용자 가져오기
+export const requestCurrentUser = createAsyncThunk('authSlice/requestCurrentUser',
+    async (param) => {
+        return (await api.getCurrentUser(param)).data;
+    }); 
