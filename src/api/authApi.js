@@ -14,3 +14,11 @@ export const getCurrentUser = (param) => axios.get(`${ROOT_URL}/current-user`, p
 export const logout = (param) => axios.post(`${ROOT_URL}/logout`, param);
 // 인증 메일 재발송
 export const resendConfirmEmail = (param) => axios.post(`${ROOT_URL}/resend-confirm-email`, param);
+// 메일
+export const confirmEmail = (param) => axios.post(`${ROOT_URL}/check-email-token`, null, {
+    params:
+    {
+        email: param.email,
+        token: param.token
+    }
+});

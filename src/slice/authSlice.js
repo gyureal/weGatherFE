@@ -53,4 +53,10 @@ export const requestLogout = createAsyncThunk('authSlice/requestLogout',
 export const requestResendConfirmEmail = createAsyncThunk('authSlice/requestResendConfirmEmail',
     async (param) => {
         return (await api.resendConfirmEmail(param)).data;
+    });
+
+// 메일 확인
+export const requestConfirmEmail = createAsyncThunk('authSlice/requestConfirmEmail',
+    async (param) => {
+        return (await api.confirmEmail(param)).data;
     }); 

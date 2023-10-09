@@ -17,6 +17,7 @@ function EmailResend() {
     const onResendClick = async () => {
         try {
             await dispatch(requestResendConfirmEmail()).unwrap();
+            alert("인증 메일이 발송되었습니다.");
             navigate("/");
         } catch {
             alert("메일 발송 중 에러가 발생했습니다.");

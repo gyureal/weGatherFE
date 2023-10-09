@@ -15,13 +15,14 @@ const PageTemplate = ({ children }) => {
     }, []);
 
     const currentUser = useSelector((state) => {
+        console.log(state.authSlice.currentUser);
         return state.authSlice.currentUser;
     });
 
     return (
         <div className="page-template">
             <Navbar currentUser={currentUser} />
-            <EmailCheckAlert />
+            {currentUser && !currentUser.emailVerified && <EmailCheckAlert />}
             <main>
                 {children}
             </main>

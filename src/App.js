@@ -4,6 +4,7 @@ import Index from './pages';
 import SignUp from './pages/signUp';
 import Login from './pages/login';
 import EmailResend from './pages/EmailResend';
+import CheckEmailToken from './pages/CheckEmailToken';
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
         <Route path='/sign-up' element={<SignUp />}></Route>
         <Route path='/login' element={<Login />}></Route>
         <Route path='/email-resend' element={<EmailResend />}></Route>
+        <Route path='/check-email-token' element={<CheckEmailToken />}></Route>
       </Routes>
     </BrowserRouter>
   );
