@@ -21,3 +21,6 @@
 
 - 로그인 <br/>
   <img width="767" alt="image" src="https://github.com/gyureal/weGatherFE/assets/78974381/a25e46a4-d686-4587-87af-75d55f6f2349">
+
+## Trouble Shooging
+[Go To Trouble Shooting Area..](https://github.com/gyureal/weGatherFE/wiki/TroubleShooting)
