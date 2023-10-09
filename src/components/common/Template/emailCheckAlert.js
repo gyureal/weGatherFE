@@ -1,7 +1,7 @@
 import React from 'react';
 import { Alert, Grid } from '@mui/material';
 import { Link as MuiLink } from "@mui/material";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const EmailCheckAlert = (props) => {
     return (
