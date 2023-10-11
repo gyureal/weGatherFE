@@ -1,4 +1,4 @@
-import { Button, ButtonGroup } from '@mui/material'
+import { Box, Button, ButtonGroup } from '@mui/material'
 import React from 'react'
 
 function SideMenuButtons({ currentMenu, menuInfo }) {
@@ -17,15 +17,15 @@ function SideMenuButtons({ currentMenu, menuInfo }) {
 
     return (
 
-        <div>
-            <ButtonGroup orientation="vertical" color="primary">
+        <Box>
+            <ButtonGroup orientation="vertical" color="primary" fullWidth>
                 {
                     menuInfo.map((menu) => {
                         return <Button key={menu.id} variant={highlightWhenCurrent(menu.id, currentMenu)} size="large">{menu.label}</Button>
                     })
                 }
             </ButtonGroup>
-        </div>
+        </Box>
     )
 }
 
