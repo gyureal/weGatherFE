@@ -21,7 +21,7 @@ function SideMenuButtons({ currentMenu, menuInfo }) {
             <ButtonGroup orientation="vertical" color="primary">
                 {
                     menuInfo.map((menu) => {
-                        return <Button variant={highlightWhenCurrent(menu.id, currentMenu)} size="large">{menu.label}</Button>
+                        return <Button key={menu.id} variant={highlightWhenCurrent(menu.id, currentMenu)} size="large">{menu.label}</Button>
                     })
                 }
             </ButtonGroup>
