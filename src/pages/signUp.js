@@ -35,11 +35,9 @@ const validate = (values) => {
 }
 
 const renderField = (field) => {
-    const hintText = field.hintText;
     return (
         <div>
             <FormField field={field} />
-            <Typography variant="caption" color="text.secondary">{hintText}</Typography>
         </div>
     );
 };
