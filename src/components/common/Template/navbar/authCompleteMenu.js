@@ -27,7 +27,7 @@ import { useDispatch } from "react-redux";
 import { requestLogout } from "../../../../slice/authSlice";
 import { useNavigate } from "react-router-dom";
 
-export default function AuthCompleteMenu(props) {
+export default function AuthCompleteMenu({ currentUser }) {
     const [anchorEl, setAnchorEl] = useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
@@ -65,6 +65,10 @@ export default function AuthCompleteMenu(props) {
         }
     }
 
+    const onProfileMenuClick = () => {
+        navigate(`/profile/${currentUser.username}`);
+    }
+
     const menuId = 'primary-search-account-menu';
     const renderProfileMenu = (
         <Menu
@@ -83,9 +87,9 @@ export default function AuthCompleteMenu(props) {
             onClose={onMenuClose}
         >
             <MenuItem onClick={onMenuClose}>
-                <Typography color="text.secondary">{props.currentUser.username}</Typography>
+                <Typography color="text.secondary">{currentUser.username}</Typography>
             </MenuItem>
-            <MenuItem onClick={onMenuClose}>
+            <MenuItem onClick={onProfileMenuClick}>
                 <ListItemIcon>
                     <AccountCircle fontSize="small" />
                 </ListItemIcon>
