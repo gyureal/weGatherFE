@@ -1,18 +1,38 @@
-import React from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import SideMenuButtons from '../components/common/SideMenuButtons';
 import PageTemplate from '../components/common/Template/pageTemplate/pageTemplate';
 import { Avatar, Box, Button, Grid, Typography } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import { useDispatch, useSelector } from 'react-redux';
+import { requestUserByUsername } from '../slice/memberSlice';
 
 function Profile() {
 
     const { username } = useParams();
 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    useEffect(() => {
+        const getUser = async () => {
+            try {
+                await dispatch(requestUserByUsername(username)).unwrap();
+            } catch {
+                alert("조회에 실패했습니다.");
+                navigate("/");
+            }
+        }
+        getUser();
+    }, []);
+
+    const userProfile = useSelector((state) => {
+        return state.memberSlice.userProfile;
+    });
+
     const menuInfo = [
         { id: "profile", label: "프로필" },
-        { id: "study", label: "소개" }
+        { id: "gather", label: "모임" }
     ]
 
     return (
@@ -31,10 +51,10 @@ function Profile() {
                     <Grid item xs={8}>
                         <Box sx={{ ml: 5, mt: 4 }}>
                             <Box sx={{ fontSize: 'h2.fontSize', fontWeight: 'regular' }}>
-                                Username
+                                {userProfile.username}
                             </Box>
                             <Box sx={{ fontSize: 'h5.fontSize', fontWeight: 'light' }}>
-                                한 줄 소개를 추가해 주세요.
+                                {userProfile.introductionText ?? "한 줄 소개 입력 전 입니다."}
                             </Box>
                             <Box sx={{ mt: 8 }}>
                                 <Grid container>
@@ -45,7 +65,7 @@ function Profile() {
                                     </Grid>
                                     <Grid item xs={8}>
                                         <Box sx={{ fontSize: 'h6.fontSize', fontWeight: 'regular' }}>
-                                            example@email.com
+                                            {userProfile.email}
                                         </Box>
                                     </Grid>
                                 </Grid>
@@ -58,12 +78,13 @@ function Profile() {
                                     </Grid>
                                     <Grid item xs={8}>
                                         <Box sx={{ fontSize: 'h6.fontSize', fontWeight: 'regular' }}>
-                                            2023.01.01
+                                            {userProfile.introductionText ?? "가입 완료 하려면 이메일을 확인하세요"}
                                         </Box>
                                     </Grid>
                                 </Grid>
                             </Box>
                             <Box sx={{ mt: 3 }}>
+                                {/* 본인에게만 표시 */}
                                 <Button variant="outlined">프로필 수정</Button>
                             </Box>
                         </Box>

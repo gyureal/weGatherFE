@@ -15,7 +15,6 @@ const PageTemplate = ({ children }) => {
     }, []);
 
     const currentUser = useSelector((state) => {
-        console.log(state.authSlice.currentUser);
         return state.authSlice.currentUser;
     });
 
