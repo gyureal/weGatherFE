@@ -70,6 +70,7 @@ let SettingsProfile = ({ handleSubmit, submitting }) => {
                             label="한 줄 소개"
                             placeholder="간략한 소개를 적어주세요"
                             hintText="길지 않게 35자 이내로 입력해 주세요"
+                            required={false}
                         />
                         <Button
                             type="submit"

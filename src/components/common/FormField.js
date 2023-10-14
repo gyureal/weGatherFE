@@ -6,6 +6,7 @@ export const FormField = ({ field: {
     name,
     label,
     type = "text",
+    required = true,
     autoFocus = false,
     autoComplete = null,
     hintText = undefined,
@@ -15,7 +16,7 @@ export const FormField = ({ field: {
         <div>
             <TextField
                 margin="normal"
-                required
+                required={required}
                 fullWidth
                 id={name}
                 label={label}

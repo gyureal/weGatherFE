@@ -1,5 +1,6 @@
 import { Box, Button, ButtonGroup } from '@mui/material'
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 
 function SideMenuButtons({ currentMenu, menuInfo }) {
 
@@ -15,13 +16,26 @@ function SideMenuButtons({ currentMenu, menuInfo }) {
     //     })
     // }
 
-    return (
+    const navigate = useNavigate();
 
+    const onMenuClick = (e) => {      // id를 넘겨받음
+        navigate(`/settings/${e.target.id}`);
+    }
+    return (
         <Box>
             <ButtonGroup orientation="vertical" color="primary" fullWidth>
                 {
                     menuInfo.map((menu) => {
-                        return <Button key={menu.id} variant={highlightWhenCurrent(menu.id, currentMenu)} size="large">{menu.label}</Button>
+                        return (
+                            <Button
+                                id={menu.id}
+                                key={menu.id} variant={highlightWhenCurrent(menu.id, currentMenu)}
+                                size="large"
+                                onClick={onMenuClick}
+                            >
+                                {menu.label}
+                            </Button>
+                        )
                     })
                 }
             </ButtonGroup>
