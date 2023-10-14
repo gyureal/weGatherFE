@@ -17,12 +17,12 @@ export const memberSlice = createSlice({
 });
 
 // username으로 회원 조회
-export const requestProfileByUsername = createAsyncThunk('authSlice/requestProfileByUsername',
+export const requestProfileByUsername = createAsyncThunk('memberSlice/requestProfileByUsername',
     async (param) => {
         return (await memberApi.getProfileByUsername(param)).data;
     });
 
-export const requestEditProfile = createAsyncThunk('authSlice/requestEditProfile',
+export const requestEditProfile = createAsyncThunk('memberSlice/requestEditProfile',
     async (param) => {
         return (await memberApi.editProfile(param)).data;
     });
