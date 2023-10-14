@@ -35,6 +35,10 @@ function Profile() {
         { id: "gather", label: "모임" }
     ]
 
+    if (!userProfile) {
+        return <div>Loading</div>
+    }
+
     return (
         <PageTemplate>
             <Box sx={{ my: 5 }}>
