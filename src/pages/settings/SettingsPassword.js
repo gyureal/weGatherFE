@@ -12,6 +12,29 @@ const renderField = (field) => {
     );
 };
 
+const validatePassword = (value) => {
+    return (value && value.length >= 8 && value.length < 50) ? true : false;
+}
+
+const validate = (values) => {
+    const errors = {};
+
+    if (!values.originalPassword) {
+        errors.originalPassword = "기존 패스워드를 입력해 주세요";
+    }
+    if (!validatePassword(values.newPassword)) {
+        errors.newPassword = "패스워드는 8자 이상 50자 미만이어야합니다.";
+    }
+
+    if (!values.newPasswordCheck) {
+        errors.newPasswordCheck = "새 패스워드를 다시 한번 입력해 주세요";
+    }
+    if (values.newPassword !== values.newPasswordCheck) {
+        errors.newPasswordCheck = "새 패스워드와 일치하지 않습니다.";
+    }
+    return errors;
+}
+
 let SettingsPassword = ({ handleSubmit, submitting }) => {
 
     const onFormSubmit = () => {
@@ -30,18 +53,21 @@ let SettingsPassword = ({ handleSubmit, submitting }) => {
                             <Field
                                 component={renderField}
                                 name="originalPassword"
+                                type='password'
                                 label="기존 패스워드"
                                 hintText="기존 패스워드를 입력해 주세요"
                             />
                             <Field
                                 component={renderField}
                                 name="newPassword"
+                                type='password'
                                 label="새 패스워드"
                                 hintText="새 패스워드를 입력하세요"
                             />
                             <Field
                                 component={renderField}
                                 name="newPasswordCheck"
+                                type='password'
                                 label="새 패스워드 확인"
                                 hintText="새 패스워드를 다시 한번 입력하세요"
                             />
@@ -63,6 +89,6 @@ let SettingsPassword = ({ handleSubmit, submitting }) => {
     )
 }
 
-SettingsPassword = reduxForm({ form: "SettingsPassword" })(SettingsPassword);
+SettingsPassword = reduxForm({ validate, form: "SettingsPassword" })(SettingsPassword);
 
 export default SettingsPassword;

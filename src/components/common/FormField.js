@@ -12,6 +12,9 @@ export const FormField = ({ field: {
     hintText = undefined,
     placeholder = undefined,
     meta: { touched, error } } }) => {
+
+    const isError = error ? true : false;
+
     return (
         <div>
             <TextField
@@ -25,7 +28,7 @@ export const FormField = ({ field: {
                 autoFocus={autoFocus}           // 페이지 이동시 자동 포커스
                 autoComplete={autoComplete}     // 자동 완성 (브라우저 내 캐시)
                 helperText={touched && error}   // 포커스 떠나고, 에러가 있으면 메서지 표시
-                error={touched && error}        // 포커스 떠나고, 에러가 있으면 빨간색으로 표시
+                error={touched && isError}        // 포커스 떠나고, 에러가 있으면 빨간색으로 표시
                 placeholder={placeholder}
                 {...input}
             />

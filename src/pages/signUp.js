@@ -16,19 +16,27 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 // action creator
 import { requestSignUp } from "../slice/authSlice";
 
+const validateNickname = (value) => {
+    return (value && value.length >= 3 && value.length <= 20) ? true : false;
+}
+
+const validatePassword = (value) => {
+    return (value && value.length >= 8 && value.length < 50) ? true : false;
+}
+
 const validate = (values) => {
     const errors = {};
 
-    if (!values.nickname) {
-        errors.nickname = "닉데임을 입력해주세요.";
+    if (validateNickname(values.nickname)) {
+        errors.nickname = "닉네임은 3자 이상 20자 이내로 입력해 주세요";
     }
 
     if (!values.email) {
         errors.email = "이메일을 입력해주세요.";
     }
 
-    if (!values.password) {
-        errors.password = "패스워들를 입력해주세요.";
+    if (!validatePassword(values.newPassword)) {
+        errors.newPassword = "패스워드는 8자 이상 50자 미만이어야합니다.";
     }
 
     return errors;
