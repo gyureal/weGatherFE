@@ -6,3 +6,6 @@ const ROOT_URL = "http://localhost:8080";
 
 // username 으로 회원조회 
 export const getProfileByUsername = (username) => axios.get(`${ROOT_URL}/members/profile/${username}`);
+
+// profile 수정
+export const editProfile = (param) => axios.post(`${ROOT_URL}/members/profile/`, param);

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import * as api from '../api/memberApi';
+import * as memberApi from '../api/memberApi';
 
 const initialState = { userProfile: undefined };
 
@@ -13,12 +13,16 @@ export const memberSlice = createSlice({
             state.userProfile = action.payload
         });
         builder.addCase(requestProfileByUsername.rejected, (state, action) => { state.currentUser = undefined });
-
     }
 });
 
 // username으로 회원 조회
-export const requestProfileByUsername = createAsyncThunk('authSlice/requestSignUp',
+export const requestProfileByUsername = createAsyncThunk('authSlice/requestProfileByUsername',
     async (param) => {
-        return (await api.getProfileByUsername(param)).data;
+        return (await memberApi.getProfileByUsername(param)).data;
+    });
+
+export const requestEditProfile = createAsyncThunk('authSlice/requestEditProfile',
+    async (param) => {
+        return (await memberApi.editProfile(param)).data;
     });

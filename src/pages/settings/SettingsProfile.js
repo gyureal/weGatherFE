@@ -5,7 +5,7 @@ import { Field, reduxForm } from 'redux-form';
 import { FormField } from '../../components/common/FormField';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { requestProfileByUsername } from '../../slice/memberSlice';
+import { requestEditProfile, requestProfileByUsername } from '../../slice/memberSlice';
 
 const renderField = (field) => {
     return (
@@ -15,7 +15,7 @@ const renderField = (field) => {
     );
 };
 
-let SettingsProfile = (props, { submitting }) => {
+let SettingsProfile = ({ handleSubmit, submitting }) => {
     const currentUser = useSelector(() => {
         return JSON.parse(localStorage.getItem("currentUser"));
     });
@@ -45,9 +45,19 @@ let SettingsProfile = (props, { submitting }) => {
         }
     }, []);
 
-    // if (!userProfile) {
-    //     return <div>Loading</div>
-    // }
+    const onFormSubmit = async (values) => {
+        try {
+            console.log("submit call");
+            await dispatch(requestEditProfile(values)).unwrap();
+            alert("수정되었습니다.");
+        } catch (error) {
+            alert("error : ", error);
+        }
+    }
+
+    if (!userProfile) {
+        return <div>Loading</div>
+    }
 
     return (
         <SettingsBase currentMenu={'profile'}>
@@ -59,7 +69,7 @@ let SettingsProfile = (props, { submitting }) => {
             <Box sx={{ mt: 0 }}></Box>
             <Grid container>
                 <Grid item xs={7}>
-                    <Box component="form" onSubmit={() => console.log("submit")} noValidate>
+                    <Box component="form" onSubmit={handleSubmit(onFormSubmit)} noValidate>
                         <Field
                             component={renderField}
                             name="introductionText"
