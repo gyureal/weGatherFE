@@ -11,6 +11,8 @@ import { requestProfileByUsername } from '../slice/memberSlice';
 function Profile() {
 
     const { username } = useParams();
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    const isMe = currentUser.username === username;
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -34,6 +36,10 @@ function Profile() {
         { id: "profile", label: "프로필" },
         { id: "gather", label: "모임" }
     ]
+
+    const onEditClick = (event) => {
+        navigate("/settings/profile");
+    }
 
     if (!userProfile) {
         return <div>Loading</div>
@@ -87,10 +93,14 @@ function Profile() {
                                     </Grid>
                                 </Grid>
                             </Box>
-                            <Box sx={{ mt: 3 }}>
-                                {/* 본인에게만 표시 */}
-                                <Button variant="outlined">프로필 수정</Button>
-                            </Box>
+                            {
+                                // 본인에게만 표시
+                                isMe &&
+                                <Box sx={{ mt: 3 }}>
+                                    <Button variant="outlined" onClick={onEditClick}>프로필 수정</Button>
+                                </Box>
+                            }
+
                         </Box>
 
 
