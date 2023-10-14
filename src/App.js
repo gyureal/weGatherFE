@@ -9,6 +9,7 @@ import Profile from './pages/Profile';
 import SettingsProfile from './pages/settings/SettingsProfile';
 import SettingsPassword from './pages/settings/SettingsPassword';
 import SettingsAlarm from './pages/settings/SettingsAlarm';
+import SettingInterests from './pages/settings/SettingInterests';
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
         <Route path='/settings/profile' element={<SettingsProfile />}></Route>
         <Route path='/settings/password' element={<SettingsPassword />}></Route>
         <Route path='/settings/alarm' element={<SettingsAlarm />}></Route>
+        <Route path='/settings/interests' element={<SettingInterests />}></Route>
       </Routes>
     </BrowserRouter>
   );
