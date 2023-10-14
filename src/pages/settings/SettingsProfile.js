@@ -16,7 +16,6 @@ const renderField = (field) => {
 };
 
 let SettingsProfile = ({ handleSubmit, submitting }) => {
-    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
     const userProfile = useSelector((state) => {
         return state.memberSlice.userProfile;
@@ -25,7 +24,7 @@ let SettingsProfile = ({ handleSubmit, submitting }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const getUserProfile = async () => {
+    const getUserProfile = async (currentUser) => {
         try {
             await dispatch(requestProfileByUsername(currentUser.username)).unwrap();
         } catch {
@@ -35,8 +34,10 @@ let SettingsProfile = ({ handleSubmit, submitting }) => {
     }
 
     useEffect(() => {
+        // localStorage 데이터 가져오기
+        const currentUser = JSON.parse(localStorage.getItem("currentUser"));
         if (currentUser.username != undefined) {
-            getUserProfile();
+            getUserProfile(currentUser);    // 프로필 조회
         }
     }, []);
 
@@ -57,7 +58,7 @@ let SettingsProfile = ({ handleSubmit, submitting }) => {
         <SettingsBase currentMenu={'profile'}>
             <Grid container>
                 <Box sx={{ fontSize: 'h4.fontSize', fontWeight: 'regular' }}>
-                    {currentUser.username}
+                    {userProfile.username}
                 </Box>
             </Grid>
             <Box sx={{ mt: 0 }}></Box>
