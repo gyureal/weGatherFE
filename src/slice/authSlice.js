@@ -11,13 +11,18 @@ export const authSlice = createSlice({
     extraReducers: (builder) => {   // extraReducer 's'
         // 현재 사용자 가져오기
         builder.addCase(requestCurrentUser.fulfilled, (state, action) => {
-            state.currentUser = action.payload
+            state.currentUser = action.payload;
+            localStorage.setItem("currentUser", JSON.stringify(state.currentUser));      // 객체를 JSON string 으로 바꾸어저장한다.
         });
-        builder.addCase(requestCurrentUser.rejected, (state, action) => { state.currentUser = undefined });
+        builder.addCase(requestCurrentUser.rejected, (state, action) => {
+            state.currentUser = undefined;
+            localStorage.clear();   // 인증 오류 시, localStorage 전체를 비워준다.
+        });
 
         // 로그아웃
         builder.addCase(requestLogout.fulfilled, (state, action) => {
             state.currentUser = undefined;
+            localStorage.clear();   // 로그아웃 시, localStorage 전체를 비워준다.
         });
     }
 });
