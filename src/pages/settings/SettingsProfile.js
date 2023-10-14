@@ -16,9 +16,7 @@ const renderField = (field) => {
 };
 
 let SettingsProfile = ({ handleSubmit, submitting }) => {
-    const currentUser = useSelector(() => {
-        return JSON.parse(localStorage.getItem("currentUser"));
-    });
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
     const userProfile = useSelector((state) => {
         return state.memberSlice.userProfile;

@@ -14,8 +14,8 @@ const PageTemplate = ({ children }) => {
     }, []);
 
     // useSelector 안에서 사용자 정보를 가져와야 로그인, 로그아웃 시, 즉시 페이지가 렌더링 됨
-    const currentUser = useSelector(() => {
-        return JSON.parse(localStorage.getItem('currentUser'));
+    const currentUser = useSelector((state) => {
+        return state.authSlice.currentUser;
     });
 
     return (
