@@ -3,6 +3,8 @@ import SettingsBase from './SettingsBase'
 import { Box, Button, Grid } from '@mui/material'
 import { Field, reduxForm } from 'redux-form';
 import { FormField } from '../../components/common/FormField';
+import { useDispatch } from 'react-redux';
+import { requestChangePassword } from '../../slice/memberSlice';
 
 const renderField = (field) => {
     return (
@@ -37,8 +39,16 @@ const validate = (values) => {
 
 let SettingsPassword = ({ handleSubmit, submitting }) => {
 
-    const onFormSubmit = () => {
-        console.log("submit");
+    const dispatch = useDispatch();
+
+    const onFormSubmit = async (values) => {
+        try {
+            await dispatch(requestChangePassword(values)).unwrap();
+            alert("비밀번호 변경에 성공했습니다.");
+        } catch (error) {
+            alert("에러가 발생했습니다 ; ", error.description);
+            console.log(error);
+        }
     }
 
     return (

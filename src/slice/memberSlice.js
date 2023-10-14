@@ -22,7 +22,14 @@ export const requestProfileByUsername = createAsyncThunk('memberSlice/requestPro
         return (await memberApi.getProfileByUsername(param)).data;
     });
 
+// 프로필 수정
 export const requestEditProfile = createAsyncThunk('memberSlice/requestEditProfile',
     async (param) => {
         return (await memberApi.editProfile(param)).data;
+    });
+
+// 비밀번호 변경
+export const requestChangePassword = createAsyncThunk('memberSlice/requestChangePassword',
+    async (param) => {
+        return (await memberApi.changePassword(param)).data;
     });
