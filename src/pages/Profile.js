@@ -6,7 +6,7 @@ import { Avatar, Box, Button, Grid, Typography } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import { useDispatch, useSelector } from 'react-redux';
-import { requestUserByUsername } from '../slice/memberSlice';
+import { requestProfileByUsername } from '../slice/memberSlice';
 
 function Profile() {
 
@@ -17,7 +17,7 @@ function Profile() {
     useEffect(() => {
         const getUser = async () => {
             try {
-                await dispatch(requestUserByUsername(username)).unwrap();
+                await dispatch(requestProfileByUsername(username)).unwrap();
             } catch {
                 alert("조회에 실패했습니다.");
                 navigate("/");

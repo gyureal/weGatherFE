@@ -69,6 +69,10 @@ export default function AuthCompleteMenu({ currentUser }) {
         navigate(`/profile/${currentUser.username}`);
     }
 
+    const onSettingsMenuClick = () => {
+        navigate(`/settings/profile`);
+    }
+
     const menuId = 'primary-search-account-menu';
     const renderProfileMenu = (
         <Menu
@@ -102,7 +106,7 @@ export default function AuthCompleteMenu({ currentUser }) {
                 <ListItemText>스터디</ListItemText>
             </MenuItem>
             <Divider />
-            <MenuItem onClick={onMenuClose}>
+            <MenuItem onClick={onSettingsMenuClick}>
                 <ListItemIcon>
                     <SettingsIcon fontSize="small" />
                 </ListItemIcon>

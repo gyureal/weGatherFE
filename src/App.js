@@ -6,6 +6,7 @@ import Login from './pages/login';
 import EmailResend from './pages/EmailResend';
 import CheckEmailToken from './pages/CheckEmailToken';
 import Profile from './pages/Profile';
+import SettingsProfile from './pages/settings/SettingsProfile';
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
         <Route path='/check-email-token' element={<CheckEmailToken />}></Route>
 
         <Route path='/profile/:username' element={<Profile />}></Route>
+        <Route path='/settings/profile' element={<SettingsProfile />}></Route>
       </Routes>
     </BrowserRouter>
   );
