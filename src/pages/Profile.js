@@ -82,7 +82,7 @@ function Profile() {
                                     </Grid>
                                     <Grid item xs={8}>
                                         <Box sx={{ fontSize: 'h6.fontSize', fontWeight: 'regular' }}>
-                                            {userProfile.introductionText ?? "가입 완료 하려면 이메일을 확인하세요"}
+                                            {userProfile.joinedAt ?? "가입 완료 하려면 이메일을 확인하세요"}
                                         </Box>
                                     </Grid>
                                 </Grid>
