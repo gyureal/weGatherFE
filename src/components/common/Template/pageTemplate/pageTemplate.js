@@ -10,7 +10,6 @@ const PageTemplate = ({ children }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log("getCurrentUser on pageTemplate");
         dispatch(requestCurrentUser());
     }, []);
 

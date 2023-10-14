@@ -21,7 +21,6 @@ let SettingsProfile = ({ handleSubmit, submitting }) => {
     });
 
     const userProfile = useSelector((state) => {
-        console.log("useSelect userProfile", state.memberSlice.userProfile);
         return state.memberSlice.userProfile;
     });
 
@@ -29,7 +28,6 @@ let SettingsProfile = ({ handleSubmit, submitting }) => {
     const navigate = useNavigate();
 
     const getUserProfile = async () => {
-        console.log("getUserProfile called");
         try {
             await dispatch(requestProfileByUsername(currentUser.username)).unwrap();
         } catch {
@@ -39,7 +37,6 @@ let SettingsProfile = ({ handleSubmit, submitting }) => {
     }
 
     useEffect(() => {
-        console.log("useEffect called")
         if (currentUser.username != undefined) {
             getUserProfile();
         }
@@ -47,7 +44,6 @@ let SettingsProfile = ({ handleSubmit, submitting }) => {
 
     const onFormSubmit = async (values) => {
         try {
-            console.log("submit call");
             await dispatch(requestEditProfile(values)).unwrap();
             alert("수정되었습니다.");
         } catch (error) {
