@@ -36,7 +36,7 @@ let SettingsProfile = ({ handleSubmit, submitting }) => {
     useEffect(() => {
         // localStorage 데이터 가져오기
         const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-        if (currentUser.username != undefined) {
+        if (currentUser && currentUser.username != undefined) {
             getUserProfile(currentUser);    // 프로필 조회
         }
     }, []);
@@ -50,15 +50,15 @@ let SettingsProfile = ({ handleSubmit, submitting }) => {
         }
     }
 
-    if (!userProfile) {
-        return <div>Loading</div>
-    }
+    // if (!userProfile) {
+    //     return <div>Loading</div>
+    // }
 
     return (
         <SettingsBase currentMenu={'profile'}>
             <Grid container>
                 <Box sx={{ fontSize: 'h4.fontSize', fontWeight: 'regular' }}>
-                    {userProfile.username}
+                    {userProfile && userProfile.username}
                 </Box>
             </Grid>
             <Box sx={{ mt: 0 }}></Box>

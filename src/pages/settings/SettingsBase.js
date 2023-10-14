@@ -8,8 +8,7 @@ const menuInfo = [
     { id: "profile", label: "프로필" },
     { id: "password", label: "패스워드" },
     { id: "alarm", label: "알림" },
-    { id: "interests", label: "관심사" },
-    { id: "account", label: "계정" }
+    { id: "interests", label: "관심사" }
 ]
 
 function SettingsBase({ children, currentMenu }) {

@@ -84,7 +84,7 @@ let SettingsPassword = ({ handleSubmit, submitting }) => {
                             <Button
                                 type="submit"
                                 fullWidth
-                                variant="outlined"
+                                variant="contained"
                                 disabled={submitting}
                                 sx={{ mt: 3, mb: 2 }}
                             >
