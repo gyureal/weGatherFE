@@ -12,3 +12,6 @@ export const editProfile = (param) => axios.post(`${ROOT_URL}/members/profile/`,
 
 // 비밀번호 수정
 export const changePassword = (param) => axios.post(`${ROOT_URL}/members/profile/password`, param);
+
+// 알람 설정 변경
+export const changeAlaramSettings = (param) => axios.post(`${ROOT_URL}/members/profile/alarmSettings`, param);

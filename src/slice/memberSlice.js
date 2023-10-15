@@ -33,3 +33,9 @@ export const requestChangePassword = createAsyncThunk('memberSlice/requestChange
     async (param) => {
         return (await memberApi.changePassword(param)).data;
     });
+
+// 알람 설정 변경
+export const requestChangeAlarmSettings = createAsyncThunk('memberSlice/requestChangeAlarmSettings',
+    async (param) => {
+        return (await memberApi.changeAlaramSettings(param)).data;
+    });
