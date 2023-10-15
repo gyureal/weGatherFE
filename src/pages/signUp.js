@@ -16,7 +16,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 // action creator
 import { requestSignUp } from "../slice/authSlice";
 
-const validateNickname = (value) => {
+const validateUsername = (value) => {
     return (value && value.length >= 3 && value.length <= 20) ? true : false;
 }
 
@@ -27,16 +27,16 @@ const validatePassword = (value) => {
 const validate = (values) => {
     const errors = {};
 
-    if (validateNickname(values.nickname)) {
-        errors.nickname = "닉네임은 3자 이상 20자 이내로 입력해 주세요";
+    if (!validateUsername(values.username)) {
+        errors.username = "닉네임은 3자 이상 20자 이내로 입력해 주세요";
     }
 
     if (!values.email) {
         errors.email = "이메일을 입력해주세요.";
     }
 
-    if (!validatePassword(values.newPassword)) {
-        errors.newPassword = "패스워드는 8자 이상 50자 미만이어야합니다.";
+    if (!validatePassword(values.password)) {
+        errors.password = "패스워드는 8자 이상 50자 미만이어야합니다.";
     }
 
     return errors;
@@ -92,7 +92,7 @@ const SignUp = (props) => {
                                 name="username"
                                 label="Nickname"
                                 autoFocus={true}
-                                hintText="공백없이 문자와 숫자로만 3자 이상 20자 이내로 입력하세요."
+                                hintText="3자 이상 20자 이내로 입력하세요."
                             />
                             <Field
                                 component={renderField}
