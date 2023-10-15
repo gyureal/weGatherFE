@@ -19,7 +19,7 @@ function CheckEmailToken() {
         const confirmEmail = async () => {
             try {
                 await dispatch(requestConfirmEmail(param)).unwrap();
-                console.log("이메일 승인이 완료되었습니다.");
+                alert("이메일 승인이 완료되었습니다.");
                 navigate("/");
             } catch {
                 alert("이메일 승인에 실패했습니다.");
