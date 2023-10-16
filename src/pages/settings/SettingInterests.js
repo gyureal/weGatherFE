@@ -3,8 +3,30 @@ import SettingsBase from './SettingsBase'
 import { Box, Grid } from '@mui/material'
 import Tags from "@yaireo/tagify/dist/react.tagify" // React-wrapper file
 import "@yaireo/tagify/dist/tagify.css" // Tagify CSS
+import { useDispatch } from 'react-redux'
+import { requestAddInterest, requestRemoveInterest } from '../../slice/memberSlice'
 
-function SettingInterests() {
+
+const SettingInterests = () => {
+
+    const dispatch = useDispatch();
+
+    const onInterestAdd = async ({ detail }) => {
+        try {
+            await dispatch(requestAddInterest(detail.data.value)).unwrap();
+        } catch (error) {
+            console.log("error add", error);
+        }
+    }
+
+    const onInterestRemove = async ({ detail }) => {
+        try {
+            await dispatch(requestRemoveInterest(detail.data.value)).unwrap();
+        } catch (error) {
+            console.log("error remove", error);
+        }
+    }
+
     return (
         <SettingsBase currentMenu="interests">
             <Grid container>
@@ -18,8 +40,11 @@ function SettingInterests() {
                             태그를 입력하고 콤마(,) 또는 엔터를 입력해 주세요.
                         </Box>
                         <Box sx={{ mt: 1 }} fullWidth>
-                            <Tags >
-
+                            <Tags
+                                autoFocus={true}
+                                onAdd={onInterestAdd}
+                                onRemove={onInterestRemove}
+                            >
                             </Tags>
 
                         </Box>
