@@ -4,13 +4,14 @@ import { Box, Grid } from '@mui/material'
 import Tags from "@yaireo/tagify/dist/react.tagify" // React-wrapper file
 import "@yaireo/tagify/dist/tagify.css" // Tagify CSS
 import { useDispatch, useSelector } from 'react-redux'
-import { requestAddInterest, requestRemoveInterest } from '../../slice/memberSlice'
+import { requestAddInterest, requestGetMyInterests, requestRemoveInterest } from '../../slice/memberSlice'
 import { requestGetInterestWhiteList } from '../../slice/interestSlice'
 
 
 const SettingInterests = () => {
 
     const whitelist = useSelector((state) => state.interestSlice.whitelist);
+    const myInterests = useSelector((state) => state.memberSlice.myInterests);
 
     const dispatch = useDispatch();
 
@@ -22,8 +23,17 @@ const SettingInterests = () => {
         }
     }
 
+    const getMyInterests = async () => {
+        try {
+            await dispatch(requestGetMyInterests()).unwrap;
+        } catch {
+            alert("error");
+        }
+    }
+
     useEffect(() => {
         getWhiteList();
+        getMyInterests();
     }, [])
 
     const onInterestAdd = async ({ detail }) => {
@@ -42,6 +52,10 @@ const SettingInterests = () => {
         }
     }
 
+    const settings = {
+        dropdown: { enabled: 1 }    // 첫글자 입력 시 화이트리스트 표출
+    };
+
     return (
         <SettingsBase currentMenu="interests">
             <Grid container>
@@ -58,8 +72,10 @@ const SettingInterests = () => {
                             <Tags
                                 autoFocus={true}
                                 whitelist={whitelist}
+                                value={myInterests}
                                 onAdd={onInterestAdd}
                                 onRemove={onInterestRemove}
+                                settings={settings}
                             >
                             </Tags>
 

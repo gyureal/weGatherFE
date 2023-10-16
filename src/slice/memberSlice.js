@@ -1,7 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import * as memberApi from '../api/memberApi';
 
-const initialState = { userProfile: undefined };
+const initialState = {
+    userProfile: undefined,
+    myInterests: ""
+};
 
 // slice
 // reducer - 책임: state와 상호작용
@@ -13,6 +16,13 @@ export const memberSlice = createSlice({
             state.userProfile = action.payload
         });
         builder.addCase(requestProfileByUsername.rejected, (state, action) => { state.currentUser = undefined });
+
+        // 회원 관심사 조회
+        builder.addCase(requestGetMyInterests.fulfilled, (state, action) => {
+            const commaSeperated = action.payload.join(",");
+            console.log("commaSeperated ", commaSeperated);
+            state.myInterests = commaSeperated;
+        });
     }
 });
 
@@ -50,4 +60,10 @@ export const requestAddInterest = createAsyncThunk('memberSlice/requestAddIntere
 export const requestRemoveInterest = createAsyncThunk('memberSlice/requestRemoveInterest',
     async (param) => {
         return (await memberApi.removeInterest(param)).data;
+    });
+
+// 회원 관심사 조회
+export const requestGetMyInterests = createAsyncThunk('memberSlice/requestGetMyInterests',
+    async () => {
+        return (await memberApi.getMyInterests()).data;
     });

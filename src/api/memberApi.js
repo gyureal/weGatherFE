@@ -21,3 +21,6 @@ export const addInterest = (param) => axios.post(`${ROOT_URL}/members/profile/in
 
 // 관심사 삭제
 export const removeInterest = (param) => axios.delete(`${ROOT_URL}/members/profile/interests?interestName=${param}`);
+
+// 회원의 관심사 조회
+export const getMyInterests = (param) => axios.get(`${ROOT_URL}/members/profile/interests`);
