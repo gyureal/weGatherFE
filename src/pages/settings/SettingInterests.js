@@ -1,15 +1,30 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import SettingsBase from './SettingsBase'
 import { Box, Grid } from '@mui/material'
 import Tags from "@yaireo/tagify/dist/react.tagify" // React-wrapper file
 import "@yaireo/tagify/dist/tagify.css" // Tagify CSS
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { requestAddInterest, requestRemoveInterest } from '../../slice/memberSlice'
+import { requestGetInterestWhiteList } from '../../slice/interestSlice'
 
 
 const SettingInterests = () => {
 
+    const whitelist = useSelector((state) => state.interestSlice.whitelist);
+
     const dispatch = useDispatch();
+
+    const getWhiteList = async () => {
+        try {
+            await dispatch(requestGetInterestWhiteList()).unwrap;
+        } catch {
+            alert("error");
+        }
+    }
+
+    useEffect(() => {
+        getWhiteList();
+    }, [])
 
     const onInterestAdd = async ({ detail }) => {
         try {
@@ -42,6 +57,7 @@ const SettingInterests = () => {
                         <Box sx={{ mt: 1 }} fullWidth>
                             <Tags
                                 autoFocus={true}
+                                whitelist={whitelist}
                                 onAdd={onInterestAdd}
                                 onRemove={onInterestRemove}
                             >

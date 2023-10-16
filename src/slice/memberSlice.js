@@ -40,13 +40,13 @@ export const requestChangeAlarmSettings = createAsyncThunk('memberSlice/requestC
         return (await memberApi.changeAlaramSettings(param)).data;
     });
 
-// 관심사 추가
+// 회원 관심사 추가
 export const requestAddInterest = createAsyncThunk('memberSlice/requestAddInterest',
     async (param) => {
         return (await memberApi.addInterest(param)).data;
     });
 
-// 관심사 삭제
+// 회원 관심사 삭제
 export const requestRemoveInterest = createAsyncThunk('memberSlice/requestRemoveInterest',
     async (param) => {
         return (await memberApi.removeInterest(param)).data;
