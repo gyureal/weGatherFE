@@ -36,7 +36,14 @@ const SettingInterests = () => {
         getMyInterests();
     }, [])
 
+    let isInitialDataLoadFinished = false;
+    const setAfterDataLoad = () => {        // 데이터가 로드된 것으로 간주함 (타이핑 한 경우)
+        isInitialDataLoadFinished = true;
+    }
     const onInterestAdd = async ({ detail }) => {
+        if (!isInitialDataLoadFinished) {       // 첫 데이터 로드 할 때, onAdd Handler 동작 안하도록 설정
+            return;
+        }
         try {
             await dispatch(requestAddInterest(detail.data.value)).unwrap();
         } catch (error) {
@@ -73,8 +80,10 @@ const SettingInterests = () => {
                                 autoFocus={true}
                                 whitelist={whitelist}
                                 value={myInterests}
+                                loading={true}
                                 onAdd={onInterestAdd}
                                 onRemove={onInterestRemove}
+                                onInput={setAfterDataLoad}    // 타이핑 했으면 데이터 로드된 이후임을 간주
                                 settings={settings}
                             >
                             </Tags>
