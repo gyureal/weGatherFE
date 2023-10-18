@@ -73,6 +73,10 @@ export default function AuthCompleteMenu({ currentUser }) {
         navigate(`/settings/profile`);
     }
 
+    const onAddGroupClick = () => {
+        navigate(`/smallGroups/add`);
+    }
+
     const menuId = 'primary-search-account-menu';
     const renderProfileMenu = (
         <Menu
@@ -184,8 +188,8 @@ export default function AuthCompleteMenu({ currentUser }) {
                     <Button
                         color="inherit"
                         variant="outlined"
-                        href="#addGroup"
                         startIcon={<AddIcon />}
+                        onClick={onAddGroupClick}
                     >
                         모임 추가
                     </Button>
