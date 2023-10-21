@@ -7,42 +7,66 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import "./SmallGroupForm.css";
 
+
+const renderField = (field) => {
+    return (
+        <div>
+            <FormField field={field} />
+        </div>
+    );
+};
+
+const renderEditorField = (field) => {
+    return (
+        <div>
+            <Box sx={{ mt: 3 }}>
+                <Typography variant="body" color="text.secondary">
+                    {field.label}
+                </Typography>
+                <CKEditor
+                    editor={ClassicEditor}
+                    config={{ placeholder: field.hintText }}
+                    data={field.input.value}
+                    onChange={(event, editor) => {
+                        const data = editor.getData();
+                        return field.input.onChange(editor.getData())
+                    }
+                    }
+                />
+            </Box>
+        </div>
+    );
+};
+
+
+const pathRegEx = new RegExp(/^[A-Za-z0-9\-_]{2,20}$/);
+
+const validate = (values) => {
+    const errors = {};
+
+    console.log("values", values);
+
+    if (!(values.path && pathRegEx.test(values.path))) {
+        errors.path = "공백없이 문자, 숫자, 대시(-)와 언더바(_)만 2자 이상 20자 이내로 입력하세요."
+    }
+
+    if (values.name) {  // 값이 있으면 (빈값 허용)
+        errors.name = (values.name.length <= 50) ? undefined : "소모임 이름을 50자 이내로 입력하세요.";
+    }
+
+    if (values.shortDescription) {  // 값이 있으면 (빈값 허용)
+        errors.shortDescription = (values.shortDescription.length <= 100) ? undefined : "소모임 짧은 소개를 100자 이내로 입력하세요.";
+    }
+
+    return errors;
+}
+
 const SmallGroupForm = (props) => {
     const { handleSubmit, submitting } = props
 
     const onSubmit = (values) => {
         console.log("submit", values);
     }
-
-    const renderField = (field) => {
-        return (
-            <div>
-                <FormField field={field} />
-            </div>
-        );
-    };
-
-    const renderEditorField = (field) => {
-        return (
-            <div>
-                <Box sx={{ mt: 3 }}>
-                    <Typography variant="body" color="text.secondary">
-                        {field.label}
-                    </Typography>
-                    <CKEditor
-                        editor={ClassicEditor}
-                        config={{ placeholder: field.hintText }}
-                        data={field.input.value}
-                        onChange={(event, editor) => {
-                            const data = editor.getData();
-                            return field.input.onChange(editor.getData())
-                        }
-                        }
-                    />
-                </Box>
-            </div>
-        );
-    };
 
     return (
         <Container component="main" maxWidth="md">
@@ -79,9 +103,9 @@ const SmallGroupForm = (props) => {
                     />
                     <Field
                         component={renderField}
-                        name="smallDescription"
+                        name="shortDescription"
                         label="짧은 소개"
-                        hintText="100자 이내로 소모임 짧은 소개해 주세요."
+                        hintText="100자 이내로 소모임을 소개해 주세요."
                     />
                     <Field
                         component={renderEditorField}
@@ -106,4 +130,4 @@ const SmallGroupForm = (props) => {
     )
 }
 
-export default reduxForm({ form: 'SmallGroupForm' })(SmallGroupForm);
+export default reduxForm({ validate, form: 'SmallGroupForm' })(SmallGroupForm);
