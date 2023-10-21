@@ -5,6 +5,7 @@ import { Field, reduxForm } from 'redux-form';
 import { FormField } from '../common/FormField';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import "./SmallGroupForm.css";
 
 const SmallGroupForm = (props) => {
     const { handleSubmit, submitting } = props
@@ -22,7 +23,6 @@ const SmallGroupForm = (props) => {
     };
 
     const renderEditorField = (field) => {
-        console.log(field);
         return (
             <div>
                 <Box sx={{ mt: 3 }}>
