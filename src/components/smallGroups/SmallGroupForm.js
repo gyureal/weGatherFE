@@ -6,6 +6,9 @@ import { FormField } from '../common/FormField';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import "./SmallGroupForm.css";
+import { requestCreateSmallGroup } from '../../slice/smallGroupSlice';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 
 const renderField = (field) => {
@@ -44,8 +47,6 @@ const pathRegEx = new RegExp(/^[A-Za-z0-9\-_]{2,20}$/);
 const validate = (values) => {
     const errors = {};
 
-    console.log("values", values);
-
     if (!(values.path && pathRegEx.test(values.path))) {
         errors.path = "공백없이 문자, 숫자, 대시(-)와 언더바(_)만 2자 이상 20자 이내로 입력하세요."
     }
@@ -61,11 +62,20 @@ const validate = (values) => {
     return errors;
 }
 
+
 const SmallGroupForm = (props) => {
     const { handleSubmit, submitting } = props
 
-    const onSubmit = (values) => {
-        console.log("submit", values);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const onSubmit = async (values) => {
+        try {
+            await dispatch(requestCreateSmallGroup(values)).unwrap();
+            navigate(`smallGroups/${values.path}`);
+        } catch (error) {
+            console.log('error', error);
+        }
     }
 
     return (
