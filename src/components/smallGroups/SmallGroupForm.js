@@ -7,9 +7,8 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import "./SmallGroupForm.css";
 import { requestCreateSmallGroup } from '../../slice/smallGroupSlice';
-import { useDispatch } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-
 
 const renderField = (field) => {
     return (
@@ -43,6 +42,7 @@ const renderEditorField = (field) => {
 
 
 const pathRegEx = new RegExp(/^[A-Za-z0-9\-_]{2,20}$/);
+const numberRegEx = new RegExp(/^[0-9\b]+$/);
 
 const validate = (values) => {
     const errors = {};
@@ -59,11 +59,19 @@ const validate = (values) => {
         errors.shortDescription = (values.shortDescription.length <= 100) ? undefined : "소모임 짧은 소개를 100자 이내로 입력하세요.";
     }
 
+    if (values.maxMemberCount && !numberRegEx.test(values.maxMemberCount)) {
+        errors.maxMemberCount = "숫자만 입력 가능합니다.";
+    }
+
+    if (parseInt(values.maxMemberCount) < 0 || parseInt(values.maxMemberCount) > 300) {
+        errors.maxMemberCount = "0에서 300 사이 숫자를 적어 주세요.";
+    }
+
     return errors;
 }
 
 
-const SmallGroupForm = (props) => {
+let SmallGroupForm = (props) => {
     const { handleSubmit, submitting } = props
 
     const dispatch = useDispatch();
@@ -118,6 +126,13 @@ const SmallGroupForm = (props) => {
                         hintText="100자 이내로 소모임을 소개해 주세요."
                     />
                     <Field
+                        component={renderField}
+                        name="maxMemberCount"
+                        label="소모임 인원수"
+                        type='number'
+                        hintText="최대 300명 까지 모집 가능합니다. 0에서 300 사이 숫자를 적어 주세요."
+                    />
+                    <Field
                         component={renderEditorField}
                         name="fullDescription"
                         label="상세 소개"
@@ -140,4 +155,10 @@ const SmallGroupForm = (props) => {
     )
 }
 
-export default reduxForm({ validate, form: 'SmallGroupForm' })(SmallGroupForm);
+const mapStateToProps = () => {
+    return { initialValues: { maxMemberCount: 30 } }        // Redux Form 초기값주기 
+}
+
+SmallGroupForm = reduxForm({ validate, form: 'SmallGroupForm' })(SmallGroupForm);
+SmallGroupForm = connect(mapStateToProps, null)(SmallGroupForm);
+export default SmallGroupForm;
