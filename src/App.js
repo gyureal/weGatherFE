@@ -11,6 +11,7 @@ import SettingsPassword from './pages/settings/SettingsPassword';
 import SettingsAlarm from './pages/settings/SettingsAlarm';
 import SettingInterests from './pages/settings/SettingInterests';
 import AddSmallGroups from './pages/smallGroups/AddSmallGroups';
+import SmallGroupMain from './pages/smallGroups/SmallGroupMain';
 
 export default function App() {
   return (
@@ -29,6 +30,7 @@ export default function App() {
         <Route path='/settings/interests' element={<SettingInterests />}></Route>
 
         <Route path='/smallGroups/add' element={<AddSmallGroups />}></Route>
+        <Route path='/smallGroups/:path' element={<SmallGroupMain />}></Route>
       </Routes>
     </BrowserRouter>
   );
