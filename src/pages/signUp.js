@@ -61,6 +61,7 @@ const SignUp = (props) => {
             naviagate("/");
         } catch (error) {
             console.log('error', error);
+            alert("회원가입 중 오류가 발생했습니다.")
         }
     }
 
