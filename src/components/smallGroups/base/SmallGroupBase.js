@@ -10,7 +10,6 @@ function SmallGroupBase({ children }) {
     return (
         <PageTemplate>
             <Banner />
-
             <SmallGroupInfo />
             <SmallGroupMenu />
             {children}

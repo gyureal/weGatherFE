@@ -80,7 +80,7 @@ let SmallGroupForm = (props) => {
     const onSubmit = async (values) => {
         try {
             await dispatch(requestCreateSmallGroup(values)).unwrap();
-            navigate(`smallGroups/${values.path}`);
+            navigate(`/smallGroups/${values.path}`);
         } catch (error) {
             console.log('error', error);
         }
