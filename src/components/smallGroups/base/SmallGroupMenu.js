@@ -46,7 +46,7 @@ function SmallGroupMenu() {
 
     return (
         <Box marginTop={2}>
-            <Grid container justifyContent="center" xs={10}>
+            <Grid container justifyContent="center">
                 <Grid item xs={10}>
                     <Box sx={{ width: '100%', borderBottom: 1, borderColor: 'divider' }}>
                         <Tabs value={value} onChange={handleChange} aria-label="nav tabs example">

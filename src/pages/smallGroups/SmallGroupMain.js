@@ -1,18 +1,19 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
 import SmallGroupBase from '../../components/smallGroups/base/SmallGroupBase';
 import { Box, Grid } from '@mui/material';
+import { useParams } from 'react-router-dom';
+
 
 function SmallGroupMain() {
 
-    const groupPath = useParams();
+    const { path } = useParams();
 
     return (
-        <SmallGroupBase>
+        <SmallGroupBase path={path}>
             <Box marginTop={2}>
-                <Grid container justifyContent="center" xs={10}>
+                <Grid container justifyContent="center">
                     <Grid item xs={10}>
-                        <div>content</div>
+                        <div>smallGroup</div>
                     </Grid>
                 </Grid>
             </Box>
