@@ -9,7 +9,6 @@ import { requestGetSmallGroup } from '../../../slice/smallGroupSlice';
 function SmallGroupBase({ children, path }) {
 
     const smallGroup = useSelector((state) => state.smallGroupSlice.smallGroup);
-    console.log("smallGroup ", smallGroup);
 
     const dispatch = useDispatch();
 
@@ -18,7 +17,7 @@ function SmallGroupBase({ children, path }) {
             await dispatch(requestGetSmallGroup(path)).unwrap();
         } catch {
             alert("조회에 실패했습니다.");
-            //navigate("/");
+            navigate("/");
         }
     }
 
