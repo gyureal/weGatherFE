@@ -12,7 +12,33 @@ const getStatus = (smallGroup) => {
     return smallGroup.recruiting ? "모집중" : "모집중 아님";
 }
 
+const getJoinOrLeaveButton = (smallGroup) => {
+    if (!smallGroup || !smallGroup.joinable) {
+        return (
+            <Button variant="contained" disabled>
+                가입 불가
+            </Button>
+        )
+    }
+    if (smallGroup.joinable) {
+        return (
+            <Button variant="contained">
+                소모임 가입
+            </Button>
+        )
+    }
+
+    if (smallGroup.managerOrMember) {
+        return (
+            <Button variant='contained' color='red'>
+                소모임 탈퇴
+            </Button>
+        )
+    }
+}
+
 function SmallGroupInfo({ smallGroup }) {
+    console.log(smallGroup);
     return (
         <Box marginTop={2}>
             <Grid container justifyContent="center">
@@ -28,10 +54,8 @@ function SmallGroupInfo({ smallGroup }) {
                             {getStatus(smallGroup)}
                         </Button>
                         <Box marginX={1}></Box>
-                        <Button variant="contained">
-                            {/* 소모임 가입, 소모임 탈퇴 */}
-                            소모임 가입
-                        </Button>
+                        {/* 소모임 가입, 소모임 탈퇴, 가입 불가 */}
+                        {getJoinOrLeaveButton(smallGroup)}
                     </Box>
 
                 </Grid>
