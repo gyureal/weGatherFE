@@ -5,12 +5,14 @@ import Banner from './Banner';
 import SmallGroupInfo from './SmallGroupInfo';
 import { useDispatch, useSelector } from 'react-redux';
 import { requestGetSmallGroup } from '../../../slice/smallGroupSlice';
+import { useNavigate } from 'react-router-dom';
 
 function SmallGroupBase({ children, path }) {
 
     const smallGroup = useSelector((state) => state.smallGroupSlice.smallGroup);
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const getSmallGroup = async (path) => {
         try {
