@@ -18,42 +18,39 @@ function samePageLinkNavigation(event) {
 
 function LinkTab(props) {
     const navigate = useNavigate();
-
     return (
         <Tab
             component="a"
             onClick={(event) => {
-                const id = event.target.id;
-                navigate(id);
+                if (samePageLinkNavigation(event)) {
+                    event.preventDefault();
+                }
+                const menuId = props.value;
+                navigate(`/smallGroups/${props.groupPath}${menuId}`);
             }}
             {...props}
         />
     );
 }
 
-function SmallGroupMenu() {
-    const [value, setValue] = React.useState(0);
+function SmallGroupMenu({ groupPath }) {
+    //const [value, setValue] = React.useState("");
+    console.log("groupPath ", groupPath);
 
-    const handleChange = (event, newValue) => {
-        // event.type can be equal to focus with selectionFollowsFocus.
-        if (
-            event.type !== 'click' ||
-            (event.type === 'click' && samePageLinkNavigation(event))
-        ) {
-            setValue(newValue);
-        }
-    }
+
+    const fullPath = window.location.pathname;
+    const menuId = fullPath.replace(`/smallGroups/${groupPath}`, "");
 
     return (
         <Box marginTop={2}>
             <Grid container justifyContent="center">
                 <Grid item xs={10}>
                     <Box sx={{ width: '100%', borderBottom: 1, borderColor: 'divider' }}>
-                        <Tabs value={value} onChange={handleChange} aria-label="nav tabs example">
-                            <LinkTab label="소개" id="" />
-                            <LinkTab label="구성원" id="members" />
-                            <LinkTab label="Gather" id="gather" />
-                            <LinkTab label="설정" id="settings" />
+                        <Tabs value={menuId} aria-label="nav tabs example">
+                            <LinkTab label="소개" value="" groupPath={groupPath} />
+                            <LinkTab label="구성원" value="/members" groupPath={groupPath} />
+                            <LinkTab label="Gather" value="/gather" groupPath={groupPath} />
+                            <LinkTab label="설정" value="/settings" groupPath={groupPath} />
                         </Tabs>
                     </Box>
                 </Grid>
