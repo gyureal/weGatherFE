@@ -10,7 +10,6 @@ function MemberSimpleInfo({ name, introduction, image, isManager }) {
                         component="img"
                         sx={{ width: 64, height: 64 }}
                         image={image ? image : "https://picsum.photos/id/237/200/300"}
-                        alt="Live from space album cover"
                     />
                 </Box>
 
