@@ -1,23 +1,41 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import SmallGroupBase from '../../components/smallGroups/base/SmallGroupBase'
 import { useParams } from 'react-router-dom';
 import { Box, Grid } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { requestGetSmallGroupMembers } from '../../slice/smallGroupSlice';
 import MemberSimpleInfo from '../../components/smallGroups/MemberSimpleInfo';
 
 function SmallGroupMember() {
     const { path } = useParams();
+    const smallGroupMembers = useSelector((state) => state.smallGroupSlice.smallGroupMembers);
+    console.log("smallGroupMembers", smallGroupMembers);
+    const dispatch = useDispatch();
+
+    const getSmallGroupMembers = async (path) => {
+        try {
+            await dispatch(requestGetSmallGroupMembers(path)).unwrap();
+        } catch (error) {
+            alert("조회에 실패했습니다.");
+        }
+    }
+
+    useEffect(() => {
+        getSmallGroupMembers(path);
+    }, []);
 
     return (
         <SmallGroupBase path={path}>
             <Box marginTop={2}>
                 <Grid container justifyContent="center">
                     <Grid item xs={10}>
-                        <Box marginY={1}>
-                            <MemberSimpleInfo name={"정우진"} introduction={"반갑습니다 저는 관리자에요!"} isAdmin={true} />
-                        </Box>
-                        <Box marginY={1}>
-                            <MemberSimpleInfo name={"정용규"} introduction={"뭐에요 다들! 놀아봅시다!"} isAdmin={false} />
-                        </Box>
+                        {
+                            smallGroupMembers.map((member) => (
+                                <Box marginY={1}>
+                                    <MemberSimpleInfo name={member.name} introduction={member.introduction} image={member.image} isManager={member.manager} />
+                                </Box>
+                            ))
+                        }
                     </Grid>
                 </Grid>
             </Box>

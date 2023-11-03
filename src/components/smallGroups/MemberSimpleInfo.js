@@ -1,7 +1,7 @@
 import { Box, Card, CardMedia, Chip, Typography } from '@mui/material'
 import React from 'react'
 
-function MemberSimpleInfo({ name, introduction, image, isAdmin }) {
+function MemberSimpleInfo({ name, introduction, image, isManager }) {
     return (
         <div>
             <Card sx={{ display: 'flex', boxShadow: 0 }}>
@@ -22,7 +22,7 @@ function MemberSimpleInfo({ name, introduction, image, isAdmin }) {
                             </Typography>
                         </Box>
                         {
-                            isAdmin ?
+                            isManager ?
                                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                     <Chip label="관리자" color='primary' size="small" />
                                 </Box>

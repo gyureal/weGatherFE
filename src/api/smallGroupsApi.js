@@ -7,3 +7,6 @@ export const createSmallGroup = (param) => axios.post(`${ROOT_URL}/smallGroups`,
 
 // 소모임 조회
 export const getSmallGroup = (path) => axios.get(`${ROOT_URL}/smallGroups/${path}`);
+
+// 소모임 회원 조회
+export const getSmallGroupMembers = (path) => axios.get(`${ROOT_URL}/smallGroups/${path}/managers-and-members`);
