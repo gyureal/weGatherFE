@@ -6,6 +6,7 @@ import { FormField } from '../../components/common/FormField';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { requestEditProfile, requestProfileByUsername } from '../../slice/memberSlice';
+import CropImage from '../../components/common/CropImage';
 
 const renderField = (field) => {
     return (
@@ -85,9 +86,9 @@ let SettingsProfile = ({ handleSubmit, submitting }) => {
                     </Box>
                 </Grid>
                 <Grid item xs={5}>
-                    <Box sx={{ ml: 3 }}>
+                    <Box sx={{ ml: 3, display: "flex" }}>
+                        <CropImage />
                     </Box>
-
                 </Grid>
             </Grid>
         </SettingsBase >
