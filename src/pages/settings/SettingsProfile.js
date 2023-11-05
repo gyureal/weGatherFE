@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import SettingsBase from './SettingsBase'
 import { Box, Button, Grid } from '@mui/material'
 import { Field, reduxForm } from 'redux-form';
 import { FormField } from '../../components/common/FormField';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { connect, shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { requestEditProfile, requestProfileByUsername } from '../../slice/memberSlice';
+import { requestEditProfile, requestEditProfileImage, requestProfileByUsername } from '../../slice/memberSlice';
 import CropImage from '../../components/common/CropImage';
+import { awsPrefix } from '../../static/globalVariables';
 
 const renderField = (field) => {
     return (
@@ -20,7 +21,7 @@ let SettingsProfile = ({ handleSubmit, submitting }) => {
 
     const userProfile = useSelector((state) => {
         return state.memberSlice.userProfile;
-    });
+    }, shallowEqual);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -87,7 +88,7 @@ let SettingsProfile = ({ handleSubmit, submitting }) => {
                 </Grid>
                 <Grid item xs={5}>
                     <Box sx={{ ml: 3, display: "flex" }}>
-                        <CropImage />
+                        <CropImage saveRequest={requestEditProfileImage} defaultImage={userProfile ? awsPrefix + userProfile.profileImage : ""} />
                     </Box>
                 </Grid>
             </Grid>

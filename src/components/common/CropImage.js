@@ -1,12 +1,11 @@
 import { Avatar, Box, Button, Card, CardContent, CardHeader, Grid, Typography } from '@mui/material'
 
 import ContentCutIcon from '@mui/icons-material/ContentCut';
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import FileUploadButton from './FileUploadButton';
 import '/node_modules/cropperjs/dist/cropper.css';
 import { Cropper } from 'react-cropper';
 import { useDispatch } from 'react-redux';
-import { requestEditProfileImage } from '../../slice/memberSlice';
 
 const defaultSrc =
     "https://raw.githubusercontent.com/gyureal/storage/main/image/default-avatar.png";
@@ -17,8 +16,17 @@ let savedImage = "";
 // 업로드한 파일 
 let originalImageName = "";
 
-function CropImage() {
+function CropImage({ saveRequest, defaultImage }) {
     const [image, setImage] = useState("");
+
+    // 특정한 값이 변경될 때에만 호출되게 하려면 useEffect + 의존성 배열을 써야한다.
+    // 의존성 배열의 값이 변경될 때만 useEffect 를 호출하게 된다.
+    // setImage(defaultImage); -> 무한루프
+    useEffect(() => {
+        savedImage = defaultImage;
+        setImage(defaultImage);
+    }, [defaultImage])
+
     const [uploadImage, setUploadImage] = useState("");
     const cropperRef = useRef();
     const dispatch = useDispatch();
@@ -42,13 +50,12 @@ function CropImage() {
 
     // 업로드, Cropped 된 사진이 저장되어야함
     const onConfirmClick = async () => {
-        console.log(image);
         const data = {
-            'profileImage': image,
+            'image': image,
             'originalImageName': originalImageName
         }
         try {
-            await dispatch(requestEditProfileImage(data)).unwrap();
+            await dispatch(saveRequest(data)).unwrap();
         } catch {
             alert("이미지 업로드에 실패했습니다.");
         }
@@ -131,4 +138,4 @@ function CropImage() {
     )
 }
 
-export default CropImage
+export default CropImage;
