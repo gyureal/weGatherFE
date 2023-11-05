@@ -7,7 +7,7 @@ import { connect, shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { requestEditProfile, requestEditProfileImage, requestProfileByUsername } from '../../slice/memberSlice';
 import CropImage from '../../components/common/CropImage';
-import { awsPrefix } from '../../static/globalVariables';
+import { awsPrefix, defaultAvatar } from '../../static/globalVariables';
 
 const renderField = (field) => {
     return (
@@ -56,6 +56,13 @@ let SettingsProfile = ({ handleSubmit, submitting }) => {
     //     return <div>Loading</div>
     // }
 
+    const setProfileImage = () => {
+        if (userProfile && userProfile.profileImage && userProfile.profileImage != "") {
+            return awsPrefix + userProfile.profileImage;
+        }
+        return defaultAvatar;
+    }
+
     return (
         <SettingsBase currentMenu={'profile'}>
             <Grid container>
@@ -88,7 +95,7 @@ let SettingsProfile = ({ handleSubmit, submitting }) => {
                 </Grid>
                 <Grid item xs={5}>
                     <Box sx={{ ml: 3, display: "flex" }}>
-                        <CropImage saveRequest={requestEditProfileImage} defaultImage={userProfile ? awsPrefix + userProfile.profileImage : ""} />
+                        <CropImage saveRequest={requestEditProfileImage} defaultImage={setProfileImage} />
                     </Box>
                 </Grid>
             </Grid>

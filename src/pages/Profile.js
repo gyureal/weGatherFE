@@ -7,6 +7,9 @@ import EmailIcon from '@mui/icons-material/Email';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import { useDispatch, useSelector } from 'react-redux';
 import { requestProfileByUsername } from '../slice/memberSlice';
+import { awsPrefix, defaultAvatar } from '../static/globalVariables';
+
+
 
 function Profile() {
 
@@ -45,6 +48,13 @@ function Profile() {
         return <div>Loading</div>
     }
 
+    const setProfileImage = () => {
+        if (currentUser && currentUser.profileImage && currentUser.profileImage != "") {
+            return awsPrefix + currentUser.profileImage;
+        }
+        return defaultAvatar;
+    }
+
     return (
         <PageTemplate>
             <Box sx={{ my: 5 }}>
@@ -53,7 +63,7 @@ function Profile() {
                         <Box display="flex" justifyContent="center">
                             <Avatar
                                 sx={{ width: 150, height: 150, my: 3 }}
-                                src="#"
+                                src={setProfileImage()}
                             />
                         </Box>
                         <SideMenuButtons currentMenu="profile" menuInfo={menuInfo} />

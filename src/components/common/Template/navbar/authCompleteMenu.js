@@ -26,6 +26,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { useDispatch } from "react-redux";
 import { requestLogout } from "../../../../slice/authSlice";
 import { useNavigate } from "react-router-dom";
+import { awsPrefix, defaultAvatar } from "../../../../static/globalVariables";
 
 export default function AuthCompleteMenu({ currentUser }) {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -168,6 +169,13 @@ export default function AuthCompleteMenu({ currentUser }) {
         </Menu>
     );
 
+    const setProfileImage = () => {
+        if (currentUser && currentUser.profileImage && currentUser.profileImage != "") {
+            return awsPrefix + currentUser.profileImage;
+        }
+        return defaultAvatar;
+    }
+
 
     return (
         <div>
@@ -204,7 +212,7 @@ export default function AuthCompleteMenu({ currentUser }) {
                 >
                     <Tooltip title="Open profile">
                         <IconButton onClick={onProfileClick} sx={{ p: 0 }}>
-                            <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                            <Avatar alt="profile" src={setProfileImage()} />
                         </IconButton>
                     </Tooltip>
                     {renderProfileMenu}

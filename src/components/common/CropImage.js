@@ -7,9 +7,6 @@ import '/node_modules/cropperjs/dist/cropper.css';
 import { Cropper } from 'react-cropper';
 import { useDispatch } from 'react-redux';
 
-const defaultSrc =
-    "https://raw.githubusercontent.com/gyureal/storage/main/image/default-avatar.png";
-
 // DB에 저장된 이미지 
 let savedImage = "";
 
@@ -59,7 +56,6 @@ function CropImage({ saveRequest, defaultImage }) {
         } catch {
             alert("이미지 업로드에 실패했습니다.");
         }
-        alert("이미지가 수정되었습니다.");
         savedImage = image;
         setUploadImage("");
     }
@@ -89,7 +85,7 @@ function CropImage({ saveRequest, defaultImage }) {
                 </Box>
 
                 <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 1 }}>
-                    <Avatar src={image === "" ? defaultSrc : image} sx={{ width: 150, height: 150 }} />
+                    <Avatar src={image === "" ? "#" : image} sx={{ width: 150, height: 150 }} />
                 </Box>
 
 
