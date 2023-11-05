@@ -1,5 +1,6 @@
 import { Box, Card, CardMedia, Chip, Typography } from '@mui/material'
 import React from 'react'
+import { awsPrefix, defaultAvatar } from '../../static/globalVariables'
 
 function MemberSimpleInfo({ name, introduction, image, isManager }) {
     return (
@@ -9,7 +10,7 @@ function MemberSimpleInfo({ name, introduction, image, isManager }) {
                     <CardMedia
                         component="img"
                         sx={{ width: 64, height: 64 }}
-                        image={image ? image : "https://picsum.photos/id/237/200/300"}
+                        image={image && image != "" ? awsPrefix + image : defaultAvatar}
                     />
                 </Box>
 
