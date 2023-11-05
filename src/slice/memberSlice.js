@@ -38,6 +38,13 @@ export const requestEditProfile = createAsyncThunk('memberSlice/requestEditProfi
         return (await memberApi.editProfile(param)).data;
     });
 
+// 프로필 사진 수정
+export const requestEditProfileImage = createAsyncThunk('memberSlice/requestEditProfileImage',
+    async (param) => {
+        return (await memberApi.editProfileImage(param)).data;
+    });
+
+
 // 비밀번호 변경
 export const requestChangePassword = createAsyncThunk('memberSlice/requestChangePassword',
     async (param) => {

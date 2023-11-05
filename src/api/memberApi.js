@@ -10,6 +10,9 @@ export const getProfileByUsername = (username) => axios.get(`${ROOT_URL}/members
 // profile 수정
 export const editProfile = (param) => axios.post(`${ROOT_URL}/members/profile/`, param);
 
+// 프로필 사진 수정
+export const editProfileImage = (param) => axios.post(`${ROOT_URL}/members/profile/image`, param);
+
 // 비밀번호 수정
 export const changePassword = (param) => axios.post(`${ROOT_URL}/members/profile/password`, param);
 
