@@ -1,7 +1,7 @@
 import { Avatar, Box, Button, Container, Grid, TextField, Typography } from '@mui/material'
 import GroupsIcon from '@mui/icons-material/Groups';
 import React from 'react'
-import { Field, reduxForm } from 'redux-form';
+import { Field, SubmissionError, reduxForm } from 'redux-form';
 import { FormField } from '../common/FormField';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -73,7 +73,7 @@ const validate = (values) => {
 let formValues = {};    // 밖에 선언해야함
 
 let SmallGroupForm = (props) => {
-    const { handleSubmit, submitting } = props
+    const { handleSubmit, submitting } = props;
     const [open, setOpen] = React.useState(false);  // dialog 팝업
 
     const dispatch = useDispatch();
@@ -90,7 +90,9 @@ let SmallGroupForm = (props) => {
             await dispatch(requestCreateSmallGroup(formValues)).unwrap();   // 변수에 저장한 formValues 를 사용함
             navigate(`/smallGroups/${formValues.path}`);
         } catch (error) {
+            setOpen(false);
             console.log('error', error);
+            alert(error.errorDetails[0].reason);
         }
     }
 

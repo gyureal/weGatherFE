@@ -16,14 +16,21 @@ export const smallGroupSlice = createSlice({
 
         builder.addCase(requestGetSmallGroupMembers.fulfilled, (state, action) => {
             state.smallGroupMembers = action.payload;
-        })
+        });
     }
 });
 
 // 소모임 생성
 export const requestCreateSmallGroup = createAsyncThunk('smallGroup/requestSmallGroupSlice',
-    async (param) => {
-        return (await smallGroupsApi.createSmallGroup(param)).data;
+    async (param, { rejectWithValue }) => {
+        try {
+            return (await smallGroupsApi.createSmallGroup(param)).data;
+        } catch (error) {
+            if (!error.response) {
+                throw error;
+            }
+            return rejectWithValue(error.response.data);
+        }
     });
 
 // 소모임 조회
