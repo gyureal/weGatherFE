@@ -6,6 +6,7 @@ import FileUploadButton from './FileUploadButton';
 import '/node_modules/cropperjs/dist/cropper.css';
 import { Cropper } from 'react-cropper';
 import { useDispatch } from 'react-redux';
+import { imageExtensions } from '../../static/globalVariables';
 
 // DB에 저장된 이미지 
 let savedImage = "";
@@ -37,13 +38,29 @@ function CropImage({ saveRequest, defaultImage }) {
     // 이미지 업로드 하여, uploadImage에 담아야함
     const onImageUpload = (event) => {
         const file = event.target.files[0];
-        console.log('file ', file);
+
+        if (!checkIfImage(file)) {
+            alert("이미지만 업로드 가능합니다.");
+
+            return;
+        }
+
         originalImageName = file.name;
         if (file) {
             const imageUrl = URL.createObjectURL(file);
             setUploadImage(imageUrl);
         }
     };
+
+    const checkIfImage = (file) => {
+        const fileExtension = file.name.split(".").pop().toLowerCase();
+
+        if (imageExtensions.includes(`.${fileExtension}`)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     // 업로드, Cropped 된 사진이 저장되어야함
     const onConfirmClick = async () => {

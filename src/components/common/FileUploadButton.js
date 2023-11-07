@@ -2,6 +2,7 @@ import React from 'react'
 import { Button } from '@mui/material'
 import ImageIcon from '@mui/icons-material/Image';
 import { styled } from '@mui/material/styles';
+import { imageExtensions } from '../../static/globalVariables';
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -15,12 +16,13 @@ const VisuallyHiddenInput = styled('input')({
     width: 1,
 });
 
+const extensionString = imageExtensions.join(", ")
 
 function FileUploadButton({ onImageChange }) {
     return (
         <Button component="label" variant="outlined" startIcon={<ImageIcon />} sx={{ marginTop: 1 }}>
             Upload file
-            <VisuallyHiddenInput type="file" onChange={onImageChange} />
+            <VisuallyHiddenInput type="file" accept={extensionString} onChange={onImageChange} />
         </Button>
     )
 }
