@@ -66,7 +66,7 @@ function Profile() {
                                 src={setProfileImage()}
                             />
                         </Box>
-                        <SideMenuButtons currentMenu="profile" menuInfo={menuInfo} />
+                        <SideMenuButtons currentMenu="profile" menuInfo={menuInfo} navigatePrefix={"/settings"} />
                     </Grid>
                     <Grid item xs={8}>
                         <Box sx={{ ml: 5, mt: 4 }}>

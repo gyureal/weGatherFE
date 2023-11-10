@@ -18,7 +18,7 @@ function SettingsBase({ children, currentMenu }) {
                 <Grid container justifyContent="center" spacing={2}>
                     <Grid item xs={2}>
                         <Box display="flex" justifyContent="center"></Box>
-                        <SideMenuButtons currentMenu={currentMenu} menuInfo={menuInfo} />
+                        <SideMenuButtons currentMenu={currentMenu} menuInfo={menuInfo} navigatePrefix={"/settings"} />
                     </Grid>
                     <Grid item xs={8}>
                         <Box sx={{ ml: 4 }}>

@@ -50,7 +50,7 @@ function SmallGroupMenu({ groupPath }) {
                             <LinkTab label="소개" value="" groupPath={groupPath} />
                             <LinkTab label="구성원" value="/members" groupPath={groupPath} />
                             <LinkTab label="Gather" value="/gather" groupPath={groupPath} />
-                            <LinkTab label="설정" value="/settings" groupPath={groupPath} />
+                            <LinkTab label="설정" value="/settings/edit" groupPath={groupPath} />
                         </Tabs>
                     </Box>
                 </Grid>

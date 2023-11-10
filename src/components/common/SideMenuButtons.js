@@ -2,7 +2,7 @@ import { Box, Button, ButtonGroup } from '@mui/material'
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 
-function SideMenuButtons({ currentMenu, menuInfo }) {
+function SideMenuButtons({ currentMenu, menuInfo, navigatePrefix }) {
 
     const highlightWhenCurrent = (id, currentMenu) => {
         return (id === currentMenu) ? "contained" : "text";
@@ -19,7 +19,7 @@ function SideMenuButtons({ currentMenu, menuInfo }) {
     const navigate = useNavigate();
 
     const onMenuClick = (e) => {      // id를 넘겨받음
-        navigate(`/settings/${e.target.id}`);
+        navigate(`${navigatePrefix}/${e.target.id}`);
     }
     return (
         <Box>
