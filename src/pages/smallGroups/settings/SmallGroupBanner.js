@@ -2,12 +2,12 @@ import React from 'react'
 import SmallGroupSettingBase from './SmallGroupSettingBase'
 import { Box } from '@mui/material'
 
-function SmallGroupEdit() {
+function SmallGroupBanner() {
     return (
-        <SmallGroupSettingBase currentMenu={'edit'}>
-            <Box>content</Box>
+        <SmallGroupSettingBase currentMenu="banner">
+            <Box>banner</Box>
         </SmallGroupSettingBase>
     )
 }
 
-export default SmallGroupEdit
+export default SmallGroupBanner

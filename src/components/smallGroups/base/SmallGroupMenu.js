@@ -35,11 +35,15 @@ function LinkTab(props) {
 
 function SmallGroupMenu({ groupPath }) {
     //const [value, setValue] = React.useState("");
-    console.log("groupPath ", groupPath);
-
 
     const fullPath = window.location.pathname;
-    const menuId = fullPath.replace(`/smallGroups/${groupPath}`, "");
+    //const menuId = fullPath.replace(`/smallGroups/${groupPath}`, "");
+    let menuId = fullPath.replace(/\/(smallGroups)\/([^\/]+)/, "");
+    //console.log("menuId : ", menuId);
+    const matchSettingsMenu = menuId.match(/\/settings\/(\w+)/);
+    if (matchSettingsMenu) {
+        menuId = "/settings";
+    }
 
     return (
         <Box marginTop={2}>
@@ -50,7 +54,7 @@ function SmallGroupMenu({ groupPath }) {
                             <LinkTab label="소개" value="" groupPath={groupPath} />
                             <LinkTab label="구성원" value="/members" groupPath={groupPath} />
                             <LinkTab label="Gather" value="/gather" groupPath={groupPath} />
-                            <LinkTab label="설정" value="/settings/edit" groupPath={groupPath} />
+                            <LinkTab label="설정" value="/settings" groupPath={groupPath} />
                         </Tabs>
                     </Box>
                 </Grid>

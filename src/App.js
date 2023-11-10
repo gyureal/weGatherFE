@@ -14,6 +14,7 @@ import AddSmallGroups from './pages/smallGroups/AddSmallGroups';
 import SmallGroupMain from './pages/smallGroups/SmallGroupMain';
 import SmallGroupMember from './pages/smallGroups/SmallGroupMember';
 import SmallGroupEdit from './pages/smallGroups/settings/SmallGroupEdit';
+import SmallGroupBanner from './pages/smallGroups/settings/SmallGroupBanner';
 
 export default function App() {
   return (
@@ -35,7 +36,9 @@ export default function App() {
         <Route path='/smallGroups/:path' element={<SmallGroupMain />}></Route>
         <Route path='/smallGroups/:path/members' element={<SmallGroupMember />}></Route>
 
+        <Route path='/smallGroups/:path/settings' element={<SmallGroupEdit />}></Route>
         <Route path='/smallGroups/:path/settings/edit' element={<SmallGroupEdit />}></Route>
+        <Route path='/smallGroups/:path/settings/banner' element={<SmallGroupBanner />}></Route>
       </Routes>
     </BrowserRouter>
   );
