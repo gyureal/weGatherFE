@@ -44,3 +44,12 @@ export const requestGetSmallGroupMembers = createAsyncThunk('smallGroup/requestG
     async (param) => {
         return (await smallGroupsApi.getSmallGroupMembers(param)).data;
     });
+
+// 소모임 배너 업데이트
+export const requestUpdateSmallGroupBanner = createAsyncThunk('smallGroup/requestUpdateSmallGroupBanner',
+    async (param) => {
+        console.log("data..", param);
+        return (await smallGroupsApi.updateSmallGroupBanner(param)).data;
+    });
+
+

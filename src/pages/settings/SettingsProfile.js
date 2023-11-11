@@ -63,6 +63,25 @@ let SettingsProfile = ({ handleSubmit, submitting }) => {
         return defaultAvatar;
     }
 
+    const saveRequest = async (cropResult) => {
+        console.log("cropResult ", cropResult);
+
+        if (!cropResult.image) {
+            return;
+        }
+
+        const image = {
+            'image': cropResult.image,
+            'originalImageName': cropResult.originalImageName
+        }
+
+        try {
+            await dispatch(requestEditProfileImage(image)).unwrap();
+        } catch {
+            alert("이미지 업로드에 실패했습니다.");
+        }
+    }
+
     return (
         <SettingsBase currentMenu={'profile'}>
             <Grid container>
@@ -95,7 +114,7 @@ let SettingsProfile = ({ handleSubmit, submitting }) => {
                 </Grid>
                 <Grid item xs={5}>
                     <Box sx={{ ml: 3, display: "flex" }}>
-                        <CropImage saveRequest={requestEditProfileImage} defaultImage={setProfileImage} />
+                        <CropImage saveRequest={saveRequest} defaultImage={setProfileImage} type={"profile"} title="프로필 이미지" />
                     </Box>
                 </Grid>
             </Grid>

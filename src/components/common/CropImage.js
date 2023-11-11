@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Card, CardContent, CardHeader, Grid, Typography } from '@mui/material'
+import { Avatar, Box, Button, Card, CardContent, CardHeader, CardMedia, Grid, Typography } from '@mui/material'
 
 import ContentCutIcon from '@mui/icons-material/ContentCut';
 import React, { useEffect, useRef, useState } from 'react'
@@ -7,6 +7,7 @@ import '/node_modules/cropperjs/dist/cropper.css';
 import { Cropper } from 'react-cropper';
 import { useDispatch } from 'react-redux';
 import { imageExtensions } from '../../static/globalVariables';
+import { Image } from '@mui/icons-material';
 
 // DB에 저장된 이미지 
 let savedImage = "";
@@ -14,7 +15,7 @@ let savedImage = "";
 // 업로드한 파일 
 let originalImageName = "";
 
-function CropImage({ saveRequest, defaultImage }) {
+function CropImage({ saveRequest, defaultImage, type, title, aspectRatio }) {
     const [image, setImage] = useState("");
 
     // 특정한 값이 변경될 때에만 호출되게 하려면 useEffect + 의존성 배열을 써야한다.
@@ -41,7 +42,6 @@ function CropImage({ saveRequest, defaultImage }) {
 
         if (!checkIfImage(file)) {
             alert("이미지만 업로드 가능합니다.");
-
             return;
         }
 
@@ -53,6 +53,9 @@ function CropImage({ saveRequest, defaultImage }) {
     };
 
     const checkIfImage = (file) => {
+        if (!file) {
+            return;
+        }
         const fileExtension = file.name.split(".").pop().toLowerCase();
 
         if (imageExtensions.includes(`.${fileExtension}`)) {
@@ -64,15 +67,13 @@ function CropImage({ saveRequest, defaultImage }) {
 
     // 업로드, Cropped 된 사진이 저장되어야함
     const onConfirmClick = async () => {
+        saveRequest(image);
+
         const data = {
             'image': image,
             'originalImageName': originalImageName
         }
-        try {
-            await dispatch(saveRequest(data)).unwrap();
-        } catch {
-            alert("이미지 업로드에 실패했습니다.");
-        }
+        saveRequest(data);
         savedImage = image;
         setUploadImage("");
     }
@@ -98,11 +99,16 @@ function CropImage({ saveRequest, defaultImage }) {
                 display: 'flex', flexGrow: 1, flexDirection: 'column', bgcolor: 'grey.150',
             }}>
                 <Box sx={{ display: 'flex', bgcolor: 'grey.100', justifyContent: 'center', border: '1px', borderColor: 'grey:500', paddingY: 1 }}>
-                    프로필 이미지
+                    {title}
                 </Box>
 
                 <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 1 }}>
-                    <Avatar src={image === "" ? "#" : image} sx={{ width: 150, height: 150 }} />
+                    {
+                        type === "profile" ?
+                            <Avatar src={image === "" ? "#" : image} sx={{ width: 150, height: 150 }} />
+                            :
+                            <CardMedia component="img" height={130} image={image} />
+                    }
                 </Box>
 
 
@@ -124,8 +130,9 @@ function CropImage({ saveRequest, defaultImage }) {
                                 <Cropper
                                     ref={cropperRef}
                                     style={{ height: 200, width: "100%" }}
-                                    zoomTo={0.5}
+                                    zoomTo={0.2}
                                     initialAspectRatio={1}
+                                    aspectRatio={aspectRatio}
                                     preview=".img-preview"
                                     src={uploadImage}
                                     viewMode={1}
