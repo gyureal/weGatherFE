@@ -1,13 +1,11 @@
-import { Avatar, Box, Button, Card, CardContent, CardHeader, CardMedia, Grid, Typography } from '@mui/material'
+import { Avatar, Box, Button, Card, CardMedia } from '@mui/material'
 
 import ContentCutIcon from '@mui/icons-material/ContentCut';
 import React, { useEffect, useRef, useState } from 'react'
 import FileUploadButton from './FileUploadButton';
 import '/node_modules/cropperjs/dist/cropper.css';
 import { Cropper } from 'react-cropper';
-import { useDispatch } from 'react-redux';
 import { imageExtensions } from '../../static/globalVariables';
-import { Image } from '@mui/icons-material';
 
 // DB에 저장된 이미지 
 let savedImage = "";
@@ -28,7 +26,6 @@ function CropImage({ saveRequest, defaultImage, type, title, aspectRatio }) {
 
     const [uploadImage, setUploadImage] = useState("");
     const cropperRef = useRef();
-    const dispatch = useDispatch();
 
     const onCrop = () => {
         if (cropperRef.current && typeof cropperRef.current.cropper !== "undefined") {
@@ -125,7 +122,7 @@ function CropImage({ saveRequest, defaultImage, type, title, aspectRatio }) {
                     </Button>
 
                     {
-                        uploadImage != "" ?
+                        uploadImage !== "" ?
                             <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', marginTop: 1 }}>
                                 <Cropper
                                     ref={cropperRef}

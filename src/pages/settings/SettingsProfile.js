@@ -1,10 +1,9 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect } from 'react'
 import SettingsBase from './SettingsBase'
 import { Box, Button, Grid } from '@mui/material'
 import { Field, reduxForm } from 'redux-form';
 import { FormField } from '../../components/common/FormField';
 import { connect, shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { requestEditProfile, requestEditProfileImage, requestProfileByUsername } from '../../slice/memberSlice';
 import CropImage from '../../components/common/CropImage';
 import { awsPrefix, defaultAvatar } from '../../static/globalVariables';
@@ -24,7 +23,6 @@ let SettingsProfile = ({ handleSubmit, submitting }) => {
     }, shallowEqual);
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const getUserProfile = async (currentUser) => {
         try {
@@ -38,7 +36,7 @@ let SettingsProfile = ({ handleSubmit, submitting }) => {
     useEffect(() => {
         // localStorage 데이터 가져오기
         const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-        if (currentUser && currentUser.username != undefined) {
+        if (currentUser && currentUser.username !== undefined) {
             getUserProfile(currentUser);    // 프로필 조회
         }
     }, []);
@@ -57,7 +55,7 @@ let SettingsProfile = ({ handleSubmit, submitting }) => {
     // }
 
     const setProfileImage = () => {
-        if (userProfile && userProfile.profileImage && userProfile.profileImage != "") {
+        if (userProfile && userProfile.profileImage && userProfile.profileImage !== "") {
             return awsPrefix + userProfile.profileImage;
         }
         return defaultAvatar;
