@@ -1,9 +1,9 @@
 import { Button, Typography, Container, Box } from '@mui/material'
 import React from 'react'
-import PageTemplate from '../components/common/Template/pageTemplate/pageTemplate'
 import { useDispatch, useSelector } from 'react-redux'
-import { requestResendConfirmEmail } from '../slice/authSlice';
+import { requestResendConfirmEmail } from '../../slice/authSlice';
 import { useNavigate } from 'react-router-dom';
+import PageTemplate from '../../components/common/Template/pageTemplate/pageTemplate';
 
 function EmailResend() {
 

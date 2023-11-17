@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { useQuery } from '../lib/lib';
 import { useDispatch } from 'react-redux';
-import { requestConfirmEmail } from '../slice/authSlice';
+import { requestConfirmEmail } from '../../slice/authSlice';
+import { useQuery } from '../../lib/lib';
 
 function CheckEmailToken() {
 

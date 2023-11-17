@@ -1,11 +1,5 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Index from './pages';
-import SignUp from './pages/signUp';
-import Login from './pages/login';
-import EmailResend from './pages/EmailResend';
-import CheckEmailToken from './pages/CheckEmailToken';
-import Profile from './pages/Profile';
 import SettingsProfile from './pages/settings/SettingsProfile';
 import SettingsPassword from './pages/settings/SettingsPassword';
 import SettingsAlarm from './pages/settings/SettingsAlarm';
@@ -15,6 +9,12 @@ import SmallGroupMain from './pages/smallGroups/SmallGroupMain';
 import SmallGroupMember from './pages/smallGroups/SmallGroupMember';
 import SmallGroupEdit from './pages/smallGroups/settings/SmallGroupEdit';
 import SmallGroupBanner from './pages/smallGroups/settings/SmallGroupBanner';
+import Index from './pages/main';
+import SignUp from './pages/main/signUp';
+import Login from './pages/main/login';
+import EmailResend from './pages/main/EmailResend';
+import CheckEmailToken from './pages/main/CheckEmailToken';
+import Profile from './pages/main/Profile';
 
 export default function App() {
   return (

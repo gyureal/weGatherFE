@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import SideMenuButtons from '../components/common/SideMenuButtons';
-import PageTemplate from '../components/common/Template/pageTemplate/pageTemplate';
+import SideMenuButtons from '../../components/common/SideMenuButtons';
+import PageTemplate from '../../components/common/Template/pageTemplate/pageTemplate';
 import { Avatar, Box, Button, Grid, Typography } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import { useDispatch, useSelector } from 'react-redux';
-import { requestProfileByUsername } from '../slice/memberSlice';
-import { awsPrefix, defaultAvatar } from '../static/globalVariables';
+import { requestProfileByUsername } from '../../slice/memberSlice';
+import { awsPrefix, defaultAvatar } from '../../static/globalVariables';
 
 
 
