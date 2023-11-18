@@ -15,6 +15,7 @@ import Login from './pages/main/login';
 import EmailResend from './pages/main/EmailResend';
 import CheckEmailToken from './pages/main/CheckEmailToken';
 import Profile from './pages/main/Profile';
+import SamllGroupInterests from './pages/smallGroups/settings/SmallGroupInterests';
 
 export default function App() {
   return (
@@ -39,6 +40,7 @@ export default function App() {
         <Route path='/smallGroups/:path/settings' element={<SmallGroupEdit />}></Route>
         <Route path='/smallGroups/:path/settings/edit' element={<SmallGroupEdit />}></Route>
         <Route path='/smallGroups/:path/settings/banner' element={<SmallGroupBanner />}></Route>
+        <Route path='/smallGroups/:path/settings/interests' element={<SamllGroupInterests />}></Route>
       </Routes>
     </BrowserRouter>
   );

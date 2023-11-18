@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom'
 const menuInfo = [
     { id: "edit", label: "소개" },
     { id: "banner", label: "배너 이미지" },
-    { id: "interests", label: "모임 관심사" },
+    { id: "interests", label: "소모임 관심사" },
     { id: "smallGroup", label: "모임 설정" }
 ]
 
