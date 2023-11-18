@@ -53,3 +53,16 @@ export const requestUpdateSmallGroupBanner = createAsyncThunk('smallGroup/reques
     });
 
 
+// 소모임 관심사 추가
+export const requestAddInterestToSmallGroup = createAsyncThunk('smallGroup/requestAddInterestToSmallGroup',
+    async (param) => {
+        return (await smallGroupsApi.addInterestToSmallGroup(param)).data;
+    });
+
+// 소모임 관심사 추가
+export const requestRemoveInterestToSmallGroup = createAsyncThunk('smallGroup/requestRemoveInterestToSmallGroup',
+    async (param) => {
+        return (await smallGroupsApi.removeInterestToSmallGroup(param)).data;
+    });
+
+

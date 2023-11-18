@@ -1,12 +1,41 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import SmallGroupSettingBase from './SmallGroupSettingBase'
 import { Box, Grid } from '@mui/material';
 import Tags from '@yaireo/tagify/dist/react.tagify';
 import "@yaireo/tagify/dist/tagify.css" // Tagify CSS
+import { requestAddInterestToSmallGroup, requestRemoveInterestToSmallGroup } from '../../../slice/smallGroupSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { requestGetInterestWhiteList } from '../../../slice/interestSlice';
+import { useParams } from 'react-router-dom';
 
 function SamllGroupInterests() {
 
-    const whitelist = [];
+    const dispatch = useDispatch();
+    const { path } = useParams();
+
+    const whitelist = useSelector((state) => state.interestSlice.whitelist);
+    //const myInterests = useSelector((state) => state.memberSlice.myInterests);
+    const getWhiteList = async () => {
+        try {
+            await dispatch(requestGetInterestWhiteList()).unwrap;
+        } catch {
+            alert("error");
+        }
+    }
+
+    // const getMyInterests = async () => {
+    //     try {
+    //         await dispatch(requestGetMyInterests()).unwrap;
+    //     } catch {
+    //         alert("error");
+    //     }
+    // }
+
+    useEffect(() => {
+        getWhiteList();
+        // getMyInterests();
+    }, [])
+
     const profileInterests = []
 
     let isInitialDataLoadFinished = false;
@@ -17,18 +46,28 @@ function SamllGroupInterests() {
         if (!isInitialDataLoadFinished) {       // 첫 데이터 로드 할 때, onAdd Handler 동작 안하도록 설정
             return;
         }
+        const param = {
+            'path': path,
+            'interestName': detail.data.value
+        }
+
         try {
-            //await dispatch(requestAddInterest(detail.data.value)).unwrap();
+
+            await dispatch(requestAddInterestToSmallGroup(param)).unwrap();
         } catch (error) {
-            console.log("error add", error);
+            console.log("error add");
         }
     }
 
     const onInterestRemove = async ({ detail }) => {
+        const param = {
+            'path': path,
+            'interestName': detail.data.value
+        }
         try {
-            //await dispatch(requestRemoveInterest(detail.data.value)).unwrap();
+            await dispatch(requestRemoveInterestToSmallGroup(param)).unwrap();
         } catch (error) {
-            console.log("error remove", error);
+            console.log("error remove");
         }
     }
 

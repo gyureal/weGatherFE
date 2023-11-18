@@ -13,3 +13,9 @@ export const getSmallGroupMembers = (path) => axios.get(`${ROOT_URL}/smallGroups
 
 // 소모임 배너 사진 업데이트
 export const updateSmallGroupBanner = (param) => axios.post(`${ROOT_URL}/smallGroups/${param.path}/banner`, param.image);
+
+// 관심사 추가
+export const addInterestToSmallGroup = (param) => axios.post(`${ROOT_URL}/smallGroups/${param.path}/interest?interestName=${param.interestName}`);
+
+// 관심사 삭제
+export const removeInterestToSmallGroup = (param) => axios.delete(`${ROOT_URL}/smallGroups/${param.path}/interest?interestName=${param.interestName}`);
