@@ -19,3 +19,6 @@ export const addInterestToSmallGroup = (param) => axios.post(`${ROOT_URL}/smallG
 
 // 관심사 삭제
 export const removeInterestToSmallGroup = (param) => axios.delete(`${ROOT_URL}/smallGroups/${param.path}/interest?interestName=${param.interestName}`);
+
+// 관심사 조회
+export const getSmallGroupInterests = (path) => axios.get(`${ROOT_URL}/smallGroups/${path}/interests`);

@@ -3,7 +3,7 @@ import SmallGroupSettingBase from './SmallGroupSettingBase'
 import { Box, Grid } from '@mui/material';
 import Tags from '@yaireo/tagify/dist/react.tagify';
 import "@yaireo/tagify/dist/tagify.css" // Tagify CSS
-import { requestAddInterestToSmallGroup, requestRemoveInterestToSmallGroup } from '../../../slice/smallGroupSlice';
+import { requestAddInterestToSmallGroup, requestGetSmallGroupInterests, requestRemoveInterestToSmallGroup } from '../../../slice/smallGroupSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { requestGetInterestWhiteList } from '../../../slice/interestSlice';
 import { useParams } from 'react-router-dom';
@@ -14,7 +14,8 @@ function SamllGroupInterests() {
     const { path } = useParams();
 
     const whitelist = useSelector((state) => state.interestSlice.whitelist);
-    //const myInterests = useSelector((state) => state.memberSlice.myInterests);
+    const smallGroupInterests = useSelector((state) => state.smallGroupSlice.smallGroupInterests);
+
     const getWhiteList = async () => {
         try {
             await dispatch(requestGetInterestWhiteList()).unwrap;
@@ -23,20 +24,18 @@ function SamllGroupInterests() {
         }
     }
 
-    // const getMyInterests = async () => {
-    //     try {
-    //         await dispatch(requestGetMyInterests()).unwrap;
-    //     } catch {
-    //         alert("error");
-    //     }
-    // }
+    const getSmallGroupInterests = async () => {
+        try {
+            await dispatch(requestGetSmallGroupInterests(path)).unwrap;
+        } catch {
+            alert("error");
+        }
+    }
 
     useEffect(() => {
         getWhiteList();
-        // getMyInterests();
+        getSmallGroupInterests();
     }, [])
-
-    const profileInterests = []
 
     let isInitialDataLoadFinished = false;
     const setAfterDataLoad = () => {        // 데이터가 로드된 것으로 간주함 (타이핑 한 경우)
@@ -89,7 +88,7 @@ function SamllGroupInterests() {
                             <Tags
                                 autoFocus={true}
                                 whitelist={whitelist}
-                                value={profileInterests}
+                                value={smallGroupInterests}
                                 loading={true}
                                 onAdd={onInterestAdd}
                                 onRemove={onInterestRemove}

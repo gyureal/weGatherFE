@@ -3,7 +3,8 @@ import * as smallGroupsApi from '../api/smallGroupsApi';
 
 const initialState = {
     smallGroup: {},
-    smallGroupMembers: []
+    smallGroupMembers: [],
+    smallGroupInterests: []
 };
 
 export const smallGroupSlice = createSlice({
@@ -16,6 +17,10 @@ export const smallGroupSlice = createSlice({
 
         builder.addCase(requestGetSmallGroupMembers.fulfilled, (state, action) => {
             state.smallGroupMembers = action.payload;
+        });
+
+        builder.addCase(requestGetSmallGroupInterests.fulfilled, (state, action) => {
+            state.smallGroupInterests = action.payload;
         });
     }
 });
@@ -65,4 +70,9 @@ export const requestRemoveInterestToSmallGroup = createAsyncThunk('smallGroup/re
         return (await smallGroupsApi.removeInterestToSmallGroup(param)).data;
     });
 
+// 소모임 관심사 조회
+export const requestGetSmallGroupInterests = createAsyncThunk('smallGroup/requestGetSmallGroupInterests',
+    async (param) => {
+        return (await smallGroupsApi.getSmallGroupInterests(param)).data;
+    });
 
