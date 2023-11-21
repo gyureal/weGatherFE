@@ -4,7 +4,9 @@ import { Box, Button, Container, Typography } from '@mui/material'
 import { FormField } from '../../../components/common/FormField';
 import Editor from '../../../components/common/editor/Editor';
 import { Field, reduxForm } from 'redux-form';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
+import { requestUpdateSmallGroupDescription } from '../../../slice/smallGroupSlice';
+import { useParams } from 'react-router-dom';
 
 const renderField = (field) => {
     return (
@@ -33,19 +35,34 @@ const validate = (values) => {
     return errors;
 }
 
-const submitForm = () => {
+let SmallGroupEdit = ({ handleSubmit, submitting }) => {
 
-}
+    const dispatch = useDispatch();
+    const { path } = useParams();
 
-let SmallGroupEdit = (props) => {
-    const { handleSubmit, submitting } = props;
+    const submitForm = async (values) => {
+        try {
+            const param = {
+                'path': path,
+                'data': {
+                    'shortDescription': values.shortDescription,
+                    'fullDescription': values.fullDescription
+                }
+            }
+            console.log("param", param);
+            await dispatch(requestUpdateSmallGroupDescription(param)).unwrap();
+        } catch {
+            alert("수정에 실패했습니다.");
+        }
+    }
+
     return (
         <SmallGroupSettingBase currentMenu={'edit'}>
             <Container maxWidth="md">
                 <Box sx={{ fontSize: 'h4.fontSize', fontWeight: 'regular' }}>
                     소모임 소개
                 </Box>
-                <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                <Box component="form" onSubmit={handleSubmit(submitForm)} noValidate sx={{ mt: 1 }}>
                     <Field
                         component={renderField}
                         name="shortDescription"
@@ -65,7 +82,7 @@ let SmallGroupEdit = (props) => {
                         disabled={submitting}
                         sx={{ mt: 3, mb: 1 }}
                     >
-                        소모임 만들기
+                        소모임 소개 수정
                     </Button>
                 </Box>
             </Container>
@@ -73,10 +90,10 @@ let SmallGroupEdit = (props) => {
     )
 }
 
-const mapStateToProps = () => {
-    return {}        // Redux Form 초기값주기 
+const mapStateToProps = (state) => {
+    return { initialValues: state.smallGroupSlice.smallGroup }
 }
 
-SmallGroupEdit = reduxForm({ validate, form: 'SmallGroupEdit' })(SmallGroupEdit);
+SmallGroupEdit = reduxForm({ validate, form: 'SmallGroupEdit', enableReinitialize: true })(SmallGroupEdit); // enableReinitialize 설정 추가해 주어야 바인딩됨
 SmallGroupEdit = connect(mapStateToProps, null)(SmallGroupEdit);
 export default SmallGroupEdit;

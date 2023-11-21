@@ -76,3 +76,8 @@ export const requestGetSmallGroupInterests = createAsyncThunk('smallGroup/reques
         return (await smallGroupsApi.getSmallGroupInterests(param)).data;
     });
 
+// 소모임 소개 수정
+export const requestUpdateSmallGroupDescription = createAsyncThunk('smallGroup/requestUpdateSmallGroupDescription',
+    async (param) => {
+        return (await smallGroupsApi.updateSmallGroupDescription(param)).data;
+    });
