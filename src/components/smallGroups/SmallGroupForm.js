@@ -3,13 +3,11 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import React from 'react'
 import { Field, SubmissionError, reduxForm } from 'redux-form';
 import { FormField } from '../common/FormField';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import "./SmallGroupForm.css";
 import { requestCreateSmallGroup } from '../../slice/smallGroupSlice';
 import { connect, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import ConfirmDialog from '../common/ConfirmDialog';
+import Editor from '../common/editor/Editor';
 
 const renderField = (field) => {
     return (
@@ -26,16 +24,7 @@ const renderEditorField = (field) => {
                 <Typography variant="body" color="text.secondary">
                     {field.label}
                 </Typography>
-                <CKEditor
-                    editor={ClassicEditor}
-                    config={{ placeholder: field.hintText }}
-                    data={field.input.value}
-                    onChange={(event, editor) => {
-                        const data = editor.getData();
-                        return field.input.onChange(editor.getData())
-                    }
-                    }
-                />
+                <Editor field={field} />
             </Box>
         </div>
     );
