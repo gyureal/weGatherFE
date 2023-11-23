@@ -23,6 +23,8 @@ export const removeInterestToSmallGroup = (param) => axios.delete(`${ROOT_URL}/s
 // 관심사 조회
 export const getSmallGroupInterests = (path) => axios.get(`${ROOT_URL}/smallGroups/${path}/interests`);
 
-
 // 소모임 소개 수정
 export const updateSmallGroupDescription = (param) => axios.put(`${ROOT_URL}/smallGroups/${param.path}`, param.data);
+
+// 소모임 배너 사용 여부 토글
+export const toggleUseBanner = (param) => axios.post(`${ROOT_URL}/smallGroups/${param.path}/toggle-use-banner`);

@@ -10,11 +10,6 @@ const initialState = {
 export const smallGroupSlice = createSlice({
     name: 'smallGroupSlice',
     initialState,
-    reducers: {
-        toggleBanner(state) {
-            state.smallGroup.useBanner = !state.smallGroup.useBanner;
-        }
-    },
     extraReducers: (builder) => {
         builder.addCase(requestGetSmallGroup.fulfilled, (state, action) => {
             state.smallGroup = action.payload
@@ -27,6 +22,10 @@ export const smallGroupSlice = createSlice({
         builder.addCase(requestGetSmallGroupInterests.fulfilled, (state, action) => {
             state.smallGroupInterests = action.payload;
         });
+
+        builder.addCase(requestToggleUseBanner.fulfilled, (state) => {
+            state.smallGroup.useBanner = !state.smallGroup.useBanner;
+        })
     }
 });
 
@@ -58,7 +57,6 @@ export const requestGetSmallGroupMembers = createAsyncThunk('smallGroup/requestG
 // 소모임 배너 업데이트
 export const requestUpdateSmallGroupBanner = createAsyncThunk('smallGroup/requestUpdateSmallGroupBanner',
     async (param) => {
-        console.log("data..", param);
         return (await smallGroupsApi.updateSmallGroupBanner(param)).data;
     });
 
@@ -87,5 +85,8 @@ export const requestUpdateSmallGroupDescription = createAsyncThunk('smallGroup/r
         return (await smallGroupsApi.updateSmallGroupDescription(param)).data;
     });
 
-// 배너 변경 action
-export const { toggleBanner } = smallGroupSlice.actions;
+// 소모임 배너 사용 여부 변경
+export const requestToggleUseBanner = createAsyncThunk('smallGroup/requestToggleUseBanner',
+    async (param) => {
+        return (await smallGroupsApi.toggleUseBanner(param)).data;
+    });

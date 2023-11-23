@@ -6,34 +6,26 @@ import { requestUpdateSmallGroupBanner } from '../../../slice/smallGroupSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { awsPrefix } from '../../../static/globalVariables'
-import { toggleBanner } from '../../../slice/smallGroupSlice'
+import { requestToggleUseBanner } from '../../../slice/smallGroupSlice'
 
 function SmallGroupBanner() {
 
     const { path } = useParams();
-    console.log("path ", path);
-
     const dispatch = useDispatch();
-
     const smallGroup = useSelector((state) => state.smallGroupSlice.smallGroup);
 
     const saveRequest = (cropResult) => {
-
         if (!cropResult.image) {
             return;
         }
-
         const image = {
             'image': cropResult.image,
             'originalImageName': cropResult.originalImageName
         }
-
         const param = {
             'path': path,
             'image': image
         }
-
-        console.log("data ", param);
         dispatch(requestUpdateSmallGroupBanner(param));
     }
 
@@ -45,7 +37,10 @@ function SmallGroupBanner() {
     }
 
     const onUseBannerClick = () => {
-        dispatch(toggleBanner());
+        const param = {
+            'path': path
+        }
+        dispatch(requestToggleUseBanner(param));
     }
 
     return (
