@@ -10,6 +10,11 @@ const initialState = {
 export const smallGroupSlice = createSlice({
     name: 'smallGroupSlice',
     initialState,
+    reducers: {
+        toggleBanner(state) {
+            state.smallGroup.useBanner = !state.smallGroup.useBanner;
+        }
+    },
     extraReducers: (builder) => {
         builder.addCase(requestGetSmallGroup.fulfilled, (state, action) => {
             state.smallGroup = action.payload
@@ -81,3 +86,6 @@ export const requestUpdateSmallGroupDescription = createAsyncThunk('smallGroup/r
     async (param) => {
         return (await smallGroupsApi.updateSmallGroupDescription(param)).data;
     });
+
+// 배너 변경 action
+export const { toggleBanner } = smallGroupSlice.actions;

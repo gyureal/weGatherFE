@@ -38,7 +38,6 @@ const getJoinOrLeaveButton = (smallGroup) => {
 }
 
 function SmallGroupInfo({ smallGroup }) {
-    console.log(smallGroup);
     return (
         <Box marginTop={2}>
             <Grid container justifyContent="center">

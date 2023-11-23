@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import SmallGroupSettingBase from './SmallGroupSettingBase'
-import { Box, Grid } from '@mui/material';
+import { Box, Button, Grid } from '@mui/material';
 import Tags from '@yaireo/tagify/dist/react.tagify';
 import "@yaireo/tagify/dist/tagify.css" // Tagify CSS
 import { requestAddInterestToSmallGroup, requestGetSmallGroupInterests, requestRemoveInterestToSmallGroup } from '../../../slice/smallGroupSlice';
