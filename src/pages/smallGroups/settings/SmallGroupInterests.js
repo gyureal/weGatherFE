@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import SmallGroupSettingBase from './SmallGroupSettingBase'
-import { Box, Button, Grid } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import Tags from '@yaireo/tagify/dist/react.tagify';
 import "@yaireo/tagify/dist/tagify.css" // Tagify CSS
-import { requestAddInterestToSmallGroup, requestGetSmallGroupInterests, requestRemoveInterestToSmallGroup } from '../../../slice/smallGroupSlice';
+import { requestAddInterestToSmallGroup, requestRemoveInterestToSmallGroup } from '../../../slice/smallGroupSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { requestGetInterestWhiteList } from '../../../slice/interestSlice';
 import { useParams } from 'react-router-dom';
@@ -24,17 +24,8 @@ function SamllGroupInterests() {
         }
     }
 
-    const getSmallGroupInterests = async () => {
-        try {
-            await dispatch(requestGetSmallGroupInterests(path)).unwrap;
-        } catch {
-            alert("error");
-        }
-    }
-
     useEffect(() => {
         getWhiteList();
-        getSmallGroupInterests();
     }, [])
 
     let isInitialDataLoadFinished = false;

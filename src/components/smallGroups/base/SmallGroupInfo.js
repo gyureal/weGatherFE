@@ -1,5 +1,7 @@
-import { Box, Button, Grid, Typography } from '@mui/material'
+import { Box, Button, Grid, Stack, Typography } from '@mui/material'
 import React from 'react'
+import InterestTag from '../../common/InterestTag';
+import { useSelector } from 'react-redux';
 
 
 const getStatus = (smallGroup) => {
@@ -37,7 +39,9 @@ const getJoinOrLeaveButton = (smallGroup) => {
     }
 }
 
-function SmallGroupInfo({ smallGroup }) {
+const SmallGroupInfo = ({ smallGroup }) => {
+    const smallGroupInterests = useSelector((state) => state.smallGroupSlice.smallGroupInterests);
+
     return (
         <Box marginTop={2}>
             <Grid container justifyContent="center">
@@ -66,6 +70,20 @@ function SmallGroupInfo({ smallGroup }) {
                     </Typography>
                 </Grid>
             </Grid>
+            <Grid container justifyContent="center">
+                <Grid item xs={10}>
+                    <Box sx={{ mt: 2 }}>
+                        <Stack direction="row" spacing={2}>
+                            {
+                                smallGroupInterests.map((interest) => (
+                                    <InterestTag interest={interest} />
+                                ))
+                            }
+                        </Stack>
+                    </Box>
+                </Grid>
+            </Grid>
+
         </Box>
     )
 }
