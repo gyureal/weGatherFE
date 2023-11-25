@@ -110,7 +110,7 @@ function CropImage({ saveRequest, defaultImage, type, title, aspectRatio }) {
 
 
                 <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
-                    <FileUploadButton onImageChange={onImageUpload} />
+                    <FileUploadButton onImageChange={onImageUpload} label='Image Upload' />
 
                     <Button component="label" variant="contained" sx={{ marginTop: 1 }} color='primary'
                         onClick={onConfirmClick} disabled={disabledConfirm()}>
