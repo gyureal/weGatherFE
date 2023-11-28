@@ -12,7 +12,7 @@ export const getSmallGroup = (path) => axios.get(`${ROOT_URL}/smallGroups/${path
 export const getSmallGroupMembers = (path) => axios.get(`${ROOT_URL}/smallGroups/${path}/managers-and-members`);
 
 // 소모임 배너 사진 업데이트
-export const updateSmallGroupBanner = (param) => axios.post(`${ROOT_URL}/smallGroups/${param.path}/banner`, param.image);
+export const updateSmallGroupBanner = (param) => axios.post(`${ROOT_URL}/smallGroups/${param.path}/banner/v2`, param.image);
 
 // 관심사 추가
 export const addInterestToSmallGroup = (param) => axios.post(`${ROOT_URL}/smallGroups/${param.path}/interest?interestName=${param.interestName}`);

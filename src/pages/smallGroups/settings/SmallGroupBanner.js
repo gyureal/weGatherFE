@@ -15,13 +15,12 @@ function SmallGroupBanner() {
     const smallGroup = useSelector((state) => state.smallGroupSlice.smallGroup);
 
     const saveRequest = (cropResult) => {
-        const image = {
-            'image': cropResult.base64Image,
-            'originalImageName': cropResult.originalImageName
-        }
+        const formData = new FormData();
+        formData.append('multipartImage', cropResult.blobImage, cropResult.originalImageName);
+
         const param = {
             'path': path,
-            'image': image
+            'image': formData
         }
         dispatch(requestUpdateSmallGroupBanner(param));
     }
