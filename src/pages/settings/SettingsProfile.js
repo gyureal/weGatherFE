@@ -62,14 +62,8 @@ let SettingsProfile = ({ handleSubmit, submitting }) => {
     }
 
     const saveRequest = async (cropResult) => {
-        console.log("cropResult ", cropResult);
-
-        if (!cropResult.image) {
-            return;
-        }
-
         const formData = new FormData();
-        formData.append('multipartImage', cropResult.image, cropResult.originalImageName);
+        formData.append('multipartImage', cropResult.blobImage, cropResult.originalImageName);
 
         try {
             await dispatch(requestEditProfileImage(formData)).unwrap();

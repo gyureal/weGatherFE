@@ -74,7 +74,8 @@ function CropImage({ saveRequest, defaultImage, type, title, aspectRatio }) {
             return;
         }
         const data = {
-            'image': croppedBlob,
+            'base64Image': image,
+            'blobImage': croppedBlob,
             'originalImageName': originalImageName
         }
         saveRequest(data);

@@ -15,11 +15,8 @@ function SmallGroupBanner() {
     const smallGroup = useSelector((state) => state.smallGroupSlice.smallGroup);
 
     const saveRequest = (cropResult) => {
-        if (!cropResult.image) {
-            return;
-        }
         const image = {
-            'image': cropResult.image,
+            'image': cropResult.base64Image,
             'originalImageName': cropResult.originalImageName
         }
         const param = {
