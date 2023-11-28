@@ -64,8 +64,6 @@ function CropImage({ saveRequest, defaultImage, type, title, aspectRatio }) {
 
     // 업로드, Cropped 된 사진이 저장되어야함
     const onConfirmClick = async () => {
-        saveRequest(image);
-
         const data = {
             'image': image,
             'originalImageName': originalImageName
