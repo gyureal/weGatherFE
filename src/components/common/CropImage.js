@@ -7,20 +7,19 @@ import '/node_modules/cropperjs/dist/cropper.css';
 import { Cropper } from 'react-cropper';
 import { imageExtensions } from '../../static/globalVariables';
 
-// DB에 저장된 이미지 
-let savedImage = "";
 
-// 업로드한 파일 
-let originalImageName = "";
 
+//  
 function CropImage({ saveRequest, defaultImage, type, title, aspectRatio }) {
     const [image, setImage] = useState("");
+    const [savedImage, setSavedImage] = useState(""); // DB에 저장된 이미지 
+    const [originalImageName, setOriginalImageName] = useState(""); //업로드한 파일
 
     // 특정한 값이 변경될 때에만 호출되게 하려면 useEffect + 의존성 배열을 써야한다.
     // 의존성 배열의 값이 변경될 때만 useEffect 를 호출하게 된다.
     // setImage(defaultImage); -> 무한루프
     useEffect(() => {
-        savedImage = defaultImage;
+        setSavedImage(defaultImage);
         setImage(defaultImage);
     }, [defaultImage])
 
@@ -42,7 +41,7 @@ function CropImage({ saveRequest, defaultImage, type, title, aspectRatio }) {
             return;
         }
 
-        originalImageName = file.name;
+        setOriginalImageName(file.name);
         if (file) {
             const imageUrl = URL.createObjectURL(file);
             setUploadImage(imageUrl);
@@ -69,7 +68,7 @@ function CropImage({ saveRequest, defaultImage, type, title, aspectRatio }) {
             'originalImageName': originalImageName
         }
         saveRequest(data);
-        savedImage = image;
+        setSavedImage(image);
         setUploadImage("");
     }
 
@@ -84,7 +83,6 @@ function CropImage({ saveRequest, defaultImage, type, title, aspectRatio }) {
 
     // 업로드 취소 : DB에 저장된 이미지로 되돌리기
     const onCancelClick = () => {
-        console.log(savedImage);
         setImage(savedImage);
     }
 
