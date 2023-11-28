@@ -68,13 +68,11 @@ let SettingsProfile = ({ handleSubmit, submitting }) => {
             return;
         }
 
-        const image = {
-            'image': cropResult.image,
-            'originalImageName': cropResult.originalImageName
-        }
+        const formData = new FormData();
+        formData.append('multipartImage', cropResult.image, cropResult.originalImageName);
 
         try {
-            await dispatch(requestEditProfileImage(image)).unwrap();
+            await dispatch(requestEditProfileImage(formData)).unwrap();
         } catch {
             alert("이미지 업로드에 실패했습니다.");
         }
