@@ -14,6 +14,7 @@ function CropImage({ saveRequest, defaultImage, type, title, aspectRatio }) {
     const [image, setImage] = useState("");
     const [savedImage, setSavedImage] = useState(""); // DB에 저장된 이미지 
     const [originalImageName, setOriginalImageName] = useState(""); //업로드한 파일
+    const [croppedBlob, setCroppedBlob] = useState("");
 
     // 특정한 값이 변경될 때에만 호출되게 하려면 useEffect + 의존성 배열을 써야한다.
     // 의존성 배열의 값이 변경될 때만 useEffect 를 호출하게 된다.
@@ -28,6 +29,11 @@ function CropImage({ saveRequest, defaultImage, type, title, aspectRatio }) {
 
     const onCrop = () => {
         if (cropperRef.current && typeof cropperRef.current.cropper !== "undefined") {
+            // Blob 이미지 담기
+            cropperRef.current.cropper.getCroppedCanvas().toBlob((blob) => {
+                setCroppedBlob(blob);
+            })
+            // 이미지 보여주기
             setImage(cropperRef.current.cropper.getCroppedCanvas().toDataURL());
         }
     };
@@ -63,8 +69,12 @@ function CropImage({ saveRequest, defaultImage, type, title, aspectRatio }) {
 
     // 업로드, Cropped 된 사진이 저장되어야함
     const onConfirmClick = async () => {
+        if (croppedBlob == "" || originalImageName == "") {
+            console.log("서버로 전송할 이미지가 없습니다.");
+            return;
+        }
         const data = {
-            'image': image,
+            'image': croppedBlob,
             'originalImageName': originalImageName
         }
         saveRequest(data);
@@ -84,6 +94,7 @@ function CropImage({ saveRequest, defaultImage, type, title, aspectRatio }) {
     // 업로드 취소 : DB에 저장된 이미지로 되돌리기
     const onCancelClick = () => {
         setImage(savedImage);
+        setCroppedBlob("");
     }
 
     return (
