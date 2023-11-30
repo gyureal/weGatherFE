@@ -9,7 +9,6 @@ import { requestUpdateSmallGroupDescription } from '../../../slice/smallGroupSli
 import { useParams } from 'react-router-dom';
 import FileUploadButton from '../../../components/common/FileUploadButton';
 import { awsPrefix, defaultImage } from '../../../static/globalVariables';
-import { convertObjectURLToBase64 } from '../../../lib/lib';
 
 const renderField = (field) => {
     return (
@@ -40,7 +39,8 @@ const validate = (values) => {
 
 let SmallGroupEdit = ({ handleSubmit, submitting }) => {
 
-    const [uploadImage, setUploadImage] = useState("");
+    const [uploadImageUrl, setUploadImageUrl] = useState("");
+    const [uploadBlobImage, setUploadBlobImage] = useState("");
     const [isImageUploaded, setIsImageUploaded] = useState(false);
     const [originalImageName, setOriginalImageName] = useState("");
 
@@ -52,25 +52,23 @@ let SmallGroupEdit = ({ handleSubmit, submitting }) => {
     // 업로드 된 이미지를 서버로 보내기
     const submitForm = async (values) => {
         try {
-            let base64Image = "";
-            if (isImageUploaded && uploadImage) {
-                base64Image = await convertObjectURLToBase64(uploadImage);
+            const formData = new FormData();
+            const descriptionInfo = {
+                'shortDescription': values.shortDescription,
+                'fullDescription': values.fullDescription
             }
+            const json = JSON.stringify(descriptionInfo);
+            formData.append('descriptionInfo', new Blob([json], { type: "application/json" }));
+            formData.append('image', uploadBlobImage, originalImageName);
 
             const param = {
                 'path': path,
-                'data': {
-                    'shortDescription': values.shortDescription,
-                    'fullDescription': values.fullDescription,
-                    'image': base64Image,
-                    'originalImageName': originalImageName
-                }
+                'formData': formData
             }
-            console.log("param", param);
+
             await dispatch(requestUpdateSmallGroupDescription(param)).unwrap();
             // DB 저장 후 업로드 이미지 초기화
-            setUploadImage("");
-            setOriginalImageName("");
+            window.location.reload();
         } catch {
             alert("수정에 실패했습니다.");
         }
@@ -81,7 +79,8 @@ let SmallGroupEdit = ({ handleSubmit, submitting }) => {
         const image = event.target.files[0];
         if (image) {
             const imageUrl = URL.createObjectURL(image);
-            setUploadImage(imageUrl);
+            setUploadImageUrl(imageUrl);
+            setUploadBlobImage(image);
             setIsImageUploaded(true);
             setOriginalImageName(image.name);   // 업로드한 원본 파일명
         }
@@ -89,13 +88,14 @@ let SmallGroupEdit = ({ handleSubmit, submitting }) => {
 
     // DB에 저장된 이미지로 돌리기
     const onCancelClick = () => {
-        setUploadImage(savedImage);
+        setUploadImageUrl(savedImage);
+        setUploadBlobImage("");
         setIsImageUploaded(false);
     }
 
     const showImage = () => {
         if (isImageUploaded) {
-            return uploadImage;
+            return uploadImageUrl;
         }
         if (savedImage) {
             return awsPrefix + savedImage;
