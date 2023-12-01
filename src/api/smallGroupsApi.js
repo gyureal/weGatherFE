@@ -32,3 +32,12 @@ export const updateSmallGroupDescription = (param) => axios.put(`${ROOT_URL}/sma
 
 // 소모임 배너 사용 여부 토글
 export const toggleUseBanner = (param) => axios.post(`${ROOT_URL}/smallGroups/${param.path}/toggle-use-banner`);
+
+// 소모임 검색
+export const searchSmallGroup = (param) => axios.get(`${ROOT_URL}/smallGroups`, {
+    params: {
+        size: param.size,
+        page: param.page,
+        keyword: param.keyword
+    }
+})

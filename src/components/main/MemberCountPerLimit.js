@@ -3,7 +3,7 @@ import GroupsIcon from '@mui/icons-material/Groups';
 
 import React from 'react'
 
-function MemberCountPerLimit() {
+function MemberCountPerLimit({ currentCount, maxCount }) {
     const color = 'grey';
     return (
         <Box>
@@ -13,7 +13,9 @@ function MemberCountPerLimit() {
                 flexWrap: 'wrap',
             }}>
                 <GroupsIcon sx={{ color: color }} />
-                <Typography sx={{ color: color, ml: 1 }} component='span' variant='caption'>1/10</Typography>
+                <Typography sx={{ color: color, ml: 1 }} component='span' variant='caption'>
+                    {`${currentCount}/${maxCount}`}
+                </Typography>
             </div>
 
         </Box>

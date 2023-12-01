@@ -4,13 +4,30 @@ import MainCardTag from './MainCardTag'
 import MemberCountPerLimit from './MemberCountPerLimit'
 import InterestTag from '../common/InterestTag'
 import HashInterestTag from './HashInterestTag'
+import { useNavigate } from 'react-router-dom'
 
-function SmallGroupCard() {
+const convertDateFormat = (datetime) => {
+    const originalDate = new Date(datetime);
+
+    const year = originalDate.getFullYear();
+    const month = originalDate.getMonth() + 1; // 월은 0부터 시작하므로 1을 더합니다.
+    const day = originalDate.getDate();
+
+    return `${year}년 ${month}월 ${day}일`;
+}
+
+const SmallGroupCard = ({ smallGroup }) => {
+    const navigate = useNavigate();
+
+    const onCardClick = (e) => {
+        navigate(`/smallGroups/${smallGroup.path}`);
+    }
+
     return (
         <Card
             sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
         >
-            <CardActionArea>
+            <CardActionArea onClick={onCardClick}>
                 <CardMedia
                     component="div"
                     sx={{
@@ -26,27 +43,30 @@ function SmallGroupCard() {
                         </Grid>
                     </Grid>
                     <Typography gutterBottom variant="h5" mt={0.5}>
-                        Heading
+                        {smallGroup.name}
                     </Typography>
                     <Typography variant='body2'>
-                        This is a media card. You can use this section to describe the
-                        content.
+                        {smallGroup.shortDescription}
                     </Typography>
                     <Box mt={1}>
-                        <HashInterestTag interest='취미' />
+                        {
+                            smallGroup.interests.map((interest) => {
+                                <HashInterestTag interest={interest} />
+                            })
+                        }
+                        {/* <HashInterestTag interest='취미' /> */}
                     </Box>
                     <Grid container justifyContent='space-between' marginTop={1}>
                         <Grid item>
-                            <MemberCountPerLimit />
+                            <MemberCountPerLimit currentCount={smallGroup.currentMemberCount} maxCount={smallGroup.maxMemberCount} />
                         </Grid>
                         <Grid item>
                             <Typography variant='caption' sx={{ color: 'grey' }}>
-                                2022년 11월 23일
+                                {/* 2022년 11월 23일 */}
+                                {convertDateFormat(smallGroup.createdAt)}
                             </Typography>
                         </Grid>
                     </Grid>
-
-
                 </CardContent>
             </CardActionArea>
         </Card>

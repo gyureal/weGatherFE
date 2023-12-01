@@ -4,7 +4,11 @@ import * as smallGroupsApi from '../api/smallGroupsApi';
 const initialState = {
     smallGroup: {},
     smallGroupMembers: [],
-    smallGroupInterests: []
+    smallGroupInterests: [],
+    smallGroupSearchResult: {
+        "content": [],
+        "totalPages": 0
+    }
 };
 
 export const smallGroupSlice = createSlice({
@@ -25,6 +29,10 @@ export const smallGroupSlice = createSlice({
 
         builder.addCase(requestToggleUseBanner.fulfilled, (state) => {
             state.smallGroup.useBanner = !state.smallGroup.useBanner;
+        });
+
+        builder.addCase(requestSearchSmallGroup.fulfilled, (state, action) => {
+            state.smallGroupSearchResult = action.payload;
         })
     }
 });
@@ -89,4 +97,10 @@ export const requestUpdateSmallGroupDescription = createAsyncThunk('smallGroup/r
 export const requestToggleUseBanner = createAsyncThunk('smallGroup/requestToggleUseBanner',
     async (param) => {
         return (await smallGroupsApi.toggleUseBanner(param)).data;
+    });
+
+// 소모임 검색
+export const requestSearchSmallGroup = createAsyncThunk('smallGroup/requestSearchSmallGroup',
+    async (param) => {
+        return (await smallGroupsApi.searchSmallGroup(param)).data;
     });
