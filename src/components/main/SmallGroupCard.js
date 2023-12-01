@@ -2,9 +2,9 @@ import { Box, Card, CardActionArea, CardContent, CardMedia, Grid, Typography } f
 import React from 'react'
 import MainCardTag from './MainCardTag'
 import MemberCountPerLimit from './MemberCountPerLimit'
-import InterestTag from '../common/InterestTag'
 import HashInterestTag from './HashInterestTag'
 import { useNavigate } from 'react-router-dom'
+import { awsPrefix, defaultImage } from '../../static/globalVariables'
 
 const convertDateFormat = (datetime) => {
     const originalDate = new Date(datetime);
@@ -23,6 +23,13 @@ const SmallGroupCard = ({ smallGroup }) => {
         navigate(`/smallGroups/${smallGroup.path}`);
     }
 
+    const showImage = () => {
+        if (smallGroup && smallGroup.image) {
+            return awsPrefix + smallGroup.image;
+        }
+        return defaultImage;
+    }
+
     return (
         <Card
             sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
@@ -34,7 +41,7 @@ const SmallGroupCard = ({ smallGroup }) => {
                         // 16:9
                         pt: '56.25%',   // 이미지의 가로길이 대비 세로길이 (%) 인듯
                     }}
-                    image="https://source.unsplash.com/random?wallpapers"
+                    image={showImage()}
                 />
                 <CardContent sx={{ flexGrow: 1 }}>
                     <Grid container justifyContent='space-between'>
@@ -50,9 +57,9 @@ const SmallGroupCard = ({ smallGroup }) => {
                     </Typography>
                     <Box mt={1}>
                         {
-                            smallGroup.interests.map((interest) => {
-                                <HashInterestTag interest={interest} />
-                            })
+                            smallGroup.interests.map((interest, index) => (
+                                <HashInterestTag interest={interest} key={index} />
+                            ))
                         }
                         {/* <HashInterestTag interest='취미' /> */}
                     </Box>

@@ -5,6 +5,6 @@ export const defaultAvatar = "https://raw.githubusercontent.com/gyureal/storage/
 
 export const defaultBanner = "https://raw.githubusercontent.com/gyureal/storage/main/image/default-galaxy-banner.jpg";
 
-export const defaultImage = "https://raw.githubusercontent.com/gyureal/storage/main/image/default-banner1.jpg";
+export const defaultImage = "https://raw.githubusercontent.com/gyureal/storage/main/image/people.jpg";
 
 export const imageExtensions = [".jpg", ".jpeg", ".png"];
