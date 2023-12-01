@@ -9,7 +9,7 @@ import SmallGroupMain from './pages/smallGroups/SmallGroupMain';
 import SmallGroupMember from './pages/smallGroups/SmallGroupMember';
 import SmallGroupEdit from './pages/smallGroups/settings/SmallGroupEdit';
 import SmallGroupBanner from './pages/smallGroups/settings/SmallGroupBanner';
-import Index from './pages/main';
+import Index from './pages/main/Index';
 import SignUp from './pages/main/signUp';
 import Login from './pages/main/login';
 import EmailResend from './pages/main/EmailResend';

@@ -1,0 +1,56 @@
+import { Box, Card, CardActionArea, CardContent, CardMedia, Grid, Typography } from '@mui/material'
+import React from 'react'
+import MainCardTag from './MainCardTag'
+import MemberCountPerLimit from './MemberCountPerLimit'
+import InterestTag from '../common/InterestTag'
+import HashInterestTag from './HashInterestTag'
+
+function SmallGroupCard() {
+    return (
+        <Card
+            sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+        >
+            <CardActionArea>
+                <CardMedia
+                    component="div"
+                    sx={{
+                        // 16:9
+                        pt: '56.25%',   // 이미지의 가로길이 대비 세로길이 (%) 인듯
+                    }}
+                    image="https://source.unsplash.com/random?wallpapers"
+                />
+                <CardContent sx={{ flexGrow: 1 }}>
+                    <Grid container justifyContent='space-between'>
+                        <Grid item>
+                            <MainCardTag label='모집중' />
+                        </Grid>
+                    </Grid>
+                    <Typography gutterBottom variant="h5" mt={0.5}>
+                        Heading
+                    </Typography>
+                    <Typography variant='body2'>
+                        This is a media card. You can use this section to describe the
+                        content.
+                    </Typography>
+                    <Box mt={1}>
+                        <HashInterestTag interest='취미' />
+                    </Box>
+                    <Grid container justifyContent='space-between' marginTop={1}>
+                        <Grid item>
+                            <MemberCountPerLimit />
+                        </Grid>
+                        <Grid item>
+                            <Typography variant='caption' sx={{ color: 'grey' }}>
+                                2022년 11월 23일
+                            </Typography>
+                        </Grid>
+                    </Grid>
+
+
+                </CardContent>
+            </CardActionArea>
+        </Card>
+    )
+}
+
+export default SmallGroupCard
