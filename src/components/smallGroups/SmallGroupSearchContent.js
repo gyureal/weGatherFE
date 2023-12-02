@@ -15,7 +15,7 @@ const SmallGroupSearchContent = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const page = parseInt(searchParams.get("page")) ?? 1;
 
-    const searchSmallGroup = async (keyword) => {
+    const searchSmallGroup = async (keyword, page) => {
         try {
             const param = {
                 size: 9,
@@ -28,9 +28,13 @@ const SmallGroupSearchContent = () => {
         }
     }
 
+    // page값이 변경될 때 마다 새로 조회하도록 해야함 (뒤로가기, 렌더링 가능)
+    // react-router Route 에는 같은 컴포넌트를 보도록 되어 있기 때문에, url이 바뀌더라도 reload가 되지 않는다.
+    // url 변경(파라메터)에 따라 state를 변경해 주어야 렌더링이 된다. 즉, page가 변경될 때 마다 조회 쿼리를 실행한다.
     useEffect(() => {
-        searchSmallGroup("");
-    }, [])
+        searchSmallGroup("", page);
+    }, [page])
+
 
     const onPaginationChange = (e, value) => {
         searchParams.set("page", value);
@@ -38,7 +42,6 @@ const SmallGroupSearchContent = () => {
             pathname: "/smallGroups",
             search: searchParams.toString(),        // page=1
         });
-        navigate(0);
     }
 
 
