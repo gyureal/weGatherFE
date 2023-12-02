@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useRoutes, Router } from 'react-router-dom';
 import SettingsProfile from './pages/settings/SettingsProfile';
 import SettingsPassword from './pages/settings/SettingsPassword';
 import SettingsAlarm from './pages/settings/SettingsAlarm';
@@ -9,19 +9,22 @@ import SmallGroupMain from './pages/smallGroups/SmallGroupMain';
 import SmallGroupMember from './pages/smallGroups/SmallGroupMember';
 import SmallGroupEdit from './pages/smallGroups/settings/SmallGroupEdit';
 import SmallGroupBanner from './pages/smallGroups/settings/SmallGroupBanner';
-import Index from './pages/main/Index';
 import SignUp from './pages/main/signUp';
 import Login from './pages/main/login';
 import EmailResend from './pages/main/EmailResend';
 import CheckEmailToken from './pages/main/CheckEmailToken';
 import Profile from './pages/main/Profile';
 import SamllGroupInterests from './pages/smallGroups/settings/SmallGroupInterests';
+import Main from './pages/main/Main';
+import SmallGroupsAll from './pages/smallGroups/SmallGroupsAll';
+
+
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Index />}></Route>
+        <Route path="/" element={<Main />}></Route>
         <Route path='/sign-up' element={<SignUp />}></Route>
         <Route path='/login' element={<Login />}></Route>
         <Route path='/email-resend' element={<EmailResend />}></Route>
@@ -33,6 +36,7 @@ export default function App() {
         <Route path='/settings/alarm' element={<SettingsAlarm />}></Route>
         <Route path='/settings/interests' element={<SettingInterests />}></Route>
 
+        <Route path='/smallGroups' element={<SmallGroupsAll />}></Route>
         <Route path='/smallGroups/add' element={<AddSmallGroups />}></Route>
         <Route path='/smallGroups/:path' element={<SmallGroupMain />}></Route>
         <Route path='/smallGroups/:path/members' element={<SmallGroupMember />}></Route>

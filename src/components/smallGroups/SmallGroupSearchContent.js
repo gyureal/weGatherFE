@@ -1,21 +1,25 @@
-import React, { useEffect } from 'react';
-import PageTemplate from '../../components/common/Template/pageTemplate/pageTemplate';
-import { Box, Grid, Pagination } from '@mui/material';
-import Logo from '../../components/main/Logo';
-import SmallGroupCard from '../../components/main/SmallGroupCard';
+import { Box, Grid, Pagination } from '@mui/material'
+import React, { useEffect } from 'react'
+import SmallGroupCard from '../main/SmallGroupCard'
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { requestSearchSmallGroup } from '../../slice/smallGroupSlice';
 
-export default function Index() {
+const SmallGroupSearchContent = () => {
 
     const smallGroups = useSelector((state) => state.smallGroupSlice.smallGroupSearchResult.content);
+    const totalPages = useSelector((state) => state.smallGroupSlice.smallGroupSearchResult.totalPages);
+
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const [searchParams, setSearchParams] = useSearchParams();
+    const page = parseInt(searchParams.get("page")) ?? 1;
 
     const searchSmallGroup = async (keyword) => {
         try {
             const param = {
                 size: 9,
-                page: 0,
+                page: page - 1, // 백엔드는 0부터 시작
                 keyword: keyword
             }
             await dispatch(requestSearchSmallGroup(param)).unwrap();
@@ -28,13 +32,22 @@ export default function Index() {
         searchSmallGroup("");
     }, [])
 
+    const onPaginationChange = (e, value) => {
+        searchParams.set("page", value);
+        navigate({
+            pathname: "/smallGroups",
+            search: searchParams.toString(),        // page=1
+        });
+        navigate(0);
+    }
+
+
+    const onChange = (e, value) => {
+        onPaginationChange(e, value);
+    }
+
     return (
-        <PageTemplate>
-            <Grid container justifyContent='center'>
-                <Box my={5}>
-                    <Logo />
-                </Box>
-            </Grid>
+        <Box>
             <Grid container justifyContent='center'>
                 <Grid item xs={8}>
                     <Box sx={{ flexGrow: 1 }}>
@@ -52,9 +65,11 @@ export default function Index() {
             </Grid>
             <Grid container justifyContent='center' my={7}>
                 <Grid item>
-                    <Pagination count={10} />
+                    <Pagination count={parseInt(totalPages) + 1} onChange={onChange} />
                 </Grid>
             </Grid>
-        </PageTemplate>
+        </Box>
     )
 }
+
+export default SmallGroupSearchContent;
