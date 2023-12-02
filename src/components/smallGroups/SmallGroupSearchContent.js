@@ -68,7 +68,7 @@ const SmallGroupSearchContent = () => {
             </Grid>
             <Grid container justifyContent='center' my={7}>
                 <Grid item>
-                    <Pagination count={parseInt(totalPages) + 1} onChange={onChange} />
+                    <Pagination count={parseInt(totalPages)} onChange={onChange} page={page} />
                 </Grid>
             </Grid>
         </Box>
