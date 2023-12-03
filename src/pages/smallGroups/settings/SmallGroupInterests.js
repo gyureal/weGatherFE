@@ -67,7 +67,7 @@ function SamllGroupInterests() {
     return (
         <SmallGroupSettingBase currentMenu='interests'>
             <Grid container>
-                <Box sx={{ fontSize: 'h4.fontSize', fontWeight: 'regular' }}>
+                <Box sx={{ fontSize: 'h5.fontSize', fontWeight: 'regular' }}>
                     소모임 관심사
                 </Box>
                 <Grid container>

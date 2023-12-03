@@ -107,7 +107,7 @@ let SmallGroupEdit = ({ handleSubmit, submitting }) => {
     return (
         <SmallGroupSettingBase currentMenu={'edit'}>
             <Container maxWidth="md">
-                <Box sx={{ fontSize: 'h4.fontSize', fontWeight: 'regular', borderBottom: 0.5, borderColor: 'grey.500' }}>
+                <Box sx={{ fontSize: 'h5.fontSize', fontWeight: 'regular', borderBottom: 0.5, borderColor: 'grey.500' }}>
                     소모임 소개
                 </Box>
                 <Grid container>

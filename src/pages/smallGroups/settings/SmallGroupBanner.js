@@ -42,7 +42,7 @@ function SmallGroupBanner() {
     return (
         <SmallGroupSettingBase currentMenu="banner">
             <Box>
-                <Box sx={{ fontSize: 'h4.fontSize', fontWeight: 'regular' }}>
+                <Box sx={{ fontSize: 'h5.fontSize', fontWeight: 'regular' }}>
                     소모임 배너
                 </Box>
                 <Grid container>
@@ -57,7 +57,7 @@ function SmallGroupBanner() {
                         </Box>
                     </Grid>
                 </Grid>
-                <Box sx={{ fontSize: 'h4.fontSize', fontWeight: 'regular', mt: 3 }}>
+                <Box sx={{ fontSize: 'h5.fontSize', fontWeight: 'regular', mt: 3 }}>
                     배너 이미지 변경
                 </Box>
                 <Box sx={{ mt: 1 }}>
