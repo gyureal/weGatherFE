@@ -9,7 +9,7 @@ const menuInfo = [
     { id: "edit", label: "소개" },
     { id: "banner", label: "배너 이미지" },
     { id: "interests", label: "소모임 관심사" },
-    { id: "smallGroup", label: "모임 설정" }
+    { id: "status", label: "모임 상태" }
 ]
 
 function SmallGroupSettingBase({ children, currentMenu }) {

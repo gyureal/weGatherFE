@@ -104,3 +104,9 @@ export const requestSearchSmallGroup = createAsyncThunk('smallGroup/requestSearc
     async (param) => {
         return (await smallGroupsApi.searchSmallGroup(param)).data;
     });
+
+// 소모임 공개
+export const requestPublishSmallGroup = createAsyncThunk('smallGroup/requestPublishSmallGroup',
+    async (param) => {
+        return (await smallGroupsApi.publishSmallGroup(param)).data;
+    });

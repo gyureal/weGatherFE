@@ -17,6 +17,7 @@ import Profile from './pages/main/Profile';
 import SamllGroupInterests from './pages/smallGroups/settings/SmallGroupInterests';
 import Main from './pages/main/Main';
 import SmallGroupsAll from './pages/smallGroups/SmallGroupsAll';
+import SmallGroupStatus from './pages/smallGroups/settings/SmallGroupStatus';
 
 
 
@@ -45,6 +46,7 @@ export default function App() {
         <Route path='/smallGroups/:path/settings/edit' element={<SmallGroupEdit />}></Route>
         <Route path='/smallGroups/:path/settings/banner' element={<SmallGroupBanner />}></Route>
         <Route path='/smallGroups/:path/settings/interests' element={<SamllGroupInterests />}></Route>
+        <Route path='/smallGroups/:path/settings/status' element={<SmallGroupStatus />}></Route>
       </Routes>
     </BrowserRouter>
   );

@@ -41,3 +41,6 @@ export const searchSmallGroup = (param) => axios.get(`${ROOT_URL}/smallGroups`, 
         keyword: param.keyword
     }
 })
+
+// 소모임 공개
+export const publishSmallGroup = (param) => axios.post(`${ROOT_URL}/smallGroups/${param.path}/publish`);
