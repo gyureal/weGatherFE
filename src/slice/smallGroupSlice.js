@@ -116,3 +116,9 @@ export const requestOpenRecruiting = createAsyncThunk('smallGroup/requestOpenRec
     async (param) => {
         return (await smallGroupsApi.openRecruiting(param)).data;
     });
+
+// 소모임 종료
+export const requestCloseSmallGroup = createAsyncThunk('smallGroup/requestCloseSmallGroup',
+    async (param) => {
+        return (await smallGroupsApi.closeSmallGroup(param)).data;
+    });

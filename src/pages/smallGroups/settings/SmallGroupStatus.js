@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import SmallGroupSettingBase from './SmallGroupSettingBase'
-import { Box, Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material'
+import { Box, Button, Divider, FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 import { useNavigate, useParams } from 'react-router-dom'
-import { requestOpenRecruiting, requestPublishSmallGroup } from '../../../slice/smallGroupSlice'
+import { requestCloseSmallGroup, requestOpenRecruiting, requestPublishSmallGroup } from '../../../slice/smallGroupSlice'
 import { useDispatch, useSelector } from 'react-redux'
 
 
@@ -116,7 +116,49 @@ const SmallGroupStatus = () => {
         )
     }
 
-    const renderSettingComponent = () => {
+    const CloseComponent = ({ isClosed }) => {
+        const closeClick = async () => {
+            const param = {
+                path: path,
+            }
+            try {
+                await dispatch(requestCloseSmallGroup(param)).unwrap();
+                navigate(0);
+            } catch {
+                alert("소모임 종료에 실패했습니다.");
+            }
+        }
+
+        return (
+            <Box>
+                <Box sx={{ fontSize: 'h5.fontSize', fontWeight: 'regular' }}>
+                    소모임 종료
+                </Box>
+                <Box display='flex' sx={{ flexDirection: 'column' }}>
+                    <Box sx={{ fontSize: 'h7.fontSize', fontWeight: 'regular', flexGrow: 1, mt: 1, p: 2 }} bgcolor="#FFAEAB" display='flex' >
+                        소모임을 종료합니다.
+                        종료된 소모임은 다시 오픈할 수 없습니다.
+                    </Box>
+                </Box>
+                <Button sx={{ mt: 1 }} variant='outlined' color='error' onClick={closeClick}>소모임 종료</Button>
+            </Box>
+        )
+    }
+
+    const AfterClosedComponent = () => {
+        return <div>
+            <Box sx={{ fontSize: 'h5.fontSize', fontWeight: 'regular' }}>
+                소모임 종료
+            </Box>
+            <Box display='flex' sx={{ flexDirection: 'column' }}>
+                <Box sx={{ fontSize: 'h7.fontSize', fontWeight: 'regular', flexGrow: 1, mt: 1, p: 2 }} bgcolor="#FFAEAB" display='flex' >
+                    소모임이 종료되었습니다.
+                </Box>
+            </Box>
+        </div>
+    }
+
+    const renderSettingStatusComponent = () => {
         if (!smallGroup) {
             return <div></div>
         }
@@ -126,14 +168,21 @@ const SmallGroupStatus = () => {
         if (!smallGroup.recruiting) {
             return <RecruitComponent beforeOpen={true} />
         }
-        return <RecruitComponent beforeOpen={false} />
+        if (!smallGroup.closed) {
+            return <div>
+                <CloseComponent />
+                <Divider sx={{ my: 3 }} />
+                <RecruitComponent beforeOpen={false} />
+            </div>
+        }
+        return <AfterClosedComponent />
     }
 
 
     return (
         <SmallGroupSettingBase currentMenu='status'>
             {
-                renderSettingComponent()
+                renderSettingStatusComponent()
             }
 
         </SmallGroupSettingBase>
