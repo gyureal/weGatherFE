@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import SmallGroupSettingBase from './SmallGroupSettingBase'
 import { Box, Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -46,8 +46,14 @@ const SmallGroupStatus = () => {
         )
     }
 
-    const RecruitComponent = () => {
+    const RecruitComponent = ({ beforeOpen }) => {
         const [recruitingProcess, setRecruitingProcess] = useState('FCFS'); // 기본값
+
+        useEffect(() => {
+            if (!beforeOpen) {
+                setRecruitingProcess(smallGroup.recruitingProcess);
+            }
+        }, [beforeOpen])
 
         const handleChange = (event) => {
             setRecruitingProcess(event.target.value);
@@ -69,14 +75,22 @@ const SmallGroupStatus = () => {
         return (
             <Box>
                 <Box sx={{ fontSize: 'h5.fontSize', fontWeight: 'regular' }}>
-                    소모임 인원 모집
+                    {
+                        (beforeOpen === true) ? "소모임 인원 모집" : "인원 모집 방식 변경"
+                    }
                 </Box>
                 <Box display='flex' sx={{ flexDirection: 'column' }}>
-                    <Box sx={{ fontSize: 'h7.fontSize', fontWeight: 'regular', flexGrow: 1, mt: 1, p: 2 }} bgcolor="#CEF6EC" display='flex' >
-                        소모임에서 인원 모집을 시작합니다. <br /> <br />
-                        1. 선착순 : 먼저 가입신청한 인원 순으로 가입됩니다. <br />
-                        2. 관리자 승인 : 관리자가 승인한 인원이 가입됩니다. <br />
-                    </Box>
+                    {
+                        (beforeOpen === true) ?
+                            <Box sx={{ fontSize: 'h7.fontSize', fontWeight: 'regular', flexGrow: 1, mt: 1, p: 2 }} bgcolor="#CEF6EC" display='flex' >
+                                소모임에서 인원 모집을 시작합니다. <br /> <br />
+                                1. 선착순 : 먼저 가입신청한 인원 순으로 가입됩니다. <br />
+                                2. 관리자 승인 : 관리자가 승인한 인원이 가입됩니다. <br />
+                            </Box>
+                            : <Box sx={{ fontSize: 'h7.fontSize', fontWeight: 'regular', flexGrow: 1, mt: 1, p: 2 }} bgcolor="#CEF6EC" display='flex' >
+                                소모임 인원모집 방식을 변경합니다. <br />
+                            </Box>
+                    }
                     <FormControl sx={{ m: 1 }} size="small">
                         <InputLabel id="demo-select-small-label">방식</InputLabel>
                         <Select
@@ -91,7 +105,11 @@ const SmallGroupStatus = () => {
                     </FormControl>
 
                     <Box sx={{ flexGrow: 0 }}>
-                        <Button sx={{ mt: 1 }} variant='outlined' onClick={openRecruiting}>인원 모집 시작</Button>
+                        {
+                            (beforeOpen === true) ?
+                                <Button sx={{ mt: 1 }} variant='outlined' onClick={openRecruiting}>인원 모집 시작</Button>
+                                : <Button sx={{ mt: 1 }} variant='outlined' onClick={openRecruiting}>모집 방식 변경</Button>
+                        }
                     </Box>
                 </Box>
             </Box>
@@ -106,9 +124,9 @@ const SmallGroupStatus = () => {
             return <PublishComponent />
         }
         if (!smallGroup.recruiting) {
-            return <RecruitComponent />
+            return <RecruitComponent beforeOpen={true} />
         }
-        return <div></div>
+        return <RecruitComponent beforeOpen={false} />
     }
 
 
