@@ -1,30 +1,35 @@
-import React from 'react'
+import React, { useState } from 'react'
 import SmallGroupSettingBase from './SmallGroupSettingBase'
-import { Box, Button } from '@mui/material'
+import { Box, Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 import { useNavigate, useParams } from 'react-router-dom'
-import { requestPublishSmallGroup } from '../../../slice/smallGroupSlice'
-import { useDispatch } from 'react-redux'
+import { requestOpenRecruiting, requestPublishSmallGroup } from '../../../slice/smallGroupSlice'
+import { useDispatch, useSelector } from 'react-redux'
+
+
 
 const SmallGroupStatus = () => {
 
     const { path } = useParams();
+    const smallGroup = useSelector((state) => state.smallGroupSlice.smallGroup);
+    console.log('smallGroup ', smallGroup);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const publish = async () => {
-        try {
-            const param = {
-                path: path
-            }
-            await dispatch(requestPublishSmallGroup(param)).unwrap();
-            navigate(0);
-        } catch {
-            alert("소모임 공개에 실패했습니다.");
-        }
-    }
 
-    return (
-        <SmallGroupSettingBase currentMenu='status'>
+    const PublishComponent = () => {
+        const publish = async () => {
+            try {
+                const param = {
+                    path: path
+                }
+                await dispatch(requestPublishSmallGroup(param)).unwrap();
+                navigate(0);
+            } catch {
+                alert("소모임 공개에 실패했습니다.");
+            }
+        }
+
+        return (
             <Box>
                 <Box sx={{ fontSize: 'h5.fontSize', fontWeight: 'regular' }}>
                     소모임 공개
@@ -38,6 +43,80 @@ const SmallGroupStatus = () => {
                 </Box>
                 <Button sx={{ mt: 1 }} variant='outlined' onClick={publish}>소모임 공개</Button>
             </Box>
+        )
+    }
+
+    const RecruitComponent = () => {
+        const [recruitingProcess, setRecruitingProcess] = useState('FCFS'); // 기본값
+
+        const handleChange = (event) => {
+            setRecruitingProcess(event.target.value);
+        };
+
+        const openRecruiting = async () => {
+            const param = {
+                path: path,
+                recruitingProcess: recruitingProcess
+            }
+            try {
+                await dispatch(requestOpenRecruiting(param)).unwrap();
+                navigate(0);
+            } catch {
+                alert("소모임 회원 모집 시작에 실패했습니다.");
+            }
+        }
+
+        return (
+            <Box>
+                <Box sx={{ fontSize: 'h5.fontSize', fontWeight: 'regular' }}>
+                    소모임 인원 모집
+                </Box>
+                <Box display='flex' sx={{ flexDirection: 'column' }}>
+                    <Box sx={{ fontSize: 'h7.fontSize', fontWeight: 'regular', flexGrow: 1, mt: 1, p: 2 }} bgcolor="#CEF6EC" display='flex' >
+                        소모임에서 인원 모집을 시작합니다. <br /> <br />
+                        1. 선착순 : 먼저 가입신청한 인원 순으로 가입됩니다. <br />
+                        2. 관리자 승인 : 관리자가 승인한 인원이 가입됩니다. <br />
+                    </Box>
+                    <FormControl sx={{ m: 1 }} size="small">
+                        <InputLabel id="demo-select-small-label">방식</InputLabel>
+                        <Select
+                            value={recruitingProcess}
+                            onChange={handleChange}
+                            defaultValue="FCFS"
+                            label="방식"
+                        >
+                            <MenuItem value={'FCFS'}>선착순</MenuItem>
+                            <MenuItem value={'APPROVAL'}>관리자 승인</MenuItem>
+                        </Select>
+                    </FormControl>
+
+                    <Box sx={{ flexGrow: 0 }}>
+                        <Button sx={{ mt: 1 }} variant='outlined' onClick={openRecruiting}>인원 모집 시작</Button>
+                    </Box>
+                </Box>
+            </Box>
+        )
+    }
+
+    const renderSettingComponent = () => {
+        if (!smallGroup) {
+            return <div></div>
+        }
+        if (!smallGroup.published) {
+            return <PublishComponent />
+        }
+        if (!smallGroup.recruiting) {
+            return <RecruitComponent />
+        }
+        return <div></div>
+    }
+
+
+    return (
+        <SmallGroupSettingBase currentMenu='status'>
+            {
+                renderSettingComponent()
+            }
 
         </SmallGroupSettingBase>
     )

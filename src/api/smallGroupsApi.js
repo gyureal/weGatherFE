@@ -44,3 +44,7 @@ export const searchSmallGroup = (param) => axios.get(`${ROOT_URL}/smallGroups`, 
 
 // 소모임 공개
 export const publishSmallGroup = (param) => axios.post(`${ROOT_URL}/smallGroups/${param.path}/publish`);
+
+
+// 소모임 인원 모집 시작
+export const openRecruiting = (param) => axios.post(`${ROOT_URL}/smallGroups/${param.path}/open-recruiting?recruitingProcess=${param.recruitingProcess}`);

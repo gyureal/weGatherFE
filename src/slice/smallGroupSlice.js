@@ -110,3 +110,9 @@ export const requestPublishSmallGroup = createAsyncThunk('smallGroup/requestPubl
     async (param) => {
         return (await smallGroupsApi.publishSmallGroup(param)).data;
     });
+
+// 소모임 인원 모집 시작
+export const requestOpenRecruiting = createAsyncThunk('smallGroup/requestOpenRecruiting',
+    async (param) => {
+        return (await smallGroupsApi.openRecruiting(param)).data;
+    });
