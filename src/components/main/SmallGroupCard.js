@@ -30,6 +30,13 @@ const SmallGroupCard = ({ smallGroup }) => {
         return defaultImage;
     }
 
+    const renderStatusTag = () => {
+        if (smallGroup.status === "CLOSED") return <MainCardTag label='종료' />;
+        if (smallGroup.status === "PUBLISHED") return <MainCardTag label='모집중 아님' />;
+        if (smallGroup.status === "RECRUITING") return <MainCardTag label='모집중' color='primary' />;
+        return <MainCardTag label='준비중' />;
+    }
+
     return (
         <Card
             sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
@@ -46,7 +53,7 @@ const SmallGroupCard = ({ smallGroup }) => {
                 <CardContent sx={{ flexGrow: 1 }}>
                     <Grid container justifyContent='space-between'>
                         <Grid item>
-                            <MainCardTag label='모집중' />
+                            {renderStatusTag()}
                         </Grid>
                     </Grid>
                     <Typography gutterBottom variant="h5" mt={0.5}>

@@ -4,14 +4,11 @@ import InterestTag from '../../common/InterestTag';
 import { useSelector } from 'react-redux';
 
 
-const getStatus = (smallGroup) => {
-    if (smallGroup.closed) {
-        return "종료";
-    }
-    if (!smallGroup.published) {
-        return "준비중";
-    }
-    return smallGroup.recruiting ? "모집중" : "모집중 아님";
+const getStatusButton = (smallGroup) => {
+    if (smallGroup.status === "CLOSED") return <Button variant='outlined'>종료</Button>
+    if (smallGroup.status === "PUBLISHED") return <Button variant='outlined'>모집중 아님</Button>
+    if (smallGroup.status === "RECRUITING") return <Button variant='contained'>모집중</Button>
+    return <Button variant='outlined'>준비중</Button>
 }
 
 const getJoinOrLeaveButton = (smallGroup) => {
@@ -52,10 +49,9 @@ const SmallGroupInfo = ({ smallGroup }) => {
                 </Grid>
                 <Grid item xs={4} justifyContent="end" alignItems="end">
                     <Box display="flex" justifyContent="flex-end">
-                        <Button variant="outlined">
-                            {/* 준비중, 모집중, 모집중 아님, 종료 */}
-                            {getStatus(smallGroup)}
-                        </Button>
+                        {
+                            getStatusButton(smallGroup)
+                        }
                         <Box marginX={1}></Box>
                         {/* 소모임 가입, 소모임 탈퇴, 가입 불가 */}
                         {getJoinOrLeaveButton(smallGroup)}
