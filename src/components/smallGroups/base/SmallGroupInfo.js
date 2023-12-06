@@ -1,7 +1,8 @@
 import { Box, Button, Grid, Stack, Typography } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 import InterestTag from '../../common/InterestTag';
 import { useSelector } from 'react-redux';
+import ConfirmDialog from '../../common/dialog/ConfirmDialog';
 
 
 const getStatusButton = (smallGroup) => {
@@ -11,33 +12,45 @@ const getStatusButton = (smallGroup) => {
     return <Button variant='outlined'>준비중</Button>
 }
 
-const getJoinOrLeaveButton = (smallGroup) => {
-    if (!smallGroup || !smallGroup.joinable) {
-        return (
-            <Button variant="contained" disabled>
-                가입 불가
-            </Button>
-        )
-    }
-    if (smallGroup.joinable) {
-        return (
-            <Button variant="contained">
-                소모임 가입
-            </Button>
-        )
-    }
 
-    if (smallGroup.managerOrMember) {
-        return (
-            <Button variant='contained' color='red'>
-                소모임 탈퇴
-            </Button>
-        )
-    }
-}
 
 const SmallGroupInfo = ({ smallGroup }) => {
     const smallGroupInterests = useSelector((state) => state.smallGroupSlice.smallGroupInterests);
+    const [joinConfirmOpen, setJoinCofirmOpen] = useState();
+
+    const getJoinOrLeaveButton = (smallGroup) => {
+        if (!smallGroup || !smallGroup.joinable) {
+            return (
+                <Button variant="contained" disabled>
+                    가입 불가
+                </Button>
+            )
+        }
+        if (smallGroup.joinable) {
+            return (
+                <Button variant="contained" onClick={onJoinButtonClick}>
+                    소모임 가입
+                </Button>
+            )
+        }
+
+        if (smallGroup.managerOrMember) {
+            return (
+                <Button variant='contained' color='red'>
+                    소모임 탈퇴
+                </Button>
+            )
+        }
+    }
+
+    const onJoinButtonClick = () => {
+        setJoinCofirmOpen(true);
+    }
+
+    const onJoinAgree = () => {
+        console.log("onJoinAgreeClicked");
+        setJoinCofirmOpen(false);
+    }
 
     return (
         <Box marginTop={2}>
@@ -79,7 +92,8 @@ const SmallGroupInfo = ({ smallGroup }) => {
                     </Box>
                 </Grid>
             </Grid>
-
+            <ConfirmDialog open={joinConfirmOpen} setOpen={setJoinCofirmOpen}
+                title="가입요청" description="해당 소모임에 가입 요청을 하시겠습니까?" onAgreeClick={onJoinAgree} />
         </Box>
     )
 }

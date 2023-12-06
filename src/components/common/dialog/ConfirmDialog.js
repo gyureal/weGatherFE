@@ -1,7 +1,8 @@
 import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from '@mui/material'
 import React from 'react'
 
-function ConfirmDialog({ open, setOpen, title, description, agreeLabel, disagreeLabel, onAgreeClick }) {
+function ConfirmDialog({ open, setOpen, title, description,
+    agreeLabel = "확인", disagreeLabel = "취소", onAgreeClick }) {
 
     const onClose = () => {
         setOpen(false);
