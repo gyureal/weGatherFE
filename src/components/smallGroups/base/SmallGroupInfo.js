@@ -1,8 +1,9 @@
 import { Box, Button, Grid, Stack, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import InterestTag from '../../common/InterestTag';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ConfirmDialog from '../../common/dialog/ConfirmDialog';
+import { requestJoinSmallGroup } from '../../../slice/smallGroupJoinSlice';
 
 
 const getStatusButton = (smallGroup) => {
@@ -16,7 +17,9 @@ const getStatusButton = (smallGroup) => {
 
 const SmallGroupInfo = ({ smallGroup }) => {
     const smallGroupInterests = useSelector((state) => state.smallGroupSlice.smallGroupInterests);
+    const smallGroupId = useSelector((state) => state.smallGroupSlice.smallGroup.id);
     const [joinConfirmOpen, setJoinCofirmOpen] = useState();
+    const dispatch = useDispatch();
 
     const getJoinOrLeaveButton = (smallGroup) => {
         if (!smallGroup || !smallGroup.joinable) {
@@ -47,9 +50,16 @@ const SmallGroupInfo = ({ smallGroup }) => {
         setJoinCofirmOpen(true);
     }
 
-    const onJoinAgree = () => {
-        console.log("onJoinAgreeClicked");
-        setJoinCofirmOpen(false);
+    const onJoinAgree = async () => {
+        try {
+            const param = {
+                id: smallGroupId
+            }
+            await dispatch(requestJoinSmallGroup(param)).unwrap;
+            setJoinCofirmOpen(false);
+        } catch {
+            alert("소모임 가입에 실패했습니다.");
+        }
     }
 
     return (

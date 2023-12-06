@@ -4,6 +4,7 @@ import { authSlice } from '../slice/authSlice';
 import { memberSlice } from '../slice/memberSlice';
 import { interestSlice } from '../slice/interestSlice';
 import { smallGroupSlice } from '../slice/smallGroupSlice';
+import { smallGroupJoinSlice } from '../slice/smallGroupJoinSlice';
 
 const store = configureStore({
     reducer: {
@@ -11,7 +12,8 @@ const store = configureStore({
         authSlice: authSlice.reducer,
         memberSlice: memberSlice.reducer,
         interestSlice: interestSlice.reducer,
-        smallGroupSlice: smallGroupSlice.reducer
+        smallGroupSlice: smallGroupSlice.reducer,
+        smallGroupJoinSlice: smallGroupJoinSlice.reducer
     }
 });
 
