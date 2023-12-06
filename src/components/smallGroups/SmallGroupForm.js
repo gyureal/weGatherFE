@@ -6,7 +6,7 @@ import { FormField } from '../common/FormField';
 import { requestCreateSmallGroup } from '../../slice/smallGroupSlice';
 import { connect, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import ConfirmDialog from '../common/ConfirmDialog';
+import ConfirmDialog from '../common/dialog/ConfirmDialog';
 import Editor from '../common/editor/Editor';
 
 const renderField = (field) => {
