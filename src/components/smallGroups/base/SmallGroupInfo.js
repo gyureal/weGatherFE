@@ -58,7 +58,6 @@ const SmallGroupInfo = ({ smallGroup }) => {
             await dispatch(requestJoinSmallGroup(param)).unwrap;
             setJoinCofirmOpen(false);
         } catch {
-            alert("소모임 가입에 실패했습니다.");
         }
     }
 
