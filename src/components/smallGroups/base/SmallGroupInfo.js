@@ -4,6 +4,7 @@ import InterestTag from '../../common/InterestTag';
 import { useDispatch, useSelector } from 'react-redux';
 import ConfirmDialog from '../../common/dialog/ConfirmDialog';
 import { requestJoinSmallGroup } from '../../../slice/smallGroupJoinSlice';
+import { useNavigate } from 'react-router-dom';
 
 
 const getStatusButton = (smallGroup) => {
@@ -20,8 +21,9 @@ const SmallGroupInfo = ({ smallGroup }) => {
     const smallGroupId = useSelector((state) => state.smallGroupSlice.smallGroup.id);
     const [joinConfirmOpen, setJoinCofirmOpen] = useState();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-    const getJoinOrLeaveButton = (smallGroup) => {
+    const renderJoinButton = (smallGroup) => {
         if (!smallGroup || !smallGroup.joinable) {
             return (
                 <Button variant="contained" disabled>
@@ -29,7 +31,7 @@ const SmallGroupInfo = ({ smallGroup }) => {
                 </Button>
             )
         }
-        if (smallGroup.joinable) {
+        if (smallGroup.joinable && !smallGroup.joinRequested && !smallGroup.managerOrMember) {
             return (
                 <Button variant="contained" onClick={onJoinButtonClick}>
                     소모임 가입
@@ -37,10 +39,18 @@ const SmallGroupInfo = ({ smallGroup }) => {
             )
         }
 
+        if (smallGroup.joinable && smallGroup.joinRequested && !smallGroup.managerOrMember) {
+            return (
+                <Button variant='outlined' color='success'>
+                    가입 요청중
+                </Button>
+            )
+        }
+
         if (smallGroup.managerOrMember) {
             return (
-                <Button variant='contained' color='red'>
-                    소모임 탈퇴
+                <Button variant='contained' color='success'>
+                    가입 완료
                 </Button>
             )
         }
@@ -57,6 +67,7 @@ const SmallGroupInfo = ({ smallGroup }) => {
             }
             await dispatch(requestJoinSmallGroup(param)).unwrap;
             setJoinCofirmOpen(false);
+            navigate(0);
         } catch {
         }
     }
@@ -75,8 +86,8 @@ const SmallGroupInfo = ({ smallGroup }) => {
                             getStatusButton(smallGroup)
                         }
                         <Box marginX={1}></Box>
-                        {/* 소모임 가입, 소모임 탈퇴, 가입 불가 */}
-                        {getJoinOrLeaveButton(smallGroup)}
+                        {/* 소모임 가입, 소모임 탈퇴, 가입 불가, 가입 승인중 */}
+                        {renderJoinButton(smallGroup)}
                     </Box>
 
                 </Grid>
