@@ -48,11 +48,21 @@ function Profile() {
         return <div>Loading</div>
     }
 
-    const setProfileImage = () => {
-        if (currentUser && currentUser.profileImage && currentUser.profileImage != "") {
-            return awsPrefix + currentUser.profileImage;
+    const changeProfileImage = () => {
+        if (userProfile && userProfile.profileImage) {
+            return awsPrefix + userProfile.profileImage;
         }
         return defaultAvatar;
+    }
+
+    const changeJoinedAtText = () => {
+        if (!userProfile.joinedAt) {
+            if (isMe) {
+                return "가입 완료 하려면 이메일을 확인하세요.";
+            }
+            return "이메일 인증이 되지 않은 계정입니다.";
+        }
+        return userProfile.joinedAt;
     }
 
     return (
@@ -63,7 +73,7 @@ function Profile() {
                         <Box display="flex" justifyContent="center">
                             <Avatar
                                 sx={{ width: 150, height: 150, my: 3 }}
-                                src={setProfileImage()}
+                                src={changeProfileImage()}
                             />
                         </Box>
                         <SideMenuButtons currentMenu="profile" menuInfo={menuInfo} navigatePrefix={"/settings"} />
@@ -98,7 +108,8 @@ function Profile() {
                                     </Grid>
                                     <Grid item xs={8}>
                                         <Box sx={{ fontSize: 'h6.fontSize', fontWeight: 'regular' }}>
-                                            {userProfile.joinedAt ?? "가입 완료 하려면 이메일을 확인하세요"}
+                                            {/* {(userProfile.joinedAt && isMe) ? "가입 완료 하려면 이메일을 확인하세요" : ""} */}
+                                            {changeJoinedAtText()}
                                         </Box>
                                     </Grid>
                                 </Grid>
