@@ -9,7 +9,7 @@ import MemberSimpleInfo from '../../components/smallGroups/MemberSimpleInfo';
 function SmallGroupMember() {
     const { path } = useParams();
     const smallGroupMembers = useSelector((state) => state.smallGroupSlice.smallGroupMembers);
-    console.log("smallGroupMembers", smallGroupMembers);
+    //console.log("smallGroupMembers", smallGroupMembers);
     const dispatch = useDispatch();
 
     const getSmallGroupMembers = async (path) => {

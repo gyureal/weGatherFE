@@ -26,7 +26,7 @@ function LinkTab(props) {
                     event.preventDefault();
                 }
                 const menuId = props.value;
-                navigate(`/smallGroups/${props.groupPath}${menuId}`);
+                navigate(`/smallGroups/${props.path}${menuId}`);
             }}
             {...props}
         />
@@ -51,10 +51,11 @@ function SmallGroupMenu({ groupPath }) {
                 <Grid item xs={10}>
                     <Box sx={{ width: '100%', borderBottom: 1, borderColor: 'divider' }}>
                         <Tabs value={menuId} aria-label="nav tabs example">
-                            <LinkTab label="소개" value="" groupPath={groupPath} />
-                            <LinkTab label="구성원" value="/members" groupPath={groupPath} />
-                            <LinkTab label="Gather" value="/gather" groupPath={groupPath} />
-                            <LinkTab label="설정" value="/settings" groupPath={groupPath} />
+                            <LinkTab label="소개" value="" path={groupPath} />
+                            <LinkTab label="구성원" value="/members" path={groupPath} />
+                            <LinkTab label="가입요청" value="/join-requests" path={groupPath} />
+                            <LinkTab label="Gather" value="/gather" path={groupPath} />
+                            <LinkTab label="설정" value="/settings" path={groupPath} />
                         </Tabs>
                     </Box>
                 </Grid>

@@ -18,6 +18,7 @@ import SamllGroupInterests from './pages/smallGroups/settings/SmallGroupInterest
 import Main from './pages/main/Main';
 import SmallGroupsAll from './pages/smallGroups/SmallGroupsAll';
 import SmallGroupStatus from './pages/smallGroups/settings/SmallGroupStatus';
+import SmallGroupJoinRequests from './pages/smallGroups/SmallGroupJoinRequests';
 
 
 
@@ -41,6 +42,7 @@ export default function App() {
         <Route path='/smallGroups/add' element={<AddSmallGroups />}></Route>
         <Route path='/smallGroups/:path' element={<SmallGroupMain />}></Route>
         <Route path='/smallGroups/:path/members' element={<SmallGroupMember />}></Route>
+        <Route path='/smallGroups/:path/join-requests' element={<SmallGroupJoinRequests />}></Route>
 
         <Route path='/smallGroups/:path/settings' element={<SmallGroupEdit />}></Route>
         <Route path='/smallGroups/:path/settings/edit' element={<SmallGroupEdit />}></Route>

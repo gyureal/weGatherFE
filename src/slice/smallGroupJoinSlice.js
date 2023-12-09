@@ -2,7 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import * as smallGroupsJoinApi from '../api/smallGroupJoinApi';
 
 const initialState = {
-    error: {}
+    error: {},
+    joinRequests: []
 };
 
 export const smallGroupJoinSlice = createSlice({
@@ -15,6 +16,10 @@ export const smallGroupJoinSlice = createSlice({
         builder.addCase(requestJoinSmallGroup.rejected, (state, action) => {
             alert(action.payload.description);
         })
+
+        builder.addCase(requestGetJoinRequests.fulfilled, (state, action) => {
+            state.joinRequests = action.payload
+        })
     }
 });
 
@@ -23,6 +28,16 @@ export const requestJoinSmallGroup = createAsyncThunk('smallGroup/requestJoinSma
     async (param, { rejectWithValue }) => {
         try {
             return (await smallGroupsJoinApi.joinSmallGroup(param)).data;
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    });
+
+// 가입 요청 조회
+export const requestGetJoinRequests = createAsyncThunk('smallGroup/requestGetJoinRequests',
+    async (param, { rejectWithValue }) => {
+        try {
+            return (await smallGroupsJoinApi.getJoinRequests(param)).data;
         } catch (error) {
             return rejectWithValue(error.response.data);
         }
