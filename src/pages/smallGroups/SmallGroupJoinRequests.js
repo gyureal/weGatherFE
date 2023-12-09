@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import SmallGroupBase from '../../components/smallGroups/base/SmallGroupBase'
-import { Box, Grid } from '@mui/material'
+import { Box, Grid, Typography } from '@mui/material'
 import { useNavigate, useParams } from 'react-router-dom'
 import JoinRequestItem from '../../components/smallGroups/JoinRequestItem'
 import { useDispatch, useSelector } from 'react-redux'
@@ -30,12 +30,16 @@ const SmallGroupJoinRequests = () => {
     }, [smallGroup.id])
 
 
-
     return (
         <SmallGroupBase path={path}>
             <Box marginTop={2}>
                 <Grid container justifyContent='center'>
                     <Grid item xs={10}>
+                        <Box my={1}>
+                            <Typography component='span' variant='h6'>현재 가입 요청 인원수는 </Typography>
+                            <Typography component='span' variant='h6' color='error'>{joinRequests.length}</Typography>
+                            <Typography component='span' variant='h6'>명 입니다.</Typography>
+                        </Box>
                         {
                             joinRequests.map((joinRequest) => (
                                 <Box marginY={1}>
