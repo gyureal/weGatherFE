@@ -42,3 +42,23 @@ export const requestGetJoinRequests = createAsyncThunk('smallGroup/requestGetJoi
             return rejectWithValue(error.response.data);
         }
     });
+
+// 가입 요청 승인
+export const requestApproveJoinRequest = createAsyncThunk('smallGroup/requestApproveJoinRequest',
+    async (param, { rejectWithValue }) => {
+        try {
+            return (await smallGroupsJoinApi.approveJoinRequests(param)).data;
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    });
+
+// 가입 요청 거부
+export const requestRejectJoinRequest = createAsyncThunk('smallGroup/requestRejectJoinRequest',
+    async (param, { rejectWithValue }) => {
+        try {
+            return (await smallGroupsJoinApi.rejectJoinRequests(param)).data;
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    });
