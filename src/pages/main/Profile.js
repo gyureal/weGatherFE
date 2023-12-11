@@ -37,7 +37,7 @@ function Profile() {
 
     const menuInfo = [
         { id: "profile", label: "프로필" },
-        { id: "gather", label: "모임" }
+        { id: "smallGroups", label: "소모임" }
     ]
 
     const onEditClick = (event) => {
@@ -76,7 +76,7 @@ function Profile() {
                                 src={changeProfileImage()}
                             />
                         </Box>
-                        <SideMenuButtons currentMenu="profile" menuInfo={menuInfo} navigatePrefix={"/settings"} />
+                        <SideMenuButtons currentMenu="profile" menuInfo={menuInfo} navigatePrefix={`/users/${username}`} />
                     </Grid>
                     <Grid item xs={8}>
                         <Box sx={{ ml: 5, mt: 4 }}>

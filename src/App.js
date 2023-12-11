@@ -32,7 +32,7 @@ export default function App() {
         <Route path='/email-resend' element={<EmailResend />}></Route>
         <Route path='/check-email-token' element={<CheckEmailToken />}></Route>
 
-        <Route path='/profile/:username' element={<Profile />}></Route>
+        <Route path='/users/:username/profile' element={<Profile />}></Route>
         <Route path='/settings/profile' element={<SettingsProfile />}></Route>
         <Route path='/settings/password' element={<SettingsPassword />}></Route>
         <Route path='/settings/alarm' element={<SettingsAlarm />}></Route>

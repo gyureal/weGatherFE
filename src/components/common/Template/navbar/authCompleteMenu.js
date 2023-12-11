@@ -67,7 +67,7 @@ export default function AuthCompleteMenu({ currentUser }) {
     }
 
     const onProfileMenuClick = () => {
-        navigate(`/profile/${currentUser.username}`);
+        navigate(`/users/${currentUser.username}/profile`);
     }
 
     const onSettingsMenuClick = () => {
