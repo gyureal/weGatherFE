@@ -13,7 +13,7 @@ import SignUp from './pages/main/signUp';
 import Login from './pages/main/login';
 import EmailResend from './pages/main/EmailResend';
 import CheckEmailToken from './pages/main/CheckEmailToken';
-import Profile from './pages/main/Profile';
+import Profile from './pages/users/Profile';
 import SamllGroupInterests from './pages/smallGroups/settings/SmallGroupInterests';
 import Main from './pages/main/Main';
 import SmallGroupsAll from './pages/smallGroups/SmallGroupsAll';
