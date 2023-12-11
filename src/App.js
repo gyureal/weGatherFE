@@ -19,6 +19,7 @@ import Main from './pages/main/Main';
 import SmallGroupsAll from './pages/smallGroups/SmallGroupsAll';
 import SmallGroupStatus from './pages/smallGroups/settings/SmallGroupStatus';
 import SmallGroupJoinRequests from './pages/smallGroups/SmallGroupJoinRequests';
+import UserSmallGroups from './pages/users/UserSmallGroups';
 
 
 
@@ -33,6 +34,8 @@ export default function App() {
         <Route path='/check-email-token' element={<CheckEmailToken />}></Route>
 
         <Route path='/users/:username/profile' element={<Profile />}></Route>
+        <Route path='/users/:username/smallGroups' element={<UserSmallGroups />}></Route>
+
         <Route path='/settings/profile' element={<SettingsProfile />}></Route>
         <Route path='/settings/password' element={<SettingsPassword />}></Route>
         <Route path='/settings/alarm' element={<SettingsAlarm />}></Route>
