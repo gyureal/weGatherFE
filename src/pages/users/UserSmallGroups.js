@@ -1,11 +1,11 @@
 import React from 'react'
-import PageTemplate from '../../components/common/Template/pageTemplate/pageTemplate'
+import UsersBase from './UsersBase'
 
 const UserSmallGroups = () => {
     return (
-        <PageTemplate>
-            dd
-        </PageTemplate>
+        <UsersBase currentMenu={"smallGroups"}>
+            ㅇㅇㅇ
+        </UsersBase>
     )
 }
 

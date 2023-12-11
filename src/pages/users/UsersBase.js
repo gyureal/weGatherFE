@@ -2,17 +2,33 @@ import React from 'react'
 import PageTemplate from '../../components/common/Template/pageTemplate/pageTemplate'
 import { Avatar, Box, Grid } from '@mui/material'
 import SideMenuButtons from '../../components/common/SideMenuButtons'
-import { useParams } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import { awsPrefix, defaultAvatar } from '../../static/globalVariables'
+import { requestProfileByUsername } from '../../slice/memberSlice'
 
-const UsersBase = ({ children }) => {
+const UsersBase = ({ children, currentMenu }) => {
 
     const { username } = useParams();
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
     const isMe = currentUser.username === username;
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const getUser = async () => {
+        try {
+            await dispatch(requestProfileByUsername(username)).unwrap();
+        } catch {
+            alert("조회에 실패했습니다.");
+            navigate("/");
+        }
+    }
 
     const userProfile = useSelector((state) => {
+        if (!state.memberSlice.userProfile) {
+            getUser();
+            return;
+        }
         return state.memberSlice.userProfile;
     });
 
@@ -44,7 +60,7 @@ const UsersBase = ({ children }) => {
                                 src={changeProfileImage()}
                             />
                         </Box>
-                        <SideMenuButtons currentMenu="profile" menuInfo={menuInfo} navigatePrefix={`/users/${username}`} />
+                        <SideMenuButtons currentMenu={currentMenu} menuInfo={menuInfo} navigatePrefix={`/users/${username}`} />
                     </Grid>
                     <Grid item xs={8}>
                         <Box sx={{ ml: 5, mt: 4 }}>

@@ -48,7 +48,7 @@ const Profile = () => {
     }
 
     return (
-        <UsersBase>
+        <UsersBase currentMenu={"profile"}>
             <Box sx={{ fontSize: 'h2.fontSize', fontWeight: 'regular' }}>
                 {userProfile.username}
             </Box>
