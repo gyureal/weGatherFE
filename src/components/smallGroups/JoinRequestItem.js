@@ -11,7 +11,7 @@ const JoinRequestItem = ({ joinRequest, smallGroupId }) => {
     const dispatch = useDispatch();
 
     const onCardClick = () => {
-        navigate(`/profile/${joinRequest.username}`);
+        navigate(`/users/${joinRequest.username}/profile`);
     }
 
     const onApproveClick = async () => {

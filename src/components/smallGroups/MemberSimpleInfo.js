@@ -7,7 +7,7 @@ const MemberSimpleInfo = ({ name, introduction, image, isManager }) => {
     const navigate = useNavigate();
 
     const onCardClick = () => {
-        navigate(`/profile/${name}`);
+        navigate(`/users/${name}/profile`);
     }
 
     return (
