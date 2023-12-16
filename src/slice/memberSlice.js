@@ -3,7 +3,9 @@ import * as memberApi from '../api/memberApi';
 
 const initialState = {
     userProfile: undefined,
-    myInterests: ""
+    myInterests: "",
+    joinSmallGroups: [],
+    createSmallGroups: []
 };
 
 // slice
@@ -20,8 +22,15 @@ export const memberSlice = createSlice({
         // 회원 관심사 조회
         builder.addCase(requestGetMyInterests.fulfilled, (state, action) => {
             const commaSeperated = action.payload.join(",");
-            console.log("commaSeperated ", commaSeperated);
             state.myInterests = commaSeperated;
+        });
+
+        builder.addCase(requestGetJoinSmallGroup.fulfilled, (state, action) => {
+            state.joinSmallGroups = action.payload;
+        });
+
+        builder.addCase(requestGetCreateSmallGroup.fulfilled, (state, action) => {
+            state.createSmallGroups = action.payload;
         });
     }
 });
@@ -73,4 +82,16 @@ export const requestRemoveInterest = createAsyncThunk('memberSlice/requestRemove
 export const requestGetMyInterests = createAsyncThunk('memberSlice/requestGetMyInterests',
     async () => {
         return (await memberApi.getMyInterests()).data;
+    });
+
+// 회원이 가입한 소모임 목록 조회
+export const requestGetJoinSmallGroup = createAsyncThunk('memberSlice/requestGetJoinSmallGroup',
+    async () => {
+        return (await memberApi.getJoinSmallGroup()).data;
+    });
+
+// 회원이 생성한 소모임 목록 조회
+export const requestGetCreateSmallGroup = createAsyncThunk('memberSlice/requestGetCreateSmallGroup',
+    async () => {
+        return (await memberApi.getCreateSmallGroup()).data;
     });

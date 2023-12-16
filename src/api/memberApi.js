@@ -27,3 +27,9 @@ export const removeInterest = (param) => axios.delete(`${ROOT_URL}/members/profi
 
 // 회원의 관심사 조회
 export const getMyInterests = (param) => axios.get(`${ROOT_URL}/members/profile/interests`);
+
+// 회원이 가입한 소모임 목록 조회
+export const getJoinSmallGroup = (param) => axios.get(`${ROOT_URL}/members/profile/smallGroups/join`);
+
+// 회원이 생성한 소모임 목록 조회
+export const getCreateSmallGroup = (param) => axios.get(`${ROOT_URL}/members/profile/smallGroups/create`);

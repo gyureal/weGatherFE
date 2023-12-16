@@ -1,35 +1,62 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import UsersBase from './UsersBase'
 import { Box, Divider, Grid, Typography } from '@mui/material'
 import UserSmallGroupCard from '../../components/users/UserSmallGroupCard'
+import { useDispatch, useSelector } from 'react-redux'
+import { requestGetCreateSmallGroup, requestGetJoinSmallGroup } from '../../slice/memberSlice'
 
-const joinSmallGroups = [
-    {
-        path: "ttt",
-        image: null,
-        staus: "CLOSED",
-        name: "awefawef",
-        createdAt: "2021.21.13 13:13:13"
-    },
-    {
-        path: "ttt",
-        image: null,
-        staus: "CLOSED",
-        name: "awefawef",
-        createdAt: "2021.21.13 13:13:13"
-    },
-    {
-        path: "ttt",
-        image: null,
-        status: "CLOSED",
-        name: "awefawef",
-        createdAt: "2021.21.13 13:13:13"
-    }
-]
+// const joinSmallGroups = [
+//     {
+//         path: "ttt",
+//         image: null,
+//         staus: "CLOSED",
+//         name: "awefawef",
+//         createdAt: "2021.21.13 13:13:13"
+//     },
+//     {
+//         path: "ttt",
+//         image: null,
+//         staus: "CLOSED",
+//         name: "awefawef",
+//         createdAt: "2021.21.13 13:13:13"
+//     },
+//     {
+//         path: "ttt",
+//         image: null,
+//         status: "CLOSED",
+//         name: "awefawef",
+//         createdAt: "2021.21.13 13:13:13"
+//     }
+// ]
 
-const createSmallGroups = joinSmallGroups;
+//const createSmallGroups = joinSmallGroups;
 
 const UserSmallGroups = () => {
+    const dispatch = useDispatch();
+    const { joinSmallGroups } = useSelector(state => state.memberSlice);
+    const { createSmallGroups } = useSelector(state => state.memberSlice);
+
+    useEffect(() => {
+        getJoinSmallGroups();
+        getCreateSmallGroups();
+    }, [])
+
+    const getJoinSmallGroups = async () => {
+        try {
+            dispatch(requestGetJoinSmallGroup()).unwrap();
+        } catch {
+            alert("가입한 소모임 조회에 실패했습니다.");
+        }
+    }
+
+    const getCreateSmallGroups = async () => {
+        try {
+            dispatch(requestGetCreateSmallGroup()).unwrap();
+        } catch {
+            alert("생성한 소모임 조회에 실패했습니다.");
+        }
+    }
+
     return (
         <UsersBase currentMenu={"smallGroups"}>
             <Box>
