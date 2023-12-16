@@ -26,3 +26,13 @@ export const convertObjectURLToBase64 = (objectURL) => {
         xhr.send();
     });
 };
+
+export const convertDateFormat = (datetime) => {
+    const originalDate = new Date(datetime);
+
+    const year = originalDate.getFullYear();
+    const month = originalDate.getMonth() + 1; // 월은 0부터 시작하므로 1을 더합니다.
+    const day = originalDate.getDate();
+
+    return `${year}년 ${month}월 ${day}일`;
+}
