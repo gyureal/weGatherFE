@@ -70,6 +70,10 @@ export default function AuthCompleteMenu({ currentUser }) {
         navigate(`/users/${currentUser.username}/profile`);
     }
 
+    const onSmallGroupMenuClick = () => {
+        navigate(`/users/${currentUser.username}/smallGroups`);
+    }
+
     const onSettingsMenuClick = () => {
         navigate(`/settings/profile`);
     }
@@ -104,11 +108,11 @@ export default function AuthCompleteMenu({ currentUser }) {
                 </ListItemIcon>
                 <ListItemText>프로필</ListItemText>
             </MenuItem>
-            <MenuItem onClick={onMenuClose}>
+            <MenuItem onClick={onSmallGroupMenuClick}>
                 <ListItemIcon>
                     <GroupsIcon fontSize="small" />
-                </ListItemIcon>
-                <ListItemText>스터디</ListItemText>
+                </ListItemIcon >
+                <ListItemText>소모임</ListItemText>
             </MenuItem>
             <Divider />
             <MenuItem onClick={onSettingsMenuClick}>
