@@ -46,8 +46,9 @@ let SettingsPassword = ({ handleSubmit, submitting }) => {
             await dispatch(requestChangePassword(values)).unwrap();
             alert("비밀번호 변경에 성공했습니다.");
         } catch (error) {
-            alert("에러가 발생했습니다 ; ", error.description);
-            console.log(error);
+            if (error.errorCode === '2007') {
+                alert("기존 패스워드가 일치하지 않습니다.");
+            }
         }
     }
 

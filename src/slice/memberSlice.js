@@ -56,8 +56,15 @@ export const requestEditProfileImage = createAsyncThunk('memberSlice/requestEdit
 
 // 비밀번호 변경
 export const requestChangePassword = createAsyncThunk('memberSlice/requestChangePassword',
-    async (param) => {
-        return (await memberApi.changePassword(param)).data;
+    async (param, { rejectWithValue }) => {
+        try {
+            return (await memberApi.changePassword(param)).data;
+        } catch (error) {
+            if (!error.response) {
+                throw error;
+            }
+            return rejectWithValue(error.response.data);
+        }
     });
 
 // 알람 설정 변경
