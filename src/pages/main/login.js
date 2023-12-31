@@ -57,8 +57,7 @@ const Login = (props) => {
             await dispatch(requestLogin(values)).unwrap();
             naviagate("/");
         } catch (error) {
-            console.log('error', error);
-            alert("로그인 중 오류가 발생했습니다.")
+            alert("등록되지 않은 아이디이거나, 아이디 또는 비밀번호를 잘못 입력했습니다.")
         }
     }
     return (
