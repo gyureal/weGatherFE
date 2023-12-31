@@ -14,7 +14,8 @@ const store = configureStore({
         interestSlice: interestSlice.reducer,
         smallGroupSlice: smallGroupSlice.reducer,
         smallGroupJoinSlice: smallGroupJoinSlice.reducer
-    }
+    },
+    devTools: process.env.NODE_ENV !== 'production',
 });
 
 export default store;
