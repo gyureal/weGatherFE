@@ -44,8 +44,8 @@ export const requestLogin = createAsyncThunk('authSlice/requestLogin',
 
 // 현재 사용자 가져오기
 export const requestCurrentUser = createAsyncThunk('authSlice/requestCurrentUser',
-    async (param) => {
-        return (await api.getCurrentUser(param)).data;
+    async () => {
+        return (await api.getCurrentUser()).data;
     });
 
 // 로그아웃

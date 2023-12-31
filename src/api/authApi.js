@@ -9,7 +9,7 @@ export const signUp = (param) => axios.post(`${ROOT_URL}/sign-up`, param);
 // 로그인
 export const login = (param) => axios.post(`${ROOT_URL}/sign-in`, param);
 // 현재 사용자 정보
-export const getCurrentUser = (param) => axios.get(`${ROOT_URL}/current-user`, param);
+export const getCurrentUser = (param) => axios.get(`${ROOT_URL}/current-user`);
 // 로그아웃
 export const logout = (param) => axios.post(`${ROOT_URL}/logout`, param);
 // 인증 메일 재발송

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import SettingsBase from './SettingsBase'
 import { Box, Button, Grid } from '@mui/material'
 import { Field, reduxForm } from 'redux-form';
@@ -7,6 +7,7 @@ import { connect, shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { requestEditProfile, requestEditProfileImage, requestProfileByUsername } from '../../slice/memberSlice';
 import CropImage from '../../components/common/CropImage';
 import { awsPrefix, defaultAvatar } from '../../static/globalVariables';
+import { useNavigate } from 'react-router-dom';
 
 const renderField = (field) => {
     return (
@@ -18,28 +19,33 @@ const renderField = (field) => {
 
 let SettingsProfile = ({ handleSubmit, submitting }) => {
 
+    const currentUser = useSelector((state) => {
+        return state.authSlice.currentUser;
+    });
+
     const userProfile = useSelector((state) => {
         return state.memberSlice.userProfile;
     }, shallowEqual);
 
-    const dispatch = useDispatch();
+    const [profileApiCalled, setProfileApiCalled] = useState(false);
 
-    const getUserProfile = async (currentUser) => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const getUserProfile = async (username) => {
         try {
-            await dispatch(requestProfileByUsername(currentUser.username)).unwrap();
+            await dispatch(requestProfileByUsername(username)).unwrap();
         } catch {
-            alert("조회에 실패했습니다.");
-            //navigate("/");
+            navigate("/login");
         }
     }
 
     useEffect(() => {
-        // localStorage 데이터 가져오기
-        const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-        if (currentUser && currentUser.username !== undefined) {
-            getUserProfile(currentUser);    // 프로필 조회
+        if (currentUser && currentUser.username && !profileApiCalled) { // currentUser fetch 중 호출 방지, 두번 호출 방지
+            getUserProfile(currentUser.username);    // 프로필 조회
+            setProfileApiCalled(true); // 프로필 조회 API 호출 여부
         }
-    }, []);
+    }, [currentUser]);
 
     const onFormSubmit = async (values) => {
         try {
@@ -49,10 +55,6 @@ let SettingsProfile = ({ handleSubmit, submitting }) => {
             alert("error : ", error);
         }
     }
-
-    // if (!userProfile) {
-    //     return <div>Loading</div>
-    // }
 
     const setProfileImage = () => {
         if (userProfile && userProfile.profileImage && userProfile.profileImage !== "") {

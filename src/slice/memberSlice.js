@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import * as memberApi from '../api/memberApi';
 
 const initialState = {
-    userProfile: undefined,
+    userProfile: {},
     myInterests: "",
     joinSmallGroups: [],
     createSmallGroups: []
