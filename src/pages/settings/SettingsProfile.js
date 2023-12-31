@@ -118,7 +118,7 @@ const mapStateToProps = (state) => {
     return { initialValues: state.memberSlice.userProfile }
 }
 
-SettingsProfile = reduxForm({ form: 'profileEditForm' })(SettingsProfile);
+SettingsProfile = reduxForm({ form: 'profileEditForm', enableReinitialize: true })(SettingsProfile);
 SettingsProfile = connect(mapStateToProps, null)(SettingsProfile);
 
 export default SettingsProfile;
