@@ -10,12 +10,6 @@ export const smallGroupJoinSlice = createSlice({
     name: 'smallGroupJoinSlice',
     initialState,
     extraReducers: (builder) => {
-        // builder.addCase(requestGetSmallGroup.fulfilled, (state, action) => {
-        //     state.smallGroup = action.payload
-        // });
-        builder.addCase(requestJoinSmallGroup.rejected, (state, action) => {
-            alert(action.payload.description);
-        })
 
         builder.addCase(requestGetJoinRequests.fulfilled, (state, action) => {
             state.joinRequests = action.payload

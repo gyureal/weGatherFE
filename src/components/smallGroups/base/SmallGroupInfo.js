@@ -60,15 +60,19 @@ const SmallGroupInfo = ({ smallGroup }) => {
         setJoinCofirmOpen(true);
     }
 
-    const onJoinAgree = async () => {
+    const onJoinAgreeClicked = async () => {
         try {
             const param = {
                 id: smallGroupId
             }
-            await dispatch(requestJoinSmallGroup(param)).unwrap;
             setJoinCofirmOpen(false);
-            navigate(0);
-        } catch {
+            await dispatch(requestJoinSmallGroup(param)).unwrap();
+        } catch (e) {
+            if (e.errorCode === '4003') {
+                alert("이미 가입 요청한 회원은 가입요청할 수 없습니다.");
+            } else {
+                alert("가입 요청에 실패했습니다.");
+            }
         }
     }
 
@@ -113,7 +117,7 @@ const SmallGroupInfo = ({ smallGroup }) => {
                 </Grid>
             </Grid>
             <ConfirmDialog open={joinConfirmOpen} setOpen={setJoinCofirmOpen}
-                title="가입요청" description="해당 소모임에 가입 요청을 하시겠습니까?" onAgreeClick={onJoinAgree} />
+                title="가입요청" description="해당 소모임에 가입 요청을 하시겠습니까?" onAgreeClick={onJoinAgreeClicked} />
         </Box>
     )
 }
