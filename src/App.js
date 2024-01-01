@@ -20,6 +20,7 @@ import SmallGroupsAll from './pages/smallGroups/SmallGroupsAll';
 import SmallGroupStatus from './pages/smallGroups/settings/SmallGroupStatus';
 import SmallGroupJoinRequests from './pages/smallGroups/SmallGroupJoinRequests';
 import UserSmallGroups from './pages/users/UserSmallGroups';
+import NotFound from './pages/errorPage/NotFound';
 
 
 
@@ -28,6 +29,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Main />}></Route>
+
         <Route path='/sign-up' element={<SignUp />}></Route>
         <Route path='/login' element={<Login />}></Route>
         <Route path='/email-resend' element={<EmailResend />}></Route>
@@ -52,6 +54,8 @@ export default function App() {
         <Route path='/smallGroups/:path/settings/banner' element={<SmallGroupBanner />}></Route>
         <Route path='/smallGroups/:path/settings/interests' element={<SamllGroupInterests />}></Route>
         <Route path='/smallGroups/:path/settings/status' element={<SmallGroupStatus />}></Route>
+
+        <Route path='/*' element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
