@@ -10,9 +10,9 @@ import { requestApproveJoinRequests, requestGetJoinRequests } from '../../slice/
 const SmallGroupJoinRequests = () => {
     const { path } = useParams();
     const { smallGroup } = useSelector((state) => state.smallGroupSlice);
-
     const { joinRequests } = useSelector((state) => state.smallGroupJoinSlice);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const getJoinRequests = async () => {
         try {
@@ -20,7 +20,12 @@ const SmallGroupJoinRequests = () => {
                 id: smallGroup.id
             }
             await dispatch(requestGetJoinRequests(param)).unwrap();
-        } catch { }
+        } catch (e) {
+            if (e.errorCode === '4005') {
+                alert("해당 소모임의 괸리자만 조회할수 있습니다.");
+                navigate(-1);
+            }
+        }
     }
 
     useEffect(() => {
