@@ -19,7 +19,7 @@ const getStatusButton = (smallGroup) => {
 const SmallGroupInfo = ({ smallGroup }) => {
     const smallGroupInterests = useSelector((state) => state.smallGroupSlice.smallGroupInterests);
     const smallGroupId = useSelector((state) => state.smallGroupSlice.smallGroup.id);
-    const [joinConfirmOpen, setJoinCofirmOpen] = useState();
+    const [joinConfirmOpen, setJoinCofirmOpen] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
