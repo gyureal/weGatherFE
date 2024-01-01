@@ -11,7 +11,6 @@ const SmallGroupStatus = () => {
 
     const { path } = useParams();
     const smallGroup = useSelector((state) => state.smallGroupSlice.smallGroup);
-    console.log('smallGroup ', smallGroup);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 

@@ -10,7 +10,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 const SmallGroupBase = ({ children }) => {
 
     const smallGroup = useSelector((state) => state.smallGroupSlice.smallGroup);
-    console.log(smallGroup);
     const smallGroupInterests = useSelector((state) => state.smallGroupSlice.smallGroupInterests);
 
     const { path } = useParams();

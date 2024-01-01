@@ -45,7 +45,6 @@ const SettingInterests = () => {
             return;
         }
         try {
-            console.log("added");
             await dispatch(requestAddInterest(detail.data.value)).unwrap();
         } catch (error) {
             console.log("error add", error);
