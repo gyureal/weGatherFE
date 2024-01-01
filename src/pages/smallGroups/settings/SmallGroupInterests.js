@@ -62,7 +62,8 @@ function SamllGroupInterests() {
     }
 
     const settings = {
-        dropdown: { enabled: 1 }    // 첫글자 입력 시 화이트리스트 표출
+        // 화이트리스트 비활성화 (한글 입력시 화이트 리스트에 해당되는 단어가 있으면 두번 입력됨)
+        dropdown: { enabled: 100 }    // 100글자 입력 시 화이트리스트 표출
     };
     return (
         <SmallGroupSettingBase currentMenu='interests'>
