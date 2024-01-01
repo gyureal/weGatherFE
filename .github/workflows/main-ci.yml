@@ -1,0 +1,77 @@
+name: main-ci
+
+env:  
+  REGISTRY: gyureal
+  IMAGE_NAME: wegather-frontend
+  TAG: latest
+
+on:
+  release:
+    types: [push]
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:  # 수동으로 실행가능
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - 
+        name: Checkout
+        uses: actions/checkout@v3
+      - 
+        name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      - 
+        name: build
+        run: docker build . --tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}
+      -
+        name: push image to dockerhub
+        run: docker push ${{ env.REGISTRY}}/${{ env.IMAGE_NAME }}:${{ env.TAG }}
+      -
+        name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-2
+      -
+        name: get runner ip address
+        id: ip
+        uses: haythem/public-ip@v1.2
+      -
+        name: whitelist runner ip address
+        run: |
+          aws ec2 authorize-security-group-ingress \
+            --group-id ${{ secrets.AWS_INSTANCE_SG_ID }} \
+            --protocol tcp \
+            --port 22 \
+            --cidr ${{ steps.ip.outputs.ipv4 }}/32
+      -
+        name: executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ec2-user
+          key: ${{ secrets.EC2_ACCESS_KEY }}
+          script: |
+            echo 'pull image'
+            docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TAG}}
+
+            echo 'stop running container'
+            docker stop wegather-frontend
+            docker rm wegather-frontend
+
+            echo 'run deployed container'
+            docker run -d --name wegather-frontend -e REACT_APP_API_URL=? -p 80:80 ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TAG}}
+      -
+        name: revoke runner ip address
+        run: |
+          aws ec2 revoke-security-group-ingress \
+            --group-id ${{ secrets.AWS_INSTANCE_SG_ID }} \
+            --protocol tcp \
+            --port 22 \
+            --cidr ${{ steps.ip.outputs.ipv4 }}/32
