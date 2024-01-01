@@ -13,7 +13,7 @@ const SmallGroupSearchContent = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
-    const page = parseInt(searchParams.get("page")) ?? 1;
+    const page = searchParams.get("page") != undefined ? parseInt(searchParams.get("page")) : 1;
 
     const searchSmallGroup = async (keyword, page) => {
         try {
