@@ -30,9 +30,9 @@ function SmallGroupMember() {
                 <Grid container justifyContent="center">
                     <Grid item xs={10}>
                         {
-                            smallGroupMembers.map((member) => (
-                                <Box marginY={1}>
-                                    <MemberSimpleInfo name={member.name} introduction={member.introduction} image={member.image} isManager={member.manager} />
+                            smallGroupMembers.map((member, index) => (
+                                <Box marginY={1} key={index}>
+                                    <MemberSimpleInfo name={member.name} introduction={member.introduction} image={member.image} isManager={member.manager} key={index} />
                                 </Box>
                             ))
                         }

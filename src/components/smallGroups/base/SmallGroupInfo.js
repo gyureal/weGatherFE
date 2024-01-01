@@ -108,8 +108,8 @@ const SmallGroupInfo = ({ smallGroup }) => {
                     <Box sx={{ mt: 2 }}>
                         <Stack direction="row" spacing={2}>
                             {
-                                smallGroupInterests.map((interest) => (
-                                    <InterestTag interest={interest} />
+                                smallGroupInterests.map((interest, index) => (
+                                    <InterestTag interest={interest} key={index} />
                                 ))
                             }
                         </Stack>
