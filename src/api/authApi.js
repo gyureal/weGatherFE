@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const ROOT_URL = process.env.REACT_APP_API_URL;
+const ROOT_URL = process.env.REACT_APP_API_URL + "/api";
 
 // 네이밍 규칙: 행위를 동사로 적습니다
 
