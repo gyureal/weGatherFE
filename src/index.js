@@ -8,7 +8,7 @@ import axios from 'axios';
 
 // axios 전역 설정
 axios.defaults.withCredentials = true; // withCredentials 전역 설정
-axios.defaults.headers.common["Access-Control-Allow-Origin"] = process.env.REACT_APP_API_UR;
+axios.defaults.headers.common["Access-Control-Allow-Origin"] = process.env.REACT_APP_API_URL;
 
 const container = document.getElementById('root');
 const root = createRoot(container);
