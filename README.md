@@ -12,15 +12,3 @@
 - Mui
 
 ## 구현 목록
-### 1. Main & Auth
-- 메인 화면 및 내비게이션 바 <br/>
-  <img width="852" alt="image" src="https://github.com/gyureal/weGatherFE/assets/78974381/14ce958d-0459-469e-8c63-f20feea746b4">
-
-- 회원가입 <br/>
-  <img width="771" alt="image" src="https://github.com/gyureal/weGatherFE/assets/78974381/dce88fe3-2253-4f74-afb1-cfea1b7c1f5b">
-
-- 로그인 <br/>
-  <img width="767" alt="image" src="https://github.com/gyureal/weGatherFE/assets/78974381/a25e46a4-d686-4587-87af-75d55f6f2349">
-
-## Trouble Shooging
-[Go To Trouble Shooting Area..](https://github.com/gyureal/weGatherFE/wiki/TroubleShooting)
