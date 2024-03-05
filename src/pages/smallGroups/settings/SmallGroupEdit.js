@@ -9,6 +9,7 @@ import { requestUpdateSmallGroupDescription } from '../../../slice/smallGroupSli
 import { useParams } from 'react-router-dom';
 import FileUploadButton from '../../../components/common/FileUploadButton';
 import { awsPrefix, defaultImage } from '../../../static/globalVariables';
+import { resizeFile } from '../../../lib/lib';
 
 const renderField = (field) => {
     return (
@@ -75,14 +76,22 @@ let SmallGroupEdit = ({ handleSubmit, submitting }) => {
     }
 
     // 업로드한 이미지로 세팅, 업로드된 이미지 보여주기
-    const onImageChange = (event) => {
-        const image = event.target.files[0];
-        if (image) {
-            const imageUrl = URL.createObjectURL(image);
-            setUploadImageUrl(imageUrl);
-            setUploadBlobImage(image);
-            setIsImageUploaded(true);
+    const onImageChange = async (event) => {
+        try {
+            const image = event.target.files[0];
+            if (!image) {
+                return;
+            }
             setOriginalImageName(image.name);   // 업로드한 원본 파일명
+
+            const resizedImage = await resizeFile(image);
+            const imageUrl = URL.createObjectURL(resizedImage);
+            setUploadImageUrl(imageUrl);
+            setUploadBlobImage(resizedImage);
+            setIsImageUploaded(true);
+
+        } catch (err) {
+            console.log(err);
         }
     }
 

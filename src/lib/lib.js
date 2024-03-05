@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLocation } from "react-router-dom";
+import Resizer from "react-image-file-resizer";
 
 // https://v5.reactrouter.com/web/example/query-parameters
 export function useQuery() {
@@ -36,3 +37,20 @@ export const convertDateFormat = (datetime) => {
 
     return `${year}년 ${month}월 ${day}일`;
 }
+
+// https://www.npmjs.com/package/react-image-file-resizer
+export const resizeFile = (file) =>
+    new Promise((resolve) => {
+        Resizer.imageFileResizer(
+            file,
+            300,
+            300,
+            "JPEG",
+            100,
+            0,
+            (uri) => {
+                resolve(uri);
+            },
+            "blob"
+        );
+    });
