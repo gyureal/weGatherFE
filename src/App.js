@@ -21,6 +21,7 @@ import SmallGroupStatus from './pages/smallGroups/settings/SmallGroupStatus';
 import SmallGroupJoinRequests from './pages/smallGroups/SmallGroupJoinRequests';
 import UserSmallGroups from './pages/users/UserSmallGroups';
 import NotFound from './pages/errorPage/NotFound';
+import AutheticatedRoute from './AutheticatedRoute';
 
 
 
@@ -29,31 +30,31 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Main />}></Route>
-
         <Route path='/sign-up' element={<SignUp />}></Route>
         <Route path='/login' element={<Login />}></Route>
-        <Route path='/email-resend' element={<EmailResend />}></Route>
-        <Route path='/check-email-token' element={<CheckEmailToken />}></Route>
 
-        <Route path='/users/:username/profile' element={<Profile />}></Route>
-        <Route path='/users/:username/smallGroups' element={<UserSmallGroups />}></Route>
+        <Route path='/email-resend' element={<AutheticatedRoute><EmailResend /></AutheticatedRoute>}></Route>
+        <Route path='/check-email-token' element={<AutheticatedRoute><CheckEmailToken /></AutheticatedRoute>}></Route>
 
-        <Route path='/settings/profile' element={<SettingsProfile />}></Route>
-        <Route path='/settings/password' element={<SettingsPassword />}></Route>
-        <Route path='/settings/alarm' element={<SettingsAlarm />}></Route>
-        <Route path='/settings/interests' element={<SettingInterests />}></Route>
+        <Route path='/users/:username/profile' element={<AutheticatedRoute><Profile /></AutheticatedRoute>}></Route>
+        <Route path='/users/:username/smallGroups' element={<AutheticatedRoute><UserSmallGroups /></AutheticatedRoute>}></Route>
+
+        <Route path='/settings/profile' element={<AutheticatedRoute><SettingsProfile /></AutheticatedRoute>}></Route>
+        <Route path='/settings/password' element={<AutheticatedRoute><SettingsPassword /></AutheticatedRoute>}></Route>
+        <Route path='/settings/alarm' element={<AutheticatedRoute><SettingsAlarm /></AutheticatedRoute>}></Route>
+        <Route path='/settings/interests' element={<AutheticatedRoute><SettingInterests /></AutheticatedRoute>}></Route>
 
         <Route path='/smallGroups' element={<SmallGroupsAll />}></Route>
-        <Route path='/smallGroups/add' element={<AddSmallGroups />}></Route>
-        <Route path='/smallGroups/:path' element={<SmallGroupMain />}></Route>
-        <Route path='/smallGroups/:path/members' element={<SmallGroupMember />}></Route>
-        <Route path='/smallGroups/:path/join-requests' element={<SmallGroupJoinRequests />}></Route>
+        <Route path='/smallGroups/add' element={<AutheticatedRoute > <AddSmallGroups /></AutheticatedRoute>}></Route>
+        <Route path='/smallGroups/:path' element={<AutheticatedRoute><SmallGroupMain /></AutheticatedRoute>}></Route>
+        <Route path='/smallGroups/:path/members' element={<AutheticatedRoute> <SmallGroupMember /></AutheticatedRoute>}></Route>
+        <Route path='/smallGroups/:path/join-requests' element={<AutheticatedRoute> <SmallGroupJoinRequests /></AutheticatedRoute>}></Route>
 
-        <Route path='/smallGroups/:path/settings' element={<SmallGroupEdit />}></Route>
-        <Route path='/smallGroups/:path/settings/edit' element={<SmallGroupEdit />}></Route>
-        <Route path='/smallGroups/:path/settings/banner' element={<SmallGroupBanner />}></Route>
-        <Route path='/smallGroups/:path/settings/interests' element={<SamllGroupInterests />}></Route>
-        <Route path='/smallGroups/:path/settings/status' element={<SmallGroupStatus />}></Route>
+        <Route path='/smallGroups/:path/settings' element={<AutheticatedRoute><SmallGroupEdit /></AutheticatedRoute>}></Route>
+        <Route path='/smallGroups/:path/settings/edit' element={<AutheticatedRoute><SmallGroupEdit /></AutheticatedRoute>}></Route>
+        <Route path='/smallGroups/:path/settings/banner' element={<AutheticatedRoute><SmallGroupBanner /></AutheticatedRoute>}></Route>
+        <Route path='/smallGroups/:path/settings/interests' element={<AutheticatedRoute><SamllGroupInterests /></AutheticatedRoute>}></Route>
+        <Route path='/smallGroups/:path/settings/status' element={<AutheticatedRoute><SmallGroupStatus /></AutheticatedRoute>}></Route>
 
         <Route path='/*' element={<NotFound />} />
       </Routes>
