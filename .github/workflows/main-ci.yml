@@ -61,9 +61,11 @@ jobs:
             echo 'pull image'
             docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TAG}}
 
-            echo 'stop running container'
-            docker stop wegather-frontend
-            docker rm wegather-frontend
+            if [ $(docker ps -q -f name=wegather-frontend) ]; then
+              echo 'stop running container'
+              docker stop wegather-frontend
+              docker rm wegather-frontend
+            fi
 
             echo 'run deployed container'
             docker run -d --name wegather-frontend -p 80:80 ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TAG}}
