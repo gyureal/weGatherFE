@@ -1,7 +1,7 @@
 # 빌드
 FROM node:14 AS build
 WORKDIR /app
-COPY .env.production .env
+# COPY .env.production .env.production
 
 COPY package.json .
 RUN npm install
