@@ -13,7 +13,7 @@
 - Mui
 
 ## 아키텍쳐 구성도
-<img width="851" alt="image" src="https://github.com/prebird/weGatherFrontend/assets/78974381/04313bf9-f7df-48a7-a984-d56b9a7d2f51">
+![image](https://github.com/prebird/weGatherFrontend/assets/78974381/d38545c8-7e4e-4878-a590-87c6927426d0)
 
 
 
