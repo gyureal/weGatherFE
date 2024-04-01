@@ -1,8 +1,11 @@
 name: main-cd-s3
-on: 
-  push: 
-    branches:
-      - main
+on:
+  release:
+    types: [push]
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:  # 수동으로 실행가능
+  
 jobs:
   build:
     name: react build & deploy
@@ -12,17 +15,17 @@ jobs:
       - name: checkout Github Action
         uses: actions/checkout@v3
       
-      - name: Get npm cache directory
-        id: npm-cache-dir
-        run: |
-          echo "::set-output name=dir::$(npm config get cache)"
-      - uses: actions/cache@v3
-        id: npm-cache
-        with:
-          path: ${{ steps.npm-cache-dir.outputs.dir }}
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+      #- name: Get npm cache directory
+      #  id: npm-cache-dir
+      #  run: |
+      #    echo "::set-output name=dir::$(npm config get cache)"
+      #- uses: actions/cache@v3
+      #  id: npm-cache
+      #  with:
+      #    path: ${{ steps.npm-cache-dir.outputs.dir }}
+      #    key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+      #    restore-keys: |
+      #      ${{ runner.os }}-node-
       
       - name: install npm dependencies
         run: npm install
