@@ -27,15 +27,13 @@ jobs:
       #    restore-keys: |
       #      ${{ runner.os }}-node-
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
+      - name: Check Node v            # Node v 확인
+        run: node -v
       
       - name: install npm dependencies
         run: npm install
         
-      - name: react build
+      - name: Build
         run: npm run build
       
       - name: Configure AWS credentials
@@ -45,12 +43,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_S3_SECRET_ACCESS_KEY_ID }}
           aws-region: ap-northeast-2
       
-      - name: Upload to S3
-        env:
-          BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME}}
-        run: |
-          aws s3 sync \
-            ./build s3://$BUCKET_NAME
+      - name: Deploy
       
       #- name: CloudFront Invalidation
       #  env:
