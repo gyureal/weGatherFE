@@ -1,4 +1,4 @@
-name: React build
+name: main-cd-s3
 on: 
   push: 
     branches:
