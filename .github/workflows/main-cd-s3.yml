@@ -44,6 +44,7 @@ jobs:
           aws-region: ap-northeast-2
       
       - name: Deploy
+        run: echo 'Deploy'
       
       #- name: CloudFront Invalidation
       #  env:
